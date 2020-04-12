@@ -43,7 +43,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     loginCount: {
       type: DataTypes.INTEGER,
-      default: 0,
       validate: {
         isInteger: true,
         min: 0,
@@ -87,7 +86,7 @@ module.exports = (sequelize, DataTypes) => {
 
   User.beforeSave((user, options) => {
     if (user.changed('password')) {
-      return bcrypt.hash(password, 10).then((hash) =>
+      return bcrypt.hash(user.password, 10).then((hash) =>
         user.password = hash);
     }
   });

@@ -1,21 +1,25 @@
-const User = require('../models/user');
+const User = require('../models/index').User;
 const createError = require('http-errors');
 const bcrypt = require('bcrypt');
 
 module.exports.login = async (req, res, next) => {
-    const { email, password } = req.body;
-    const user = await User.findOne({ where: { email } });
-    if(user.isLocked)
-        next(createError(400, 'Account is Locked for reaching maximum login attempts'));
-    if (!user)
-        next(createError(400, 'email or password is incorrect'));
-    const passwordCheck = await bcrypt.compare(password, user.password);
-    if (!passwordCheck){
-        user.incLoginCountAndLock();
-        next(createError(400, 'email or password is incorrect'));
+    try{
+        const { email, password } = req.body;
+        const user = await User.findOne({ where: { email } });
+        if(user.isLocked)
+            next(createError(400, 'Account is Locked for reaching maximum login attempts'));
+        if (!user)
+            next(createError(400, 'email or password is incorrect'));
+        const passwordCheck = await bcrypt.compare(password, user.password);
+        if (!passwordCheck){
+            user.incLoginCountAndLock();
+            next(createError(400, 'email or password is incorrect'));
+        }
+        req.user = user.toJSON();
+        next();
+    }catch(err){
+        next(createError(500,err));
     }
-    req.user = user.toJSON();
-    next();
 };
 
 module.exports.register = async (req, res, next) => {
