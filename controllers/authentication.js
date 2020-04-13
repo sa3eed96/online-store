@@ -6,15 +6,17 @@ module.exports.login = async (req, res, next) => {
     try{
         const { email, password } = req.body;
         const user = await User.findOne({ where: { email } });
-        if(user.isLocked)
-            next(createError(400, 'Account is Locked for reaching maximum login attempts'));
         if (!user)
-            next(createError(400, 'email or password is incorrect'));
+            return next(createError(400, 'email or password is incorrect'));
+        if(user.checkLock)
+            return next(createError(400, 'Account is Locked for reaching maximum login attempts'));
         const passwordCheck = await bcrypt.compare(password, user.password);
         if (!passwordCheck){
             user.incLoginCountAndLock();
-            next(createError(400, 'email or password is incorrect'));
+            console.log(user.loginCount);
+            return next(createError(400, 'email or password is incorrect'));
         }
+        await user.save();
         req.user = user.toJSON();
         next();
     }catch(err){
