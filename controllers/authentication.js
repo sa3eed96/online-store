@@ -8,15 +8,14 @@ module.exports.login = async (req, res, next) => {
         const user = await User.findOne({ where: { email } });
         if (!user)
             return next(createError(400, 'email or password is incorrect'));
-        if(user.checkLock)
+        if(user.isLocked)
             return next(createError(400, 'Account is Locked for reaching maximum login attempts'));
         const passwordCheck = await bcrypt.compare(password, user.password);
         if (!passwordCheck){
-            user.incLoginCountAndLock();
-            console.log(user.loginCount);
+            await user.incLoginCountAndLock();
             return next(createError(400, 'email or password is incorrect'));
         }
-        await user.save();
+        await user.successfulLogin();
         req.user = user.toJSON();
         next();
     }catch(err){
@@ -34,7 +33,7 @@ module.exports.register = async (req, res, next) => {
 module.exports.createSession = (req, res, next) => {
     req.session.regenerate(async (err) => {
         if (err)
-            next(createError(500, 'could not login, try again later', { expose: true }));
+            next(createError(500, 'could not login', { expose: true }));
         if (req.body.rememberMe)
             req.session.cookie.maxAge = 3600000 * 24 * 7;
         req.session.user = req.user;
@@ -45,7 +44,7 @@ module.exports.createSession = (req, res, next) => {
 module.exports.logout = async (req, res, next) => {
     req.session.destroy(async (err) => {
         if (err)
-            next(createError(500, 'Error logging out, try again'));
+            next(createError(500, 'Error logging out', { expose: true }));
         return res.status(200).json();
     });
 };

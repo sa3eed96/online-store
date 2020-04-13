@@ -66,7 +66,7 @@ module.exports = (sequelize, DataTypes) => {
     isLocked: {
       type: DataTypes.VIRTUAL,
       get: function(){
-        return this.getDataValue('lockUntil') < Date();
+        return this.getDataValue('lockUntil') > new Date();
       }
     }
   },{});
@@ -75,28 +75,19 @@ module.exports = (sequelize, DataTypes) => {
     const loginCount = this.getDataValue('loginCount');
     if (loginCount === 5) {
       this.setDataValue('loginCount', 0);
-      this.setDataValue('isLocked', true);
 
       let time = new Date();
-      time.setTime(time.getTime() + 3600000);
-      this.setDataValue('lockUntil', new Date(time));
-      return;
+      this.setDataValue('lockUntil', new Date(time.setTime(time.getTime() + 3600000 * 3)));
     }
-    this.setDataValue('loginCount', loginCount + 1);
+    else
+      this.setDataValue('loginCount', loginCount + 1);
+    return this.save();
   };
 
-  User.prototype.checkLock = function(){
-    if(this.isLocked){
-      if(this.lockUntil > new Date())
-        return true;
-      else{
-        this.isLocked = false;
-        this.lockUntil = new Date(0);
-        return false;
-      };
-    }
-    return false;
-  };
+  User.prototype.successfulLogin = function(){
+    this.setDataValue('loginCount', 0);
+    return this.save();
+  }
 
   User.beforeSave((user, options) => {
     if (user.changed('password')) {
