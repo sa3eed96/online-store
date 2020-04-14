@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {});
   Rate.associate = function(models) {
-    models.Rate.belongsTo(models.Product, { onDelete: 'CASCADE' });
+    models.Rate.Product = models.Rate.belongsTo(models.Product, { onDelete: 'CASCADE' });
   };
   return Rate;
 };
