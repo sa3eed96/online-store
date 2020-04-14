@@ -47,10 +47,10 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   
   Product.associate = function (models) {
-    models.Product.Images = models.Product.hasMany(models.Image);
-    models.Product.Comments = models.Product.hasMany(models.Comment);
-    models.Product.Rate = models.Product.hasOne(models.Rate);
-    models.Product.PurchasesDetails = models.Product.hasMany(models.PurchaseDetail);
+    models.Product.hasMany(models.Image);
+    models.Product.hasMany(models.Comment);
+    models.Product.hasOne(models.Comment);
+    models.Product.hasMany(models.PurchaseDetail);
   };
   return Product;
 };

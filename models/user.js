@@ -97,9 +97,9 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   User.associate = function (models) {
-    models.User.Addresses = models.User.hasMany(models.Address);
-    models.User.Comments  = models.User.hasMany(models.Comment);
-    models.User.Purchases = models.User.hasMany(models.Purchase);
+    models.User.hasMany(models.Address);
+    models.User.hasMany(models.Comment);
+    models.User.hasMany(models.Purchase);
   };
   return User;
 };

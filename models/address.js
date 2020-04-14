@@ -25,13 +25,6 @@ module.exports = (sequelize, DataTypes) => {
         is: /^[a-z]+(\s|[a-z])*$/,
       },
     },
-    address:{
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        is: /(\d|\s)+/i,
-      },
-    },
     zipCode: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -41,7 +34,7 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {});
   Address.associate = function (models) {
-    models.Address.User = models.Address.belongsTo(models.User, { onDelete: 'CASCADE' });
+    models.Address.belongsTo(models.User, { onDelete: 'CASCADE' });
   };
   return Address;
 };

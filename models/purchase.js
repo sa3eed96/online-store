@@ -11,8 +11,8 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {});
   Purchase.associate = function (models) {
-    models.Purchase.User = models.Purchase.belongsTo(models.User);
-    models.Purchase.PurchasesDetails = models.Purchase.hasMany(models.PurchaseDetail);
+    models.Purchase.belongsTo(models.User);
+    models.Purchase.hasMany(models.PurchaseDetail);
   };
   return Purchase;
 };
