@@ -24,10 +24,14 @@ module.exports.login = async (req, res, next) => {
 };
 
 module.exports.register = async (req, res, next) => {
-    const {firstName, lastName, email, password, phone } = req.body;
-    const user = User.create({firstName, lastName, email, password, phone});
-    req.user = user.toJSON();
-    next();
+    try{
+        const {firstName, lastName, email, password, phone } = req.body;
+        const user = await User.create({firstName, lastName, email, password, phone});
+        req.user = user.toJSON();
+        next();
+    }catch(err){
+        next(createError(400, err));
+    }
 };
 
 module.exports.createSession = (req, res, next) => {
@@ -52,5 +56,5 @@ module.exports.logout = async (req, res, next) => {
 module.exports.checkAuthentication = (req, res, next)=>{
     if('user' in req.session)
         return next();
-    return next(createError(401,'You Are Not Logged In')); 
+    return next(createError(401, 'You Are Not Logged In')); 
 };
