@@ -25,6 +25,14 @@ module.exports = (sequelize, DataTypes) => {
         is: /^[a-z]+(\s|[a-z])*$/,
       },
     },
+    address: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        min: 2,
+        is: /^[a-z]+(\s|\w)*$/,
+      },
+    },
     zipCode: {
       type: DataTypes.STRING,
       allowNull: false,

@@ -7,6 +7,7 @@ const redis = require('redis');
 const session = require('express-session');
 const createError = require('http-errors')
 
+
 dotenv.config();
 
 let RedisStore = require('connect-redis')(session);
@@ -18,6 +19,7 @@ let redisClient = redis.createClient({
 
 const authRouter = require('./routes/authentication');
 const usersRouter = require('./routes/users');
+const addressRouter = require('./routes/address');
 
 const app = express();
 
@@ -39,7 +41,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(authRouter);
-app.use('/users', usersRouter);
+app.use('/address', addressRouter);
 
 app.use((req, res, next)=>{
     next(createError(404, 'Not Found'));
