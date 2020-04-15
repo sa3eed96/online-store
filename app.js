@@ -5,8 +5,8 @@ const logger = require('morgan');
 const dotenv = require('dotenv');
 const redis = require('redis');
 const session = require('express-session');
-const createError = require('http-errors')
-
+const createError = require('http-errors');
+const adminBro = require('./admin');
 
 dotenv.config();
 
@@ -17,6 +17,7 @@ let redisClient = redis.createClient({
     password: process.env.REDIS_PASSWORD,
 });
 
+const adminRouter = require('./routes/admin');
 const authRouter = require('./routes/authentication');
 const usersRouter = require('./routes/users');
 const addressRouter = require('./routes/address');
@@ -40,6 +41,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(adminBro.options.rootPath, adminRouter);
 app.use(authRouter);
 app.use('/address', addressRouter);
 
@@ -50,7 +52,7 @@ app.use((req, res, next)=>{
 app.use((err, req, res, next)=>{
     if (res.headersSent)
         return next(err);
-    res.status(err.status).send(err.message);
+    res.status(err.status || 500).send(err.message);
 });
 
 module.exports = app;
