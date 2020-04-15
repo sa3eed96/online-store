@@ -8,6 +8,14 @@ module.exports = (sequelize, DataTypes) => {
         min: 1,
         isInteger: true,
       },
+      rate: {
+        type: DataTypes.INTEGER,
+        validate: {
+          min:0,
+          max:5,
+          isInteger: true,
+        },
+      },
     },
   }, {});
   PurchaseDetail.associate = function (models) {

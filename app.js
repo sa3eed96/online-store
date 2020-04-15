@@ -19,7 +19,7 @@ let redisClient = redis.createClient({
 
 const adminRouter = require('./routes/admin');
 const authRouter = require('./routes/authentication');
-const usersRouter = require('./routes/users');
+const productRouter = require('./routes/product');
 const addressRouter = require('./routes/address');
 
 const app = express();
@@ -43,6 +43,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(adminBro.options.rootPath, adminRouter);
 app.use(authRouter);
+app.use('/product', productRouter);
 app.use('/address', addressRouter);
 
 app.use((req, res, next)=>{
