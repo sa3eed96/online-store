@@ -5,8 +5,8 @@ const router = express.Router();
 
 router.post('/login', validate('login'), authController.login, authController.createSession);
 
-router.post('/register', authController.register, authController.createSession);
+router.post('/register', validate('register'), authController.register, authController.createSession);
 
-router.get('/logout',authController.checkAuthentication, authController.logout);
+router.get('/logout', authController.checkAuthentication, authController.logout);
 
 module.exports = router;
