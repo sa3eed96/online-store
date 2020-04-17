@@ -2,18 +2,18 @@ const redis = require('redis');
 const { promisify } = require('util');
 
 let redisClient = redis.createClient({
-    host: process.env.REDIS_ENDPOINT,
-    port: process.env.REDIS_PORT,
-    password: process.env.REDIS_PASSWORD,
+    host: 'redis-13840.c15.us-east-1-4.ec2.cloud.redislabs.com' || process.env.REDIS_ENDPOINT,
+    port: '13840' || process.env.REDIS_PORT,
+    password: '3sLFj1TLDp13HrBYBOa1bb62fFiU3h7o' || process.env.REDIS_PASSWORD,
 });
 
 const hmSetAsync = promisify(redisClient.hmset).bind(redisClient);
 const hmGetAllAsync = promisify(redisClient.hgetall).bind(redisClient);
-const hdelAsync = promisify(redisClient.hdel).bind(redisClient);
+const delAsync = promisify(redisClient.del).bind(redisClient);
 
 module.exports = {
     redisClient,
     hmSetAsync,
     hmGetAllAsync,
-    hdelAsync,
+    delAsync,
 };
