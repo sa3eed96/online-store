@@ -3,7 +3,6 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const dotenv = require('dotenv');
-const redis = require('redis');
 const session = require('express-session');
 const createError = require('http-errors');
 const adminBro = require('./admin');
@@ -11,16 +10,14 @@ const adminBro = require('./admin');
 dotenv.config();
 
 let RedisStore = require('connect-redis')(session);
-let redisClient = redis.createClient({
-    host: process.env.REDIS_ENDPOINT,
-    port: process.env.REDIS_PORT,
-    password: process.env.REDIS_PASSWORD,
-});
 
+
+const { redisClient } = require('./redis');
 const adminRouter = require('./routes/admin');
 const authRouter = require('./routes/authentication');
 const productRouter = require('./routes/product');
 const addressRouter = require('./routes/address');
+const cartRouter = require('./routes/cart');
 
 const app = express();
 
@@ -45,6 +42,7 @@ app.use(adminBro.options.rootPath, adminRouter);
 app.use(authRouter);
 app.use('/product', productRouter);
 app.use('/address', addressRouter);
+app.use('/cart', cartRouter);
 
 app.use((req, res, next)=>{
     next(createError(404, 'Not Found'));
