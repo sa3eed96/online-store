@@ -1,4 +1,4 @@
-const { hmSetAsync, hmGetAllAsync, delAsync } = require('../redis');
+const { hmSetAsync, hmGetAllAsync, hDelAsync, delAsync } = require('../redis');
 const createError = require('http-errors');
 
 module.exports.index = async (req, res, next)=>{
@@ -12,8 +12,11 @@ module.exports.index = async (req, res, next)=>{
 
 module.exports.update = async(req,res,next) => {
     try{
-        const {productId, productName, quantity} = req.body;
-        await hmSetAsync(`cart-${req.session.user.id}`, `${productId}-${productName}`, quantity);
+        const {productId, productName, quantity, op} = req.body;
+        if(op)
+            await hmSetAsync(`cart-${req.session.user.id}`, `${productId}-${productName}`, quantity);
+        else
+            await hDelAsync(`cart-${req.session.user.id}`, `${productId}-${productName}`);
         return res.json();
     }catch(err){
         next(createError(500, err));

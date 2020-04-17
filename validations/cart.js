@@ -4,7 +4,9 @@ module.exports = (method) => {
     switch(method){
         case 'update':{
             return [
-                body('product').exists().isInt(),
+                body('productId').exists().isInt(),
+                body('productName').exists().isString(),
+                body('op').exists().isBoolean(),
                 body('quantity').exists().isInt(),
             ];
         }
