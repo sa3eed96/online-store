@@ -12,9 +12,9 @@ module.exports.index = async (req, res, next)=>{
 
 module.exports.update = async(req,res,next) => {
     try{
-        const {productId, productName, quantity, op} = req.body;
+        const {productId, productName, quantity, op, price} = req.body;
         if(op)
-            await hmSetAsync(`cart-${req.session.user.id}`, `${productId}-${productName}`, quantity);
+            await hmSetAsync(`cart-${req.session.user.id}`, `${productId}-${productName}`, `${quantity}-${price}`);
         else
             await hDelAsync(`cart-${req.session.user.id}`, `${productId}-${productName}`);
         return res.json();

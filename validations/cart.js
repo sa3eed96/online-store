@@ -8,6 +8,7 @@ module.exports = (method) => {
                 body('productName').exists().isString(),
                 body('op').exists().isBoolean(),
                 body('quantity').exists().isInt(),
+                body('price').exists().isFloat(),
             ];
         }
     }
