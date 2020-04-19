@@ -43,6 +43,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Address.associate = function (models) {
     models.Address.belongsTo(models.User, { onDelete: 'CASCADE' });
+    models.Address.hasMany(models.Shipment);
   };
   return Address;
 };

@@ -10,8 +10,23 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
   }, {});
+
+  Purchase.parseCart = function(cart){
+    const purchaseDetails = [];
+    let total = 0;
+    for (const key in cart) {
+      const productId = key.split('-')[0];
+      const quantityPrice = cart[key].split('-');
+      const quantity = quantityPrice[0];
+      total += quantity * quantityPrice[1];
+      purchaseDetails.push({productId, quantity});
+    }
+    return {purchaseDetails, total};
+  };
+
   Purchase.associate = function (models) {
     models.Purchase.belongsTo(models.User);
+    models.Purchase.belongsTo(models.Shipment);
     models.Purchase.hasMany(models.PurchaseDetail);
   };
   return Purchase;
