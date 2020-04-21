@@ -12,7 +12,7 @@ const adminBro = new AdminBro({
             actions:  {
                 new:{
                     after: async(res, req, context)=>{
-                        await models.Rate.create({ProductId: res.record.params.id});
+                        await models.Rate.create({ProductId: res.record.params.id, rate: [0,0,0,0,0]});
                         return res;
                     },
                 },

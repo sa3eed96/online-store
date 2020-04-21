@@ -18,6 +18,7 @@ const authRouter = require('./routes/authentication');
 const productRouter = require('./routes/product');
 const addressRouter = require('./routes/address');
 const cartRouter = require('./routes/cart');
+const purchaseRouter = require('./routes/purchase');
 
 const app = express();
 
@@ -43,6 +44,7 @@ app.use(authRouter);
 app.use('/product', productRouter);
 app.use('/address', addressRouter);
 app.use('/cart', cartRouter);
+app.use('/purchase', purchaseRouter);
 
 app.use((req, res, next)=>{
     next(createError(404, 'Not Found'));

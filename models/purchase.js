@@ -15,11 +15,11 @@ module.exports = (sequelize, DataTypes) => {
     const purchaseDetails = [];
     let total = 0;
     for (const key in cart) {
-      const productId = key.split('-')[0];
+      const ProductId = key.split('-')[0];
       const quantityPrice = cart[key].split('-');
       const quantity = quantityPrice[0];
       total += quantity * quantityPrice[1];
-      purchaseDetails.push({productId, quantity});
+      purchaseDetails.push({ProductId, quantity});
     }
     return {purchaseDetails, total};
   };

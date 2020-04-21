@@ -17,7 +17,7 @@ module.exports.show = async (req, res, next) => {
     try {
         const { purchaseId } = req.params;
         const purchase = await Purchase.findByPK(purchaseId, {include: {all: true}});
-        return res.json({ purchase }); 
+        return res.json({ purchase });
     } catch (err) {
         next(createError(500, err));
     }
@@ -25,16 +25,19 @@ module.exports.show = async (req, res, next) => {
 
 module.exports.create = async (req, res, next) => {
     try {
-        //parse cart and empty it
         const cart = await hmGetAllAsync(`cart-${req.session.user.id}`);
-        const {purchaseDetails, total} = Purchase.parseCart(cart); 
-        //get delivery date and createshipment
-        const shipment = { AddressId:req.body.AddressId };
-        //create purchase with its purchase details and shipment
-        const Purchase = await Purchase.create({total, purchasedetails: purchaseDetails, shipment},{include: [PurchaseDetail, Shipment]}); 
-        //empty cart and return purchase with shipment
+        const {purchaseDetails, total} = Purchase.parseCart(cart);
+        let time = new Date();
+        time = time.setDate(time.getDate()+3);
+        const shipment = { AddressId: req.body.AddressId, delivery: new Date(time) };
+        const purchase = await Purchase.create({
+            UserId: req.session.user.id,
+            total,
+            PurchaseDetails: purchaseDetails,
+            Shipment: shipment
+        }, {include: [PurchaseDetail, Shipment]}); 
         await delAsync(`cart-${req.session.user.id}`);
-        return res.json({ Purchase });
+        return res.json({ purchase });
     } catch (err) {
         next(createError(500, err));
     }

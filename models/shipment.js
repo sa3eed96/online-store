@@ -6,16 +6,11 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         validate: {
             isDate: true,
-            isAfter: Date(),
         },
     },
     delivered: {
         type: DataTypes.BOOLEAN,
-        default: false,
-        allowNull: false,
-        validate:{
-            isBool: true,
-        },
+        default: 0,
     },
   }, {});
 
