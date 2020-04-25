@@ -40,11 +40,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(adminBro.options.rootPath, adminRouter);
-app.use(authRouter);
-app.use('/product', productRouter);
-app.use('/address', addressRouter);
-app.use('/cart', cartRouter);
-app.use('/purchase', purchaseRouter);
+app.use('/api', authRouter);
+app.use('/api/product', productRouter);
+app.use('/api/address', addressRouter);
+app.use('/api/cart', cartRouter);
+app.use('/api/purchase', purchaseRouter);
 
 app.use((req, res, next)=>{
     next(createError(404, 'Not Found'));
