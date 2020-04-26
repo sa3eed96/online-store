@@ -1,7 +1,24 @@
 const Comment = require('../models/index').Comment;
+const User = require('../models/index').User;
 const Product = require('../models/index').Product
 const createError = require('http-errors');
 
+
+module.exports.index = async (req, res, next) => {
+    try {
+        const { page } = req.params;
+        const limit = 5;
+        const offset = (page - 1) * limit;
+        const { count, rows: comments } = await Comment.findAndCountAll({
+            limit,
+            offset,
+            include: [User],
+        });
+        return res.json({ comments, count });
+    } catch (err) {
+        next(createError(500, err));
+    }
+};
 
 module.exports.create = async(req, res, next)=>{
     try{
@@ -10,7 +27,7 @@ module.exports.create = async(req, res, next)=>{
         const product = await Product.findByPk(productId);
         if(!product)
             next(createError(400, 'product does not exist'));
-        const createdComment = await Comment.create({ comment, ProductId: productId, UserId: req.session.user.id });
+        const createdComment = await Comment.create({ comment, ProductId: productId, UserId: req.session.user.id },{include: [User]});
         return res.json({ comment: createdComment });
     }catch(err){
         next(createError(500, err));

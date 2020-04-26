@@ -4,6 +4,7 @@ const commentController = require('../controllers/comment');
 const validation = require('../validations/comment');
 const router = express.Router({ mergeParams: true });
 
+router.get('/:page', commentController.index);
 router.post('', authController.checkAuthentication, commentController.create);
 router.delete('/:commentId', validation('destroy'), authController.checkAuthentication, commentController.destroy);
 

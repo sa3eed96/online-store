@@ -2,6 +2,11 @@ const { param, body } = require('express-validator');
 
 module.exports = (method) => {
     switch(method){
+        case 'index':{
+            return [
+                param('productId').exists().isInt(),
+            ];
+        }
         case 'create':{
             return[
                 param('productId').exists().isInt(),

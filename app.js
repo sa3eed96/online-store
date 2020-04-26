@@ -19,6 +19,7 @@ const productRouter = require('./routes/product');
 const addressRouter = require('./routes/address');
 const cartRouter = require('./routes/cart');
 const purchaseRouter = require('./routes/purchase');
+const commentRouter = require('./routes/comment');
 
 const app = express();
 
@@ -45,6 +46,7 @@ app.use('/api/product', productRouter);
 app.use('/api/address', addressRouter);
 app.use('/api/cart', cartRouter);
 app.use('/api/purchase', purchaseRouter);
+app.use('/api/comment', commentRouter);
 
 app.use((req, res, next)=>{
     next(createError(404, 'Not Found'));

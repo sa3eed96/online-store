@@ -49,7 +49,7 @@ module.exports = (sequelize, DataTypes) => {
   Product.associate = function (models) {
     models.Product.hasMany(models.Image);
     models.Product.hasMany(models.Comment);
-    models.Product.hasOne(models.Comment);
+    models.Product.hasOne(models.Rate);
     models.Product.hasMany(models.PurchaseDetail);
   };
   return Product;
