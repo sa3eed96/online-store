@@ -70,7 +70,6 @@ const Comment = (props) => {
         <div>
             <hr />
             <h3>Comments</h3>
-            {console.log(comments)}
             {comments.map((comment, index) => 
                 (
                     <div key={comment.id}>

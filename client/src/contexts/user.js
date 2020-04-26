@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import axios from 'axios';
 
 const UserContext  = React.createContext(null);
 const intialState = {
     isAuthenticated: false,
 };
+
+
+
 const reduce = (state, action)=> {
     switch (action.type) {
         case 'login':
@@ -26,6 +30,19 @@ const reduce = (state, action)=> {
 
 const UserContextProvider = (props)=>{
     const [state, dispatch] = React.useReducer(reduce, intialState);
+
+    useEffect(()=>{
+        const getUser = async ()=>{
+            const {data} = await axios.get('/api/getloggedin');
+            if(data.user){
+                dispatch({
+                    type:'login',
+                    payload: data.user
+                });
+            }
+        }
+        getUser();
+    }, []);
 
     return (
         <UserContext.Provider

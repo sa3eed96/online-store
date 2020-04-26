@@ -58,3 +58,7 @@ module.exports.checkAuthentication = (req, res, next)=>{
         return next();
     return next(createError(401, 'You Are Not Logged In')); 
 };
+
+module.exports.returnLoggedInUser = (req, res, next)=> {
+    return res.json({user: req.session.user});
+}
