@@ -27,7 +27,10 @@ const Header = (props) => {
                     </div>
                 }
                 {props.user.state.isAuthenticated &&
-                    <a href="#" onClick={logout} >Logout</a>
+                    <div style={{display:'inline'}}>
+                        <NavLink to="/cart" activeStyle={activeStyle}>Cart</NavLink> |
+                        <a href="#" onClick={logout} >Logout</a>
+                    </div>
                 }
                 {props.user.state.isAuthenticated &&
                     <h6 style={{float: 'right'}}>Hello {props.user.state.user.fullName}</h6>

@@ -4,6 +4,7 @@ const Comment = require('../models/index').Comment;
 const Image = require('../models/index').Image;
 const createError = require('http-errors');
 const sequelize = require('sequelize');
+const {hmGetAsync} = require('../redis');
 
 module.exports.index = async (req, res, next) => {
     try {
@@ -27,7 +28,10 @@ module.exports.show = async (req, res, next) => {
     try {
         const { id } = req.params;
         const product = await Product.findByPk(id, { include: [Rate, Comment, Image] });
-        return res.json({product});
+        let cart = null;
+        if(req.session.user)
+            cart = await hmGetAsync(`cart-${req.session.user.id}`,`${product.id}-${product.name}`);
+        return res.json({product, cart});
     } catch (err) {
         next(createError(500, err));
     }
