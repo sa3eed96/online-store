@@ -28,8 +28,7 @@ class Login extends React.Component{
                 type: 'login',
                 payload: user.data.user,
             });
-            let { from } = this.props.location.state || { from: { pathname: "/" } };
-            this.props.history.replace(from);
+            this.props.history.replace('/');
         }catch(err){
             alert(err);
         }

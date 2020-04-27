@@ -33,12 +33,16 @@ const UserContextProvider = (props)=>{
 
     useEffect(()=>{
         const getUser = async ()=>{
-            const {data} = await axios.get('/api/getloggedin');
-            if(data.user){
-                dispatch({
-                    type:'login',
-                    payload: data.user
-                });
+            try{
+                const {data} = await axios.get('/api/getloggedin');
+                if(data.user){
+                    dispatch({
+                        type:'login',
+                        payload: data.user
+                    });
+                }
+            }catch(err){
+                return;
             }
         }
         getUser();

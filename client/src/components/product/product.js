@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { useParams } from 'react-router-dom';
 import Comment from './comment';
+import Rate from './rate';
 import axios from 'axios';
 import {UserContext, UserContextProvider} from '../../contexts/user';
 
@@ -27,7 +28,10 @@ const Product = (props)=>{
             <p>{product.description}</p>
                 <UserContext.Consumer>
                     {user=>(product.id && 
-                    <Comment productId={product.id} user={user} />
+                    <div>
+                        <Rate productId={product.id} rate={product.Rate} user={user} />
+                        <Comment productId={product.id} user={user} />
+                    </div>
                     )}
                 </UserContext.Consumer>
         </div>
