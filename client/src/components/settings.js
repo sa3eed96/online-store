@@ -7,6 +7,8 @@ const Settings = (props)=> {
         <div>
             <h1>settings</h1>
             <Link to={`${url}/addresses`}>Addresses</Link>
+            <br />  
+            <Link to={`${url}/userinfo`}>Edit Personal Information</Link>
         </div>
         
     );

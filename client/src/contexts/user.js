@@ -20,6 +20,11 @@ const reduce = (state, action)=> {
                 isAuthenticated: true,
                 user: action.payload
             }
+        case 'infoUpdate':
+            return{
+                isAuthenticated: true,
+                user: action.payload
+            }
         default:
             return{
                 isAuthenticated:false,
