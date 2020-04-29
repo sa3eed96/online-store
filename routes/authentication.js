@@ -7,6 +7,8 @@ router.post('/login', validate('login'), authController.login, authController.cr
 
 router.post('/register', validate('register'), authController.register, authController.createSession);
 
+router.put('/changepassword', validate('changepassword'), authController.changePassword);
+
 router.get('/logout', authController.checkAuthentication, authController.logout);
 router.get('/getloggedin', authController.checkAuthentication, authController.returnLoggedInUser);
 

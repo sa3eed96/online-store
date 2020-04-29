@@ -9,6 +9,8 @@ const Settings = (props)=> {
             <Link to={`${url}/addresses`}>Addresses</Link>
             <br />  
             <Link to={`${url}/userinfo`}>Edit Personal Information</Link>
+            <br />  
+            <Link to={`${url}/changepassword`}>Change Password</Link>
         </div>
         
     );

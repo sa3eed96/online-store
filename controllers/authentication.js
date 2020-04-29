@@ -61,4 +61,21 @@ module.exports.checkAuthentication = (req, res, next)=>{
 
 module.exports.returnLoggedInUser = (req, res, next)=> {
     return res.json({user: req.session.user});
-}
+};
+
+module.exports.changePassword = async(req, res, next)=> {
+    try{
+
+        const {oldPassword, newPassword} = req.body;
+        const user = await User.findByPk(req.session.user.id);
+        const passwordCheck = await bcrypt.compare(oldPassword, user.password);
+        if(!passwordCheck){
+            return createError(400, 'invalid password');
+        }
+        user.password = newPassword;
+        await user.save();
+        return res.json({});
+    }catch(err){
+        createError(500);
+    }
+};
