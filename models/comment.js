@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Comment.associate = function (models) {
     models.Comment.belongsTo(models.Product, { onDelete: 'CASCADE' });
-    models.Comment.belongsTo(models.User);
+    models.Comment.belongsTo(models.User, { onDelete: 'SET NULL' });
   };
   return Comment;
 };

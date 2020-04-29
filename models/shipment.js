@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
 
   Shipment.associate = function (models) {
     models.Shipment.hasOne(models.Purchase);
-    models.Shipment.belongsTo(models.Address);
+    models.Shipment.belongsTo(models.Address, { onDelete: 'SET NULL' });
   };
   return Shipment;
 };

@@ -14,6 +14,7 @@ import Address from './user/address/address';
 import Addresses from './user/address/addresses';
 import UserInfo from './user/userinfo';
 import ChangePassword from './user/changepassword';
+import DeleteAccount from './user/deleteaccount';
 import PageNotFound from './PageNotFound';
 
 
@@ -38,6 +39,7 @@ function App(props){
                                 <Route path="/settings/addresses" render={(props) =>user.state.isAuthenticated ? <Addresses {...props} />: <Redirect to='/login' /> } />
                                 <Route path="/settings/userinfo" render={(props) =>user.state.isAuthenticated ? <UserInfo {...props} user={user} />: <Redirect to='/login' /> } />
                                 <Route path="/settings/changepassword" render={(props) =>user.state.isAuthenticated ? <ChangePassword {...props} /> : <Redirect to='/login' /> } />
+                                <Route path="/settings/deleteaccount" render={(props) =>user.state.isAuthenticated ? <DeleteAccount user={user} {...props} /> : <Redirect to='/login' /> } />
                                 <Route path="/settings" render={(props) =>user.state.isAuthenticated ? <Settings {...props} /> : <Redirect to='/login' /> } />
                                 <Route component={PageNotFound} />
                             </Switch>

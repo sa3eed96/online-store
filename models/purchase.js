@@ -25,8 +25,8 @@ module.exports = (sequelize, DataTypes) => {
   };
 
   Purchase.associate = function (models) {
-    models.Purchase.belongsTo(models.User);
-    models.Purchase.belongsTo(models.Shipment);
+    models.Purchase.belongsTo(models.User, { onDelete: 'SET NULL' });
+    models.Purchase.belongsTo(models.Shipment, { onDelete: 'SET NULL' });
     models.Purchase.hasMany(models.PurchaseDetail);
   };
   return Purchase;

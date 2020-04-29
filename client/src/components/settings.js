@@ -11,6 +11,8 @@ const Settings = (props)=> {
             <Link to={`${url}/userinfo`}>Edit Personal Information</Link>
             <br />  
             <Link to={`${url}/changepassword`}>Change Password</Link>
+            <br />  
+            <Link to={`${url}/deleteaccount`}>Delete Account</Link>
         </div>
         
     );

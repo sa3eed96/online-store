@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   PurchaseDetail.associate = function (models) {
     models.PurchaseDetail.belongsTo(models.Purchase, { onDelete: 'CASCADE' });
-    models.PurchaseDetail.belongsTo(models.Product, { onDelete: 'CASCADE' });
+    models.PurchaseDetail.belongsTo(models.Product, { onDelete: 'SET NULL' });
   };
   return PurchaseDetail;
 };
