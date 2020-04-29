@@ -6,11 +6,10 @@ const updateFieldsRegex = /(country|state|city|address|zipCode)/;
 
 module.exports.index = async (req, res, next) => {
     try{
-        const user = await User.findOne({ 
-            where: { id: req.session.user.id },
-            include: [Address] 
+        const addresses = await Address.findAll({
+            where: {UserId: req.session.user.id}
         });
-        return res.json({address: user.Addresses});
+        return res.json({ addresses });
     }catch(err){
         next(createError(500, err));
     }
