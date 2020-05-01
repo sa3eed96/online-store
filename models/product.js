@@ -46,6 +46,24 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {});
   
+
+  Product.getUpdateQuery = function(purchaseDetails){
+    const query = 'update product set stockCount = ';
+    const ids = '';
+    if(purchaseDetails.length === 1){
+      query+='case ';
+      for (const detail of purchaseDetails) {
+        query+=`when id=${detail.ProductId} then stockCount-${detail} `;
+        ids+=`${detail.id},`;
+      }
+      query+= 'end ';
+    }else{
+      query+=`stockCount-${purchaseDetails[0].quantity} `;
+    }
+    ids = ids.substring(0, ids.length -1);
+    query+=`where id in (${ids})`;
+  };
+
   Product.associate = function (models) {
     models.Product.hasMany(models.Image);
     models.Product.hasMany(models.Comment);

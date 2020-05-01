@@ -9,6 +9,16 @@ module.exports = (sequelize, DataTypes) => {
         isFloat: true,
       },
     },
+    paymentType: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        isAlpha: true,
+      },
+    },
+    isPaid: {
+      type: DataTypes.BOOLEAN,
+    }
   }, {});
 
   Purchase.parseCart = function(cart){
