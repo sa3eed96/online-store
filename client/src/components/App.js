@@ -15,6 +15,7 @@ import Addresses from './user/address/addresses';
 import UserInfo from './user/userinfo';
 import ChangePassword from './user/changepassword';
 import DeleteAccount from './user/deleteaccount';
+import Purchase from './purchase/purchase';
 import PageNotFound from './PageNotFound';
 
 
@@ -34,6 +35,7 @@ function App(props){
                                 <Route path="/register" render={(props)=><Register {...props} user={user} />} />
                                 <Route path="/addtocart" render={(props) =>user.state.isAuthenticated ? <AddToCart {...props} /> : <Redirect to='/login' />} />
                                 <Route path="/cart" render={(props) =>user.state.isAuthenticated ? <Cart {...props} /> : <Redirect to='/login' /> } />
+                                <Route path="/purchase" render={(props) =>user.state.isAuthenticated ? <Purchase {...props} /> : <Redirect to='/login' /> } />
                                 <Route path={"/settings/addresses/add" } render={(props) =>user.state.isAuthenticated ? <Address {...props} />: <Redirect to='/login' /> } />
                                 <Route path={`/settings/addresses/:addId`}  render={(props) =>user.state.isAuthenticated ? <Address {...props} />: <Redirect to='/login' /> } />
                                 <Route path="/settings/addresses" render={(props) =>user.state.isAuthenticated ? <Addresses {...props} />: <Redirect to='/login' /> } />

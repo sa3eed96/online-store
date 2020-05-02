@@ -31,6 +31,9 @@ module.exports = (sequelize, DataTypes) => {
       total += quantity * quantityPrice[1];
       purchaseDetails.push({ProductId, quantity});
     }
+    if(purchaseDetails.length === 0){
+      throw new Error('cart is empty');
+    }
     return {purchaseDetails, total};
   };
 
