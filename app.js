@@ -29,6 +29,7 @@ app.use(session({
     secret: process.env.SESSION_SECRET,
     unset: 'destroy',
     store: new RedisStore({ client: redisClient }),
+    sameSite: 'lax'
 }));
 app.use((req, res, next)=>{
     if (!req.session) {
