@@ -4,12 +4,18 @@ import axios from 'axios';
 
 const Cart = (props)=> {
     const [cart, setCart] = useState([]);
+    const [cartTotal, setCartTotal] = useState(0);
 
     useEffect(()=>{
         const getCart = async()=>{
             try{
-                const cart = await axios.get('/api/cart');
-                setCart(cart.data.cart);
+                const {data} = await axios.get('/api/cart');
+                setCart(data.cart);
+                let total = 0;
+                data.cart.forEach(prod => {
+                    total+= prod.quantity*prod.price;
+                });
+                setCartTotal(total);
             }catch(err){
                 alert(err);
             }
@@ -43,7 +49,10 @@ const Cart = (props)=> {
             <h1>Cart</h1>
             {cart.length > 0 &&
                 <div>
+                    <Link to={{pathname:'/purchase', state: cartTotal}}>checkout</Link>
+                    <br /> 
                     <button onClick={handleEmptyCart}>Empty Cart</button>
+                    <h6>cart total: {cartTotal}</h6>
                     <hr />
                 </div>
             }

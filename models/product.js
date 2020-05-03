@@ -46,6 +46,24 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {});
   
+
+  Product.getUpdateQuery = function(purchaseDetails){
+    let query = 'update "Products" set "stockCount" = ';
+    let ids = '';
+    if(purchaseDetails.length > 1){
+      query+='case ';
+      for (const detail of purchaseDetails) {
+        query+=`when id=${detail.ProductId} then "stockCount"-${detail.quantity} `;
+        ids+=`${detail.ProductId},`;
+      }
+      query+= 'end ';
+      ids = ids.substring(0, ids.length -1);
+      return query+=`where id in (${ids})`;
+    }else{
+      return query+=`"stockCount"-${purchaseDetails[0].quantity} where id = ${purchaseDetails[0].ProductId}`;
+    }
+  };
+
   Product.associate = function (models) {
     models.Product.hasMany(models.Image);
     models.Product.hasMany(models.Comment);

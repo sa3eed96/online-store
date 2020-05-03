@@ -9,6 +9,16 @@ module.exports = (sequelize, DataTypes) => {
         isFloat: true,
       },
     },
+    paymentType: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        isAlpha: true,
+      },
+    },
+    isPaid: {
+      type: DataTypes.BOOLEAN,
+    }
   }, {});
 
   Purchase.parseCart = function(cart){
@@ -20,6 +30,9 @@ module.exports = (sequelize, DataTypes) => {
       const quantity = quantityPrice[0];
       total += quantity * quantityPrice[1];
       purchaseDetails.push({ProductId, quantity});
+    }
+    if(purchaseDetails.length === 0){
+      throw new Error('cart is empty');
     }
     return {purchaseDetails, total};
   };
