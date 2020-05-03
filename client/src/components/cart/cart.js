@@ -49,7 +49,7 @@ const Cart = (props)=> {
             <h1>Cart</h1>
             {cart.length > 0 &&
                 <div>
-                    <Link to={{pathname:'/purchase', state: cartTotal}}>proceed to purchase</Link>
+                    <Link to={{pathname:'/purchase', state: cartTotal}}>checkout</Link>
                     <br /> 
                     <button onClick={handleEmptyCart}>Empty Cart</button>
                     <h6>cart total: {cartTotal}</h6>

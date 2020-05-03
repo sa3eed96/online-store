@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
-
 import AddressChoose from './addressChoose';  
+import OnDoorPurchase from './ondoor';
 
 const Purchase = (props)=> {
     const total = props.location.state;
@@ -49,10 +49,10 @@ const Purchase = (props)=> {
                     </form>
                 </div>
             }
-            {payment === 'ondoor'
-
+            {addressId && payment === 'ondoor' &&
+                <OnDoorPurchase total={total} addressId={addressId} />
             }
-            {payment === 'paypal'
+            {addressId && payment === 'paypal'
 
             }
         </div>

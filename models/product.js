@@ -48,20 +48,20 @@ module.exports = (sequelize, DataTypes) => {
   
 
   Product.getUpdateQuery = function(purchaseDetails){
-    const query = 'update product set stockCount = ';
-    const ids = '';
-    if(purchaseDetails.length === 1){
+    let query = 'update "Products" set "stockCount" = ';
+    let ids = '';
+    if(purchaseDetails.length > 1){
       query+='case ';
       for (const detail of purchaseDetails) {
-        query+=`when id=${detail.ProductId} then stockCount-${detail} `;
-        ids+=`${detail.id},`;
+        query+=`when id=${detail.ProductId} then "stockCount"-${detail.quantity} `;
+        ids+=`${detail.ProductId},`;
       }
       query+= 'end ';
+      ids = ids.substring(0, ids.length -1);
+      return query+=`where id in (${ids})`;
     }else{
-      query+=`stockCount-${purchaseDetails[0].quantity} `;
+      return query+=`"stockCount"-${purchaseDetails[0].quantity} where id = ${purchaseDetails[0].ProductId}`;
     }
-    ids = ids.substring(0, ids.length -1);
-    query+=`where id in (${ids})`;
   };
 
   Product.associate = function (models) {
