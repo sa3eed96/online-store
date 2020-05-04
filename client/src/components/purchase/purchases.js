@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import  {Link, useRouteMatch} from 'react-router-dom';
 import axios from 'axios';
 import moment from 'moment';
 
@@ -6,12 +7,12 @@ const Purchases = (props) => {
     const [purchases, setPurchases] = useState([]);
     const [page, setPage] = useState(1);
     const [count, setCount] = useState(0);
-
+    const {url} = useRouteMatch();
 
     useEffect(() => {
         const getPurchases = async () => {
             try{
-                const {data} = await axios.get(`/api/purchase/${page}`);
+                const {data} = await axios.get(`/api/purchase?page=${page}`);
                 setPurchases(data.purchases);
                 setCount(data.count);
             }catch(err){
@@ -43,6 +44,7 @@ const Purchases = (props) => {
                         <p><b>ordered on:</b> {moment(purchase.createdAt).format('DD-MM-YYYY HH:mm')}</p>
                         <p><b>payment type:</b> {purchase.paymentType}</p>
                         <p><b>total:</b> {purchase.total}</p>
+                        <Link to={`${url}/${purchase.id}`}>View Details</Link>
                         <hr />
                     </div>
                 )

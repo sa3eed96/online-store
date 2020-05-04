@@ -1,10 +1,10 @@
-const { param, body } = require('express-validator');
+const { param, body, query } = require('express-validator');
 
 module.exports = (method) => {
     switch(method){
         case 'index':{
             return[
-                param('page').exists().isInt({min:1}),
+                query('page').exists().isInt({min:1}),
             ];
         }
         case 'show':{

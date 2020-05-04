@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Comment from './comment';
 import Rate from './rate';
-import addToCart from '../cart/addtocart';
 import axios from 'axios';
 import {UserContext, UserContextProvider} from '../../contexts/user';
 
