@@ -10,7 +10,7 @@ const Comment = (props) => {
     useEffect(() => {
         const getComments = async()=>{
             try {
-                const comments = await axios.get(`/api/product/${props.productId}/comment/${page}`);
+                const comments = await axios.get(`/api/product/${props.productId}/comment?page=${page}`);
                 setComments(comments.data.comments);
             } catch (err) {
                 alert(err);

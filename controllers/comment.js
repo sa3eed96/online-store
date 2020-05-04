@@ -6,10 +6,15 @@ const createError = require('http-errors');
 
 module.exports.index = async (req, res, next) => {
     try {
-        const { page } = req.params;
+        const { productId } = req.params;
+        const { page } = req.query;
         const limit = 5;
         const offset = (page - 1) * limit;
         const { count, rows: comments } = await Comment.findAndCountAll({
+            where:{
+                UserId: req.session.user.id,
+                ProductId: productId
+            },
             limit,
             offset,
             include: [User],
