@@ -46,19 +46,21 @@ class Login extends React.Component{
                             type="email"
                             name="email"
                             value={this.state.email}
-                            handleOnChange={this.handleChange}
+                            onChange={this.handleChange}
                             id="email"
                             label="email"
-                            validators = {['required']}
+                            required='required'
                         />
                         <Input 
                             type="password"
                             name="password"
                             value={this.state.password}
-                            handleOnChange={this.handleChange}
+                            onChange={this.handleChange}
                             id="password"
                             label="password"
-                            validators={['minlength=8', 'maxlength=30']}
+                            required='required'
+                            minLength='8'
+                            maxLength='30'
                         />
                         <button>login</button>
                 </form>
