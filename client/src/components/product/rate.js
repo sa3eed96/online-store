@@ -4,10 +4,10 @@ import axios from 'axios';
 const Rate = (props)=> {
     const [rate, setRate] = useState(props.rate.rate);
 
-    const handleClick = async(r, e)=> {
+    const handleClick = async(rateValue, e)=> {
         try{
             e.preventDefault();
-            const {data} = await axios.put(`/api/product/${props.productId}/rate/${props.rate.id}`);
+            const {data} = await axios.put(`/api/product/${props.productId}/rate/${props.rate.id}`,{rateArray: rate, rate: rateValue});
             setRate(data.rate.rate);
         }catch(err){
             alert(err);

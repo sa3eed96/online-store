@@ -8,13 +8,13 @@ module.exports = (sequelize, DataTypes) => {
         min: 1,
         isInt: true,
       },
-      rate: {
-        type: DataTypes.INTEGER,
-        validate: {
-          min:0,
-          max:5,
-          isInt: true,
-        },
+    },
+    rate: {
+      type: DataTypes.INTEGER,
+      validate: {
+        min:0,
+        max:4,
+        isInt: true,
       },
     },
   }, {});

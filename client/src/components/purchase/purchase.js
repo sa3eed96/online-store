@@ -50,7 +50,7 @@ const Purchase = (props)=> {
                 </div>
             }
             {addressId && payment === 'ondoor' &&
-                <OnDoorPurchase total={total} addressId={addressId} />
+                <OnDoorPurchase {...props} total={total} addressId={addressId} />
             }
             {addressId && payment === 'paypal'
 
