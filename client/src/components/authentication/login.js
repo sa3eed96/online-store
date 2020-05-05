@@ -33,18 +33,23 @@ class Login extends React.Component{
             alert(err);
         }
     }
+
+    validate(field, value){
+
+    }
     
     render(){
         return(
             <div>
                 <form onSubmit={this.handleSubmit}>
                         <Input
-                            type="text"
+                            type="email"
                             name="email"
                             value={this.state.email}
                             handleOnChange={this.handleChange}
                             id="email"
                             label="email"
+                            validators = {['required']}
                         />
                         <Input 
                             type="password"
@@ -53,6 +58,7 @@ class Login extends React.Component{
                             handleOnChange={this.handleChange}
                             id="password"
                             label="password"
+                            validators={['minlength=8', 'maxlength=30']}
                         />
                         <button>login</button>
                 </form>
