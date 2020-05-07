@@ -11,6 +11,7 @@ class Register extends React.Component{
             email: '',
             password: '',
             phone: '',
+            error: '',
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -25,15 +26,16 @@ class Register extends React.Component{
     async handleSubmit(e){
         try{
             e.preventDefault();
+            this.setState({error: ''});
             const user = await axios.post('/api/register', this.state);
             this.props.user.dispatch({
                 type: 'register',
                 payload: user.data.user,
             });
-            let { from } = this.props.location.state || { from: { pathname: "/" } };
-            this.props.history.replace(from);
+            // let { from } = this.props.location.state || { from: { pathname: "/" } };
+            this.props.history.replace('/');
     }catch(err){
-        alert(err);
+        this.setState({error: err.response.data});
     }
     }
     
@@ -45,42 +47,53 @@ class Register extends React.Component{
                             type="text"
                             name="firstName"
                             value={this.state.firstName}
-                            handleOnChange={this.handleChange}
+                            onChange={this.handleChange}
                             id="firstName"
                             label="firstName"
+                            required='required'
+                            pattern="[a-zA-Z]{2,}"
                         />
                         <Input
                             type="text"
                             name="lastName"
                             value={this.state.lastName}
-                            handleOnChange={this.handleChange}
+                            onChange={this.handleChange}
                             id="lastName"
                             label="lastName"
+                            required='required'
+                            pattern="[a-zA-Z]{2,}"
                         />
                         <Input
-                            type="text"
+                            type="email"
                             name="email"
                             value={this.state.email}
-                            handleOnChange={this.handleChange}
+                            onChange={this.handleChange}
                             id="email"
                             label="email"
+                            required='required'
                         />
                         <Input 
                             type="password"
                             name="password"
                             value={this.state.password}
-                            handleOnChange={this.handleChange}
+                            onChange={this.handleChange}
                             id="password"
                             label="password"
+                            required='required'
+                            minLength="8"
+                            maxLength="30"
                         />
                         <Input
                             type="text"
                             name="phone"
                             value={this.state.phone}
-                            handleOnChange={this.handleChange}
+                            onChange={this.handleChange}
                             id="phone"
-                            label="phone"
+                            label="mobile number"
+                            pattern="[0-9]{11}"
+                            required='required'
                         />
+                        <p><small style={{color: 'red'}}>{this.state.error}</small></p>
                         <button>register</button>
                 </form>
             </div>

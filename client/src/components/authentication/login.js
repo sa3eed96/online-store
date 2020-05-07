@@ -9,6 +9,7 @@ class Login extends React.Component{
             email: '',
             password: '',
             rememberMe: false,
+            error: '',
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -22,20 +23,17 @@ class Login extends React.Component{
 
     async handleSubmit(e){
         try{
+            this.setState({error: ''});
             e.preventDefault();
-            const user = await axios.post('/api/login', this.state);
+            const user = await axios.post('/api/login', {email: this.state.email, password: this.state.password, rememberMe: this.state.rememberMe});
             this.props.user.dispatch({
                 type: 'login',
                 payload: user.data.user,
             });
             this.props.history.replace('/');
         }catch(err){
-            alert(err);
+            this.setState({error: err.response.data});
         }
-    }
-
-    validate(field, value){
-
     }
     
     render(){
@@ -62,6 +60,7 @@ class Login extends React.Component{
                             minLength='8'
                             maxLength='30'
                         />
+                        <p><small style={{color: 'red'}}>{this.state.error}</small></p>
                         <button>login</button>
                 </form>
             </div>

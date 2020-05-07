@@ -30,14 +30,14 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         min: 2,
-        is: /^[a-z]+(\s|\w)*$/,
+        is: /^[a-z0-9]+(\s|\w)*$/,
       },
     },
     zipCode: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        isNumeric: true,
+        is:/[0-9]{3,6}/
       },
     },
   }, {});

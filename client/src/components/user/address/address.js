@@ -40,40 +40,50 @@ const Address = (props) => {
                 label="country"
                 value={address.country}
                 name='country'
-                handleOnChange={handleChange}
+                onChange={handleChange}
                 type="text"
+                required="required"
+                pattern="[a-z]+(\s|[a-z])*$"
             />
             <Input
                 id="state"
                 label="state"
                 value={address.state}
                 name='state'
-                handleOnChange={handleChange}
+                onChange={handleChange}
                 type="text"
+                required="required"
+                pattern="[a-z]+(\s|[a-z])*$"
             />
             <Input
                 id="city"
                 label="city"
                 value={address.city}
                 name="city"
-                handleOnChange={handleChange}
+                onChange={handleChange}
                 type="text"
+                required="required"
+                pattern="[a-z]+(\s|[a-z])*$"
             />
             <Input
                 id="address"
                 label="address"
                 value={address.address}
                 name="address"
-                handleOnChange={handleChange}
+                onChange={handleChange}
                 type="text"
+                required="required"
+                pattern="[a-z|0-9]+(\s|[a-z|0-9])*$"
             />
             <Input
                 id="zipcode"
                 label="zipcode"
                 value={address.zipCode}
                 name="zipCode"
-                handleOnChange={handleChange}
+                onChange={handleChange}
                 type="text"
+                required="required"
+                pattern="[0-9]{3,6}"
             />
             <button>save</button>
         </form>

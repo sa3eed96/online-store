@@ -30,7 +30,10 @@ module.exports.register = async (req, res, next) => {
         req.user = user.toJSON();
         next();
     }catch(err){
-        next(createError(400, err));
+        if(err.name === 'SequelizeUniqueConstraintError'){
+            return next(createError(400, 'email is already registered'));
+        }
+        next(createError(500, err));
     }
 };
 
@@ -68,14 +71,16 @@ module.exports.changePassword = async(req, res, next)=> {
 
         const {oldPassword, newPassword} = req.body;
         const user = await User.findByPk(req.session.user.id);
+        console.log('am here 1');
         const passwordCheck = await bcrypt.compare(oldPassword, user.password);
+        console.log('am here 2');
         if(!passwordCheck){
-            return createError(400, 'invalid password');
+            return next(createError(400, 'incorrect password'));
         }
         user.password = newPassword;
         await user.save();
         return res.json({});
     }catch(err){
-        createError(500);
+        next(createError(500, err));
     }
 };

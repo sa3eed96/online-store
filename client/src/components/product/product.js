@@ -27,6 +27,7 @@ const Product = (props)=>{
         <div>
             <h3>{product.name}</h3>
             <h6>price: {product.price}</h6>
+            <p>{product.stockCount} in stock</p>
             <p>{product.description}</p>
                 <UserContext.Consumer>
                     {user=>(product.id && 

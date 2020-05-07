@@ -92,7 +92,12 @@ const Comment = (props) => {
             <a href="#" onClick={incPage}>&gt;</a>
             {props.user.state.isAuthenticated &&
                 <form onSubmit={handleOnSubmit}>
-                    <textarea onChange={handleOnChange} value={newComment} placeholder="enter your comment"></textarea>
+                    <textarea 
+                        onChange={handleOnChange} 
+                        value={newComment} 
+                        placeholder="enter your comment"
+                        required="required"
+                        ></textarea>
                     <button>Post Comment</button>
                 </form>}
         </div>

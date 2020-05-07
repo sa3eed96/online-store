@@ -6,6 +6,7 @@ import axios from 'axios';
 const DeleteAccount = (props)=> {
     const [check, setCheck] = useState(false);
     const [password, setPassword] = useState(''); 
+    const [error, setError] = useState('');
 
     const handleChange = async(e)=> {
         setPassword(e.target.value);
@@ -14,13 +15,17 @@ const DeleteAccount = (props)=> {
     const handleSubmit = async(e)=> {
         try{
             e.preventDefault();
+            setError('');
             await axios.delete('/api/user', { data:{password} });
             props.user.dispatch({
                 type: 'logout'
             });
             props.history.replace('/login');
         }catch(err){
-            alert(err);
+            if(err.response.status === 400){
+                return setError(err.response.data);
+            }
+            alert('could not delete account, try again later');
         }
     };
 
@@ -47,10 +52,14 @@ const DeleteAccount = (props)=> {
                         id="password"
                         label="password"
                         value={password}
-                        handleOnChange={handleChange}
+                        onChange={handleChange}
                         name="password"
                         type="password"
+                        required="required"
+                        minLength="8"
+                        maxLength="30"
                     />
+                    <p style={{color:'red'}}><small>{error}</small></p>
                     <button>Delete Account</button>
                 </form>
             </div>
