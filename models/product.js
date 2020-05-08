@@ -44,7 +44,15 @@ module.exports = (sequelize, DataTypes) => {
           this.getDataValue('price') * this.getDataValue('discount');
       },
     }
-  }, {});
+  }, {
+    indexes: [
+      {
+        name: 'category_name_product_index',
+        using:'BTREE',
+        fields: ['CategoryName', 'name'],
+      }
+    ],
+  });
   
 
   Product.getUpdateQuery = function(purchaseDetails){
@@ -69,6 +77,7 @@ module.exports = (sequelize, DataTypes) => {
     models.Product.hasMany(models.Comment);
     models.Product.hasOne(models.Rate);
     models.Product.hasMany(models.PurchaseDetail);
+    models.Product.belongsTo(models.Category);
   };
   return Product;
 };
