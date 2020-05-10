@@ -47,11 +47,10 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     indexes: [
       {
-        name: 'category_name_product_index',
-        using:'BTREE',
-        fields: ['CategoryName', 'name'],
+        using: 'BTREE',
+        fields: ['SubcategoryName', 'name']
       }
-    ],
+    ]
   });
   
 
@@ -77,7 +76,7 @@ module.exports = (sequelize, DataTypes) => {
     models.Product.hasMany(models.Comment);
     models.Product.hasOne(models.Rate);
     models.Product.hasMany(models.PurchaseDetail);
-    models.Product.belongsTo(models.Category);
+    models.Product.belongsTo(models.Subcategory);
   };
   return Product;
 };

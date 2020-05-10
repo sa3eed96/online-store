@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
 
 const Products = (props) => {
@@ -11,7 +11,9 @@ const Products = (props) => {
     useEffect(() => {
         const getProducts = async () => {
             try {
-                const products = await axios.get(`/api/product/all/${page}`);
+                const query = new URLSearchParams(useLocation().search);
+                const productName = query.get('q') ? `q=${query.get('q')}`: '';
+                const products = await axios.get(`/api/product?page=${page}&${productName}`);
                 setProducts(products.data.products);
                 setCount(products.data.count);
             } catch (err) {

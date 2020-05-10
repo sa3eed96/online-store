@@ -6,7 +6,7 @@ const validation = require('../validations/product');
 const router = express.Router();
 
 
-router.get('/all/:page', validation('index'), productController.index);
+router.get('/', validation('index'), productController.index);
 router.get('/:id', validation('show'), productController.show);
 router.use('/:productId/rate', rateRouter);
 router.use('/:productId/comment', commentRouter);

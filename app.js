@@ -21,6 +21,8 @@ const cartRouter = require('./routes/cart');
 const purchaseRouter = require('./routes/purchase');
 const commentRouter = require('./routes/comment');
 const userRouter = require('./routes/users');
+const autoCompleteRouter = require('./routes/autocomplete');
+const CategoryRouter = require('./routes/category');
 
 const app = express();
 
@@ -50,6 +52,8 @@ app.use('/api/cart', cartRouter);
 app.use('/api/purchase', purchaseRouter);
 app.use('/api/comment', commentRouter);
 app.use('/api/user', userRouter);
+app.use('/api/autocomplete', autoCompleteRouter);
+app.use('/api/category', CategoryRouter);
 
 app.use((req, res, next)=>{
     next(createError(404, 'Not Found'));
