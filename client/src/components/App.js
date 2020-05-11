@@ -20,8 +20,6 @@ import Purchases from './purchase/purchases';
 import PurchaseDetails from './purchase/purchasedetails';
 import PageNotFound from './PageNotFound';
 
-
-
 function App(props){
     return (
         <div>
@@ -31,8 +29,8 @@ function App(props){
                         <div>
                             <Header user={user} />
                             <Switch>
-                                <Route exact path="/" component={Products} />
-                                <Route exact path="/product/:id" component={Product} />
+                                <Route path="/" component={Products} />
+                                <Route path="/product/:id" component={Product} />
                                 <Route path="/login" render={(props)=><Login {...props} user={user} />} />
                                 <Route path="/register" render={(props)=><Register {...props} user={user} />} />
                                 <Route path="/addtocart" render={(props) =>user.state.isAuthenticated ? <AddToCart {...props} /> : <Redirect to='/login' />} />

@@ -5,6 +5,8 @@ module.exports = (method) => {
         case 'index':{
             return[
                 query('page').exists().isInt({min: 1}),
+                query('q').isString(),
+                query('c').isString(),
             ];
         }
         case 'show':{

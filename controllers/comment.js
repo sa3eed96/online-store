@@ -12,7 +12,6 @@ module.exports.index = async (req, res, next) => {
         const offset = (page - 1) * limit;
         const { count, rows: comments } = await Comment.findAndCountAll({
             where:{
-                UserId: req.session.user.id,
                 ProductId: productId
             },
             limit,

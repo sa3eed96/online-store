@@ -11,29 +11,32 @@ const Products = (props) => {
     useEffect(() => {
         const getProducts = async () => {
             try {
-                const query = new URLSearchParams(useLocation().search);
-                const productName = query.get('q') ? `q=${query.get('q')}`: '';
-                const products = await axios.get(`/api/product?page=${page}&${productName}`);
-                setProducts(products.data.products);
-                setCount(products.data.count);
+                const query = new URLSearchParams(props.location.search);
+                const productName = query.get('q') ? `&q=${query.get('q')}`: '';
+                const categoryName = query.get('c') ? `&c=${query.get('c')}`: '';
+                const {data} = await axios.get(`/api/product?page=${page}${productName}${categoryName}`);
+                setProducts(data.products);
+                setCount(data.count);
             } catch (err) {
                 alert(err);
             }
-        }
+        };
         getProducts();
-    }, [page]);
+    }, [page, props.location.search]);
 
     const incPage = (e)=>{
         e.preventDefault();
-        if(count > 15 * page)
+        if(count > 15 * page){
             setPage(page + 1);
-    }
+        }
+    };
 
     const decPage = (e)=>{
         e.preventDefault();
-        if(page > 1)
+        if(page > 1){
             setPage(page - 1);
-    }
+        }
+    };
 
     return (
         <div>

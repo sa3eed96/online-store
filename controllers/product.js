@@ -8,13 +8,16 @@ const { hmGetAsync } = require('../redis');
 
 module.exports.index = async (req, res, next) => {
     try {
-        const { page } = req.query;
+        const { page, q, c } = req.query;
         const limit = 15;
         const offset = (page - 1) * limit;
+        const where = {
+            stockCount: { [sequelize.Op.gt]: 0 },
+        };
+        q ? where['name'] = q: null;
+        c ? where['SubcategoryName'] = c: null;
         const { count, rows: products } = await Product.findAndCountAll({
-            where: {
-                stockCount: { [sequelize.Op.gt]: 0 }
-            },
+            where,
             limit,
             offset
         });

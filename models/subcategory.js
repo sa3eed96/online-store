@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
       type:DataTypes.STRING,
       primaryKey: true,
       validate:{
-        isAlpha: true
+        is:/[a-z|\s]+/i
       },
     },
   }, {});

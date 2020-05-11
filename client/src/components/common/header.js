@@ -1,5 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import Categories from './categories';
+import SearchBar from './searchbar';
 import axios from 'axios';
 
 const Header = (props) => {
@@ -19,7 +21,7 @@ const Header = (props) => {
 
     return(
         <nav>
-                <NavLink to="/" activeStyle={activeStyle} exact>Home</NavLink>{'|'}
+                <NavLink to="/" activeStyle={activeStyle} exact>Homepage</NavLink>{'|'}
                 {!props.user.state.isAuthenticated &&
                     <div style={{display:'inline'}}>
                         <NavLink to="/login" activeStyle={activeStyle} >Login</NavLink> |
@@ -37,6 +39,9 @@ const Header = (props) => {
                 {props.user.state.isAuthenticated &&
                     <h6 style={{float: 'right'}}>Hello {props.user.state.user.fullName}</h6>
                 }
+                <SearchBar />
+                <br />
+                <Categories />
         </nav>
     );
 
