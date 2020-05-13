@@ -29,7 +29,7 @@ function App(props){
                         <div>
                             <Header user={user} />
                             <Switch>
-                                <Route path="/" component={Products} />
+                                <Route exact path="/" component={Products} />
                                 <Route path="/product/:id" component={Product} />
                                 <Route path="/login" render={(props)=><Login {...props} user={user} />} />
                                 <Route path="/register" render={(props)=><Register {...props} user={user} />} />

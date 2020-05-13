@@ -1,6 +1,5 @@
 const Product = require('../models/index').Product;
 const Rate = require('../models/index').Rate;
-const Comment = require('../models/index').Comment;
 const Image = require('../models/index').Image;
 const createError = require('http-errors');
 const sequelize = require('sequelize');
@@ -30,7 +29,7 @@ module.exports.index = async (req, res, next) => {
 module.exports.show = async (req, res, next) => {
     try {
         const { id } = req.params;
-        const product = await Product.findByPk(id, { include: [Rate, Comment, Image] });
+        const product = await Product.findByPk(id, { include: [Rate, Image] });
         let cart = null;
         if (req.session.user)
             cart = await hmGetAsync(`cart-${req.session.user.id}`, `${product.id}-${product.name}`);

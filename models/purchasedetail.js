@@ -17,6 +17,9 @@ module.exports = (sequelize, DataTypes) => {
         isInt: true,
       },
     },
+    comment: {
+      type: DataTypes.TEXT,
+    },
   }, {});
   PurchaseDetail.associate = function (models) {
     models.PurchaseDetail.belongsTo(models.Purchase, { onDelete: 'CASCADE' });

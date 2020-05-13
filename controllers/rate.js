@@ -1,37 +1,43 @@
 const Rate = require('../models/index').Rate;
+const User = require('../models/index').User;
 const Purchase = require('../models/index').Purchase;
 const PurchaseDetail = require('../models/index').PurchaseDetail;
 const sequelize = require('../models/index').sequelize;
 const createError = require('http-errors');
 
+
 module.exports.update = async (req, res, next) => {
     try {
         const { rateId, productId } = req.params;
-        const { rate, rateArray } = req.body;
-        const details = await PurchaseDetail.findOne({
+        const { rate, rateArray, comment } = req.body;
+        let details = await PurchaseDetail.findOne({
             where: {
                 ProductId: productId
             }, 
             include: {
-                model: Purchase, where: {
+                model: Purchase,
+                where: {
                     UserId: req.session.user.id
-                }
+                },
+                include: [User],
             }
         });
         if (!details)
             return next(createError(400, 'you need to purchase the product to be able to rate it'));
-        const result = await sequelize.transaction(async (transaction) => {
+        let result;
+        [result, details] = await sequelize.transaction(async (transaction) => {
             rateArray[rate]++;
             if (details.toJSON().hasOwnProperty('rate')){
                 rateArray[details.rate]--;
                 console.log(rateArray);
             }
             details.setDataValue('rate', rate);
+            details.comment = comment;
             await details.save({ transaction });
-            const [count, updatedRate] = await Rate.update({ rate: rateArray }, { where: { id: rateId }, transaction, returning: true });
-            return updatedRate[0].toJSON();
+            const [count, updatedRate] = await Rate.update({ rate: rateArray}, { where: { id: rateId }, transaction, returning: true });
+            return [updatedRate[0].toJSON(), details];
         });
-        return res.json({ rate: result });
+        return res.json({ rate: result, details });
     } catch (err) {
         next(createError(500, err));
     }

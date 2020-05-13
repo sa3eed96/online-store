@@ -20,7 +20,6 @@ const adminBro = new AdminBro({
         } 
         },
         models.Address,
-        models.Comment,
         models.Rate,
         models.Purchase,
         models.PurchaseDetail,

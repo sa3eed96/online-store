@@ -19,7 +19,7 @@ const Categories = (props)=>{
                 <div key={cat.id} style={{display: 'inline-block'}}>
                     <span style={{color: 'green'}}>{cat.name}</span>
                     <div style={{width: '150px', height:'100px' }}>
-                        {cat.Subcategories.map((sub)=> (
+                        {cat.Subcategories.map(sub=> (
                             <div key={sub.id}>
                                 <Link to={{pathname:'/', search: `c=${sub.name}` }}>{sub.name}</Link>
                             </div>
