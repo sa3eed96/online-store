@@ -76,6 +76,7 @@ module.exports = (sequelize, DataTypes) => {
     models.Product.hasOne(models.Rate);
     models.Product.hasMany(models.PurchaseDetail);
     models.Product.belongsTo(models.Subcategory);
+    models.Product.hasOne(models.Specification);
   };
   return Product;
 };

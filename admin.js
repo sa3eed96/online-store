@@ -27,6 +27,7 @@ const adminBro = new AdminBro({
         models.Shipment,
         models.Category,
         models.Subcategory,
+        models.Specification,
     ],
     rootPath: '/admin',
     branding: {

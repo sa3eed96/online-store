@@ -27,7 +27,16 @@ const Product = (props)=>{
             <h3>{product.name}</h3>
             <h6>price: {product.price}</h6>
             <p>{product.stockCount} in stock</p>
+            <h3>Description</h3>
             <p>{product.description}</p>
+            <hr />
+            <h3>Specifications</h3>
+            {product.Specification && Object.keys(product.Specification).map((spec, index)=> (
+                <div key={index}>
+                    <p><b>{spec}</b>:{product.Specification[spec]}</p>
+                </div>
+            ))} 
+            <hr />
                 <UserContext.Consumer>
                     {user=>(product.id && 
                     <div>
