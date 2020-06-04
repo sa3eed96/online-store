@@ -7,7 +7,8 @@ const updateFieldsRegex = /(country|state|city|address|zipCode)/;
 module.exports.index = async (req, res, next) => {
     try{
         const addresses = await Address.findAll({
-            where: {UserId: req.session.user.id}
+            where: {UserId: req.session.user.id},
+            attributes:{exclude: ['createdAt', 'updatedAt']},
         });
         return res.json({ addresses });
     }catch(err){

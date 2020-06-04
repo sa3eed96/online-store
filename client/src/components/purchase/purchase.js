@@ -21,39 +21,44 @@ const Purchase = (props)=> {
                 <AddressChoose setSelectedAddress={setSelectedAddress} />    
             }
             {addressId &&
-                <div>
-                    <p>purchase will be delivered after 3 days</p>
-                    <p>choose payment method</p>
-                    <form>
-                        <label>
+                <div class="row">
+                    <h6 className="col-12">purchase will be delivered after 3 days</h6>
+                    <h6 className="col-12">choose payment method</h6>
+                    <form className="col-12">
+                        <div className="form-check">
                             <input
                                 type="radio"
                                 name="payment"
                                 value="ondoor"
                                 onChange={paymentChange}
                                 checked={payment === 'ondoor'}
+                                className="form-check-input"
                             />
-                        on door
-                        </label>
-                        <br />
-                        <label>
+                            <label className="form-check-label">
+                                on door
+                            </label>
+                        </div>
+                        <div className="form-check">
                             <input
                                 type="radio"
                                 name="payment"
                                 value="paypal"
                                 onChange={paymentChange}
                                 checked={payment === 'paypal'}
+                                className="form-check-input"
                             />
-                        paypal
-                        </label>
+                            <label className="form-check-label">
+                                paypal
+                            </label>
+                        </div>
                     </form>
                 </div>
             }
             {addressId && payment === 'ondoor' &&
                 <OnDoorPurchase {...props} total={total} addressId={addressId} />
             }
-            {addressId && payment === 'paypal'
-
+            {addressId && payment === 'paypal' &&
+                <p className="text-danger">paypal is not available now please choose another payment method</p>
             }
         </div>
     );

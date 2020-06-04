@@ -35,19 +35,19 @@ const DeleteAccount = (props)=> {
     };
 
     return (
-        <div>
+        <div className="row">
             {!check &&
-                <div>
+                <div className="col-12">
                     <h6>Note: you cannot recover your account after deletion</h6>
-                    <a href="#" onClick={handleClick}>Proceed and Delete</a>
+                    <a className="btn btn-danger my-4" href="#" onClick={handleClick}>Proceed and Delete</a>
                     <br />
-                    <Link to="/settings">Cancel</Link>
+                    <Link className="btn btn-success" to="/settings">Cancel</Link>
                 </div>
             }
             {check &&
-            <div>
-                <h6>enter your password</h6>
-                <form onSubmit={handleSubmit}>
+            <div className="card offset-sm-1 col-sm-10 offset-md-4 col-md-4 border border-radius p-4 mt-4">
+                <form className="card-body" onSubmit={handleSubmit}>
+                    <h5 className="card-title pb-1 text-center">Enter Password to Delete</h5>
                     <Input 
                         id="password"
                         label="password"
@@ -60,7 +60,7 @@ const DeleteAccount = (props)=> {
                         maxLength="30"
                     />
                     <p style={{color:'red'}}><small>{error}</small></p>
-                    <button>Delete Account</button>
+                    <button className="btn btn-danger">Delete Account</button>
                 </form>
             </div>
             }

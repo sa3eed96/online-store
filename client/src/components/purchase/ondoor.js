@@ -17,10 +17,10 @@ const OnDoorPurchase = (props)=> {
         }
     };
     return (
-        <div>
-            <p>pay when items are delivered at your door.</p>
-            <h6>total: {total}</h6>
-            <button onClick={addOrder}>submit order</button>
+        <div className="row">
+            <p className="col-12">pay when items are delivered at your door.</p>
+            <h6 className="col-12">total: {total} EGP</h6>
+            <button className="btn btn-success" onClick={addOrder}>submit order</button>
         </div>
     );
 };

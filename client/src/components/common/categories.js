@@ -16,16 +16,16 @@ const Categories = (props)=>{
     return (
         <div>
             {categories.map((cat=> (
-                <div key={cat.id} style={{display: 'inline-block'}}>
-                    <span style={{color: 'green'}}>{cat.name}</span>
-                    <div style={{width: '150px', height:'100px' }}>
+                <li key={cat.name} className="nav-item dropdown">
+                    <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {cat.name}
+                    </a>
+                    <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                         {cat.Subcategories.map(sub=> (
-                            <div key={sub.id}>
-                                <Link to={{pathname:'/', search: `c=${sub.name}` }}>{sub.name}</Link>
-                            </div>
+                                <Link key={sub.name} className="dropdown-item" to={{pathname:'/', search: `c=${sub.name}` }}>{sub.name}</Link>
                         ))}
                     </div>
-                </div>
+                </li>
             )))
             }
         </div>

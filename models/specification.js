@@ -10,9 +10,6 @@ module.exports = (sequelize, DataTypes) => {
     height: {
         type: DataTypes.STRING
     },
-    colors: {
-      type: DataTypes.ARRAY(DataTypes.STRING),
-    },
     brand: {
       type: DataTypes.STRING,
     },

@@ -2,10 +2,11 @@ import React from 'react';
 
 
 export default (props) => (
-    <div>
+    <div className="form-group">
         <label htmlFor={props.id}>{props.label}</label>
         <input
             {...props}
+            className="form-control"
         />
     </div>
 );

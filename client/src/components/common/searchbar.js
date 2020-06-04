@@ -27,8 +27,8 @@ const searchBar = (props)=> {
     };
 
     return (
-        <div style={{display: 'inline', position:'relative'}}>
-            <form style={{display: 'inline', marginLeft: '25px'}} onSubmit={handleSubmit}>
+        <div>
+            <form className="form-inline" onSubmit={handleSubmit}>
                 <input
                     id="search"
                     type="search"
@@ -36,9 +36,9 @@ const searchBar = (props)=> {
                     value={search}
                     onChange={handleChange}
                     placeholder="search products"
-                    style={{display: 'inline'}}
+                    className="form-control mr-sm-2"
                 />
-                <input style={{display: 'inline'}} type="submit" value="search"/>
+                <button  className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> 
             </form>
             {search.length > 0 && (
                 <div style={{position: 'absolute', width:'300px', height: '250px', backgroundColor:'white', border:'1px solid black', zIndex: '1' }}>

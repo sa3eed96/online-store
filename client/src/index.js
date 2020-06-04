@@ -3,6 +3,8 @@ import { render } from 'react-dom';
 import { BrowserRouter as Router} from 'react-router-dom';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
+import $ from 'jquery';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
 import App from './components/App';
 
 render(

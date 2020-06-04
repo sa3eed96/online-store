@@ -24,13 +24,10 @@ module.exports.update = async (req, res, next) => {
 module.exports.destroy = async(req, res, next)=> {
     try{
         const {password} = req.body;
-        console.log(password);
         const user = await User.findByPk(req.session.user.id);
-        console.log(user.password);
         const passwordCheck = await bcrypt.compare(password, user.password);
-        console.log(passwordCheck);
         if(!passwordCheck){
-            return createError(400, 'invalid password');
+            return next(createError(400, 'invalid password'));
         }
         await User.destroy({where: {id: req.session.user.id}});
         next();

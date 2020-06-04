@@ -38,43 +38,48 @@ const ChangePassword = (props)=> {
     };
 
     return (
-            <form onSubmit={handleSubmit}>
-                <Input 
-                        id="old"
-                        label="old password"
-                        value={password.oldPassword}
+        <div class="row">
+            <div className="card offset-sm-1 col-sm-10 offset-md-4 col-md-4 border border-radius p-4 mt-4">
+                <form className="card-body" onSubmit={handleSubmit}>
+                    <h5 className="card-title pb-1 text-center">change password</h5>
+                    <Input 
+                            id="old"
+                            label="old password"
+                            value={password.oldPassword}
+                            onChange={handleChange}
+                            name="oldPassword"
+                            type="password"
+                            required="required"
+                            minLength="8"
+                            maxLength="30"
+                        />
+                    <Input 
+                        id="newPassword"
+                        label="enter new password"
+                        value={password.newPassword}
                         onChange={handleChange}
-                        name="oldPassword"
+                        name="newPassword"
                         type="password"
                         required="required"
                         minLength="8"
                         maxLength="30"
                     />
-                <Input 
-                    id="newPassword"
-                    label="enter new password"
-                    value={password.newPassword}
-                    onChange={handleChange}
-                    name="newPassword"
-                    type="password"
-                    required="required"
-                    minLength="8"
-                    maxLength="30"
-                />
-                <Input 
-                    id="confirmPassword"
-                    label="confirm new password"
-                    value={password.confirmPassword}
-                    onChange={handleChange}
-                    name="confirmPassword"
-                    type="password"
-                    required="required"
-                    minLength="8"
-                    maxLength="30"
-                />
-                <p style={{color: 'red'}}><small>{error}</small></p>
-                <button>update</button>
-            </form>
+                    <Input 
+                        id="confirmPassword"
+                        label="confirm new password"
+                        value={password.confirmPassword}
+                        onChange={handleChange}
+                        name="confirmPassword"
+                        type="password"
+                        required="required"
+                        minLength="8"
+                        maxLength="30"
+                    />
+                    <p style={{color: 'red'}}><small>{error}</small></p>
+                    <button className="btn btn-outline-success">update</button>
+                </form>
+                </div>
+            </div>
     );
 };
 

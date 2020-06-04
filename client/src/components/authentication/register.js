@@ -41,8 +41,9 @@ class Register extends React.Component{
     
     render(){
         return(
-            <div>
-                <form onSubmit={this.handleSubmit}>
+            <div className="card offset-sm-1 col-sm-10 offset-md-4 col-md-4 border border-radius p-4 mt-4">
+                <form  className="card-body" onSubmit={this.handleSubmit}>
+                <h5 className="card-title pb-1 text-center">Register</h5>
                         <Input
                             type="text"
                             name="firstName"
@@ -94,7 +95,7 @@ class Register extends React.Component{
                             required='required'
                         />
                         <p><small style={{color: 'red'}}>{this.state.error}</small></p>
-                        <button>register</button>
+                        <button className="btn btn-outline-success text-center">register</button>
                 </form>
             </div>
         );

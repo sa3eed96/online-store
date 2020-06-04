@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import  {Link, useRouteMatch} from 'react-router-dom';
 import axios from 'axios';
 import moment from 'moment';
+import Pagination from '../common/pagination';
 
 const Purchases = (props) => {
     const [purchases, setPurchases] = useState([]);
@@ -22,39 +23,29 @@ const Purchases = (props) => {
         getPurchases();
     }, [page]);
 
-    const incPage = (e)=>{
-        e.preventDefault();
-        if(count > 15 * page)
-            setPage(page + 1);
-    }
-
-    const decPage = (e)=>{
-        e.preventDefault();
-        if(page > 1)
-            setPage(page - 1);
-    }
+    const updatePage = (page)=> {
+        setPage(page);
+    };
 
     return(
-        <div>
-            <h1>Purchases history</h1>
+        <div className="row">
+            <h1 className="col-12">Purchases History</h1>
             <hr />
-            {purchases.map(purchase =>
-                    (
-                    <div key={purchase.id}>
-                        <p><b>ordered on:</b> {moment(purchase.createdAt).format('DD-MM-YYYY HH:mm')}</p>
-                        <p><b>payment type:</b> {purchase.paymentType}</p>
-                        <p><b>total:</b> {purchase.total}</p>
-                        <Link to={`${url}/${purchase.id}`}>View Details</Link>
-                        <hr />
-                    </div>
+            <div className="col-12 list-group list-group-flush">
+                {purchases.map(purchase =>
+                        (
+                        <Link to={`${url}/${purchase.id}`} className="list-group-item list-group-item-action" key={purchase.id}>
+                            <p><b>ordered on:</b> {moment(purchase.createdAt).format('DD-MM-YYYY HH:mm')}</p>
+                            <p><b>payment type:</b> {purchase.paymentType}</p>
+                            <p><b>total:</b> {purchase.total}</p>
+                        </Link>
+                    )
                 )
-            )
-            }
-            <div>
-                <a href="#" onClick={decPage}>&lt;</a>
-                page:{page}
-                <a href="#" onClick={incPage}>&gt;</a>
+                }
             </div>
+            {count > 0 &&
+                <Pagination page={page} count={count} updatePage={updatePage} perPage={12} />
+            }
         </div>
     );
 };

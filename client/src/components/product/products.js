@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import Pagination from '../common/pagination';
 import axios from 'axios';
+import RateView from '../rate/rateview';
 
 const Products = (props) => {
 
@@ -24,40 +26,41 @@ const Products = (props) => {
         getProducts();
     }, [page, props.location.search]);
 
-    const incPage = (e)=>{
-        e.preventDefault();
-        if(count > 15 * page){
-            setPage(page + 1);
-        }
+    const updatePage = (page)=> {
+        setPage(page);
     };
 
-    const decPage = (e)=>{
+    const redirectToProduct = (id, e)=>{
         e.preventDefault();
-        if(page > 1){
-            setPage(page - 1);
-        }
-    };
+        props.history.push(`/product/${id}`);
+    }
 
     return (
-        <div>
-            <h1>Products</h1>
+        <div className="row">
+            <div className="col-12">
+                <h6><i>{count} product available</i></h6>
+            </div>
             {products.map(product =>
                 (
-                    <div key={product.id}>
-                        <Link to={{pathname: `/product/${product.id}`}}><h4>{product.name}</h4></Link>
-                        <h6>price:{product.price}</h6>
-                        <p>{product.description}</p>
-                        <hr />
+                    <div className="col-sm-12 col-md-3 card ml-3 mt-3 clickable" key={product.id}>
+                        <img className="card-img-top" onClick={e=> redirectToProduct(product.id, e)} width="35px" height="275px" src={'public/images/'+product.Colors[0].Images[0].image} alt="product image"></img>
+                        <div className="card-body border-top">
+                            <h5 className="card-title">{product.name}</h5>
+                                <h6 className="card-subtitle mb-2 text-primary">price: <b>{product.price} EGP</b></h6>
+                                <RateView rate={product.Rate.rate} />
+                        </div>
+                        <div className="overlay" onClick={e=> redirectToProduct(product.id, e)}>
+                            <div className="overlayText">View Details</div>
+                        </div>
                     </div>
                 )
             )
             }
-            <a href="#" onClick={decPage}>&lt;</a>
-            page:{page}
-            <a href="#" onClick={incPage}>&gt;</a>
+            {count > 0 &&
+                <Pagination page={page} count={count} updatePage={updatePage} perPage={12} />
+            }
         </div>
 
     );
 };
-
 export default Products;

@@ -42,28 +42,30 @@ const addToCart = (props)=>{
     return(
         <div>
             {product.stockCount &&
-                <div>
-                    <h1>add to cart</h1>
-                    <h6>
+                <div className="row">
+                    <h3 className="col-12">
                         <Link to={{pathname: `/product/${product.id}`}}>{product.name}</Link>
-                        <small>{product.stockCount} in stock</small>
-                    </h6>
-                    <p>price: {product.price}</p>
-                    <h6>total: {product.price * quantity}</h6>
-                    <form onSubmit={handleAdd}>
-                        <FormInput
-                            type="number"
-                            id='cartQuantity'
-                            label='quantity: '
-                            name='quantity'
-                            value={quantity}
-                            onChange={handleQuantityChange}
-                            required='required'
-                            min="1"
-                            max={product.stockCount}
-                        />
-                        <button>Add to Cart</button>
-                    </form>
+                        <small className="pl-4">{product.stockCount} in stock</small>
+                    </h3>
+                    <div className="col-12">
+                        <p>price: {product.price}</p>
+                        <h6>total: {product.price * quantity}</h6>
+                        <form onSubmit={handleAdd}>
+                            <label htmlFor="cartQuantity">quantity</label>
+                            <input
+                                type="number"
+                                id='cartQuantity'
+                                name='quantity'
+                                value={quantity}
+                                onChange={handleQuantityChange}
+                                required='required'
+                                min="1"
+                                max={product.stockCount}
+                                className="form-control w-25"
+                            />
+                            <button className="btn btn-outline-success mt-1">Add to Cart</button>
+                        </form>
+                    </div>
                 </div>
             }
         </div>

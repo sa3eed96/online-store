@@ -34,17 +34,25 @@ const Addresses = (props)=> {
 
     return (
         <div>
-            <h1>Addresses</h1>
-            <Link to={{pathname:`${url}/add`}}>add address</Link>
-            <hr />
-            {addresses.map((add, index)=>
-                <div key={add.id}>
-                    <h6>{add.city}, {add.address}</h6>
-                    <Link to={{pathname: `${url}/${add.id}`, state:add}}>Edit</Link>
-                    <button onClick={(e)=> handleDeleteClick(add.id, index, e)}>Delete</button>
-                    <hr />
+            <div className="row justify-content-center">
+                <div className="col-md-2">
+                    <h3>Your Addresses</h3>
                 </div>
-            )}
+                <div className="col-md-10">
+                    <Link className="btn btn-sm btn-success m-2" to={{pathname:`${url}/add`}}>add address</Link>
+                </div>
+            </div>
+            <hr />
+            <div className="row">
+                {addresses.map((add, index)=>
+                    <div className="col-12" key={add.id}>
+                        <h6>{add.city}, {add.address}</h6>
+                        <Link className="btn btn-outline-primary mr-2" to={{pathname: `${url}/${add.id}`, state:add}}>Edit</Link>
+                        <button className="btn btn-outline-danger mr-2" onClick={(e)=> handleDeleteClick(add.id, index, e)}>Delete</button>
+                        <hr />
+                    </div>
+                )}
+            </div>
         </div>
     );
 };

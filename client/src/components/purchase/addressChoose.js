@@ -37,28 +37,35 @@ const AddressChoose = (props)=> {
 
     return (
         <div>
-            <h5>Choose Delivery Address</h5>
-            <Link to={{pathname:"/settings/addresses/add"}}>add an address</Link>
+            <div className="row justify-content-center">
+                <h5 className="col-md-2">Choose Delivery Address</h5>
+                <div className="col-md-10">
+                    <Link className="btn btn-sm btn-success" to={{pathname:"/settings/addresses/add"}}>add an address</Link>
+                </div>
+            </div>
             <hr />
             {addresses.length > 0 &&
-                <form onSubmit={handleSubmit}>
-                    {addresses.map(add=>(
-                        <div key={add.id}>
-                            <label>
-                                <input  
-                                    type="radio" 
-                                    name="address" 
-                                    value={add.id} 
-                                    checked={selected == add.id} 
-                                    onChange={handleChange}
-                                    />
-                                {add.country} | {add.address}
-                            </label>
-                            <br />
-                        </div>
-                    ))}
-                    <button>next</button>
-                </form>
+                <div className="col-12">
+                    <form onSubmit={handleSubmit}>
+                        {addresses.map(add=>(
+                            <div className="form-check my-4" key={add.id}>
+                                    <input  
+                                        type="radio" 
+                                        name="address" 
+                                        value={add.id} 
+                                        checked={selected == add.id} 
+                                        onChange={handleChange}
+                                        className="form-check-input"
+                                        />
+                                <label className="form-check-label">
+                                    {add.country} | {add.address}
+                                </label>
+                                <br />
+                            </div>
+                        ))}
+                        <button className="btn btn-outline-primary">next</button>
+                    </form>
+                </div>
             }
         </div>
     );

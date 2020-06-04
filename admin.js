@@ -23,6 +23,7 @@ const adminBro = new AdminBro({
         models.Rate,
         models.Purchase,
         models.PurchaseDetail,
+        models.Color,
         models.Image,
         models.Shipment,
         models.Category,

@@ -46,35 +46,40 @@ const Cart = (props)=> {
 
     return (
         <div>
-            <h1>Cart</h1>
-            {cart.length > 0 &&
-                <div>
-                    <Link to={{pathname:'/purchase', state: cartTotal}}>checkout</Link>
-                    <br /> 
-                    <button onClick={handleEmptyCart}>Empty Cart</button>
+            <div className="row justify-content-start">
+                <div className="col-md-1">
+                    <h4>Cart</h4>
                     <h6>cart total: {cartTotal}</h6>
-                    <hr />
                 </div>
-            }
-            {cart.map((product, index) =>
-                (
-                    <div key={product.productId}>
-                        <h6><Link to={{pathname: `/product/${product.productId}`}}>{product.productName}</Link></h6>
-                        <h6>quantity: {product.quantity}</h6>
-                        <h6>total price: {product.price * product.quantity}</h6>
-                        <button onClick={(e) => handleRemoveProduct(product, index, e)}>Remove Product</button>
-                        <Link to={{pathname:"/addtocart", state:{
-                            id: product.productId,
-                            name: product.productName,
-                            quantity: product.quantity,
-                            price: product.price,
-                        }}}>Edit</Link>
-                        <hr />
-                    </div>   
+                {cart.length > 0 &&
+                    <div className="col-md-11">
+                        <Link className="btn btn-sm btn-success m-2" to={{pathname:'/purchase', state: cartTotal}}>checkout</Link>
+                        <button className="btn btn-sm btn-danger m-2" onClick={handleEmptyCart}>Empty Cart</button>
+                    </div>
+                }
+            </div>
+            <hr />
+            <div className="row">
+                {cart.map((product, index) =>
+                    (
+                        <div className="col-12" key={product.productId}>
+                            <h6><Link to={{pathname: `/product/${product.productId}`}}>{product.productName}</Link></h6>
+                            <h6>quantity: {product.quantity}</h6>
+                            <h6>total price: {product.price * product.quantity}</h6>
+                            <button className="btn btn-outline-danger mr-2" onClick={(e) => handleRemoveProduct(product, index, e)}>Remove Product</button>
+                            <Link className="btn btn-outline-primary mr-2" to={{pathname:"/addtocart", state:{
+                                id: product.productId,
+                                name: product.productName,
+                                quantity: product.quantity,
+                                price: product.price,
+                            }}}>Edit</Link>
+                            <hr />
+                        </div>   
+                    )
                 )
-            )
 
-            }
+                }
+            </div>
         </div>
     );
 };

@@ -1,6 +1,7 @@
 const Product = require('../models/index').Product;
 const Rate = require('../models/index').Rate;
 const Image = require('../models/index').Image;
+const Color = require('../models/index').Color;
 const Specification = require('../models/index').Specification;
 const createError = require('http-errors');
 const sequelize = require('sequelize');
@@ -9,7 +10,7 @@ const { hmGetAsync } = require('../redis');
 module.exports.index = async (req, res, next) => {
     try {
         const { page, q, c } = req.query;
-        const limit = 15;
+        const limit = 12;
         const offset = (page - 1) * limit;
         const where = {
             stockCount: { [sequelize.Op.gt]: 0 },
@@ -19,7 +20,14 @@ module.exports.index = async (req, res, next) => {
         const { count, rows: products } = await Product.findAndCountAll({
             where,
             limit,
-            offset
+            offset,
+            attributes:{
+                exclude: ['createdAt', 'updatedAt']
+            },
+            include: [Rate, {
+                model: Color,
+                include: [Image]
+            }],
         });
         return res.json({ products, count });
     } catch (err) {
@@ -30,7 +38,21 @@ module.exports.index = async (req, res, next) => {
 module.exports.show = async (req, res, next) => {
     try {
         const { id } = req.params;
-        const product = await Product.findByPk(id, { include: [Rate, Image, Specification] });
+        const product = await Product.findByPk(id, { include: [{
+            model: Rate,
+            attributes:{exclude: ['createdAt', 'updatedAt', 'ProductId']},
+        }, {
+            model: Color,
+            attributes:{exclude: ['createdAt', 'updatedAt', 'ProductId']},
+            include: {
+                model: Image,
+                exclude: ['id', 'createdAt', 'updatedAt', 'ColorId'],
+            }
+        }, {
+            model: Specification,
+            attributes:{exclude: ['id', 'createdAt', 'updatedAt', 'ProductId']},
+            }] 
+        });
         let cart = null;
         if (req.session.user)
             cart = await hmGetAsync(`cart-${req.session.user.id}`, `${product.id}-${product.name}`);

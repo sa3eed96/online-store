@@ -12,7 +12,9 @@ module.exports.index = async (req, res, next) => {
         const { page } = req.query;
         const limit = 15;
         const offset = (page - 1) * limit;
-        const {count, rows: purchases} = await Purchase.findAndCountAll({ where: { UserId: req.session.user.id }, limit, offset });
+        const {count, rows: purchases} = await Purchase.findAndCountAll({ 
+            where: { UserId: req.session.user.id }, limit, offset 
+        });
         return res.json({ purchases, count });
     } catch (err) {
         next(createError(500, err));
@@ -56,7 +58,7 @@ module.exports.create = async (req, res, next) => {
             await delAsync(`cart-${req.session.user.id}`);
             return purchase;
         });
-        return res.json({ purchase: result });
+        return res.status(201).json({ purchase: result });
     } catch (err) {
         console.log(err.stack);
         next(createError(500, err));

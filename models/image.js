@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {});
   Image.associate = function (models) {
-    models.Image.belongsTo(models.Product, { onDelete: 'CASCADE' });
+    models.Image.belongsTo(models.Color, { onDelete: 'CASCADE' });
   };
   return Image;
 };

@@ -46,49 +46,54 @@ const UserInfo = (props)=> {
         }
     };
     return (
-        <form onSubmit={handleSubmit}>
-            <Input
-                id="firstName"
-                label="firstName"
-                value={user.firstName}
-                name='firstName'
-                onChange={handleChange}
-                type="text"
-                required="required"
-                pattern="[a-z|A-Z]{2,}"
-            />
-            <Input
-                id="lastName"
-                label="lastName"
-                value={user.lastName}
-                name='lastName'
-                onChange={handleChange}
-                type="text"
-                required="required"
-                pattern="[a-z|A-Z]{2,}"
-            />
-            <Input
-                id="email"
-                label="email"
-                value={user.email}
-                name="email"
-                onChange={handleChange}
-                type="email"
-                required="required"
-            />
-            <Input
-                id="phone"
-                label="mobile number"
-                value={user.phone}
-                name="phone"
-                onChange={handleChange}
-                type="text"
-                required="required"
-                pattern="[0-9]{11}"
-            />
-            <p style={{color:'red'}}><small>{error}</small></p>
-            <button>update</button>
-        </form>
+        <div class="row">
+            <div className="card offset-sm-1 col-sm-10 offset-md-4 col-md-4 border border-radius p-4 mt-4">
+                <form className="card-body" onSubmit={handleSubmit}>
+                    <h5 className="card-title pb-1 text-center">Personal Information</h5>
+                    <Input
+                        id="firstName"
+                        label="firstName"
+                        value={user.firstName}
+                        name='firstName'
+                        onChange={handleChange}
+                        type="text"
+                        required="required"
+                        pattern="[a-z|A-Z]{2,}"
+                    />
+                    <Input
+                        id="lastName"
+                        label="lastName"
+                        value={user.lastName}
+                        name='lastName'
+                        onChange={handleChange}
+                        type="text"
+                        required="required"
+                        pattern="[a-z|A-Z]{2,}"
+                    />
+                    <Input
+                        id="email"
+                        label="email"
+                        value={user.email}
+                        name="email"
+                        onChange={handleChange}
+                        type="email"
+                        required="required"
+                    />
+                    <Input
+                        id="phone"
+                        label="mobile number"
+                        value={user.phone}
+                        name="phone"
+                        onChange={handleChange}
+                        type="text"
+                        required="required"
+                        pattern="[0-9]{11}"
+                    />
+                    <p style={{color:'red'}}><small>{error}</small></p>
+                    <button  class="btn btn-outline-success">update</button>
+                </form>
+            </div>
+        </div>
     );
 };
 export default UserInfo;

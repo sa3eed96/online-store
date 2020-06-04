@@ -22,7 +22,7 @@ import PageNotFound from './PageNotFound';
 
 function App(props){
     return (
-        <div>
+        <div className="container-fluid">
             <UserContextProvider>
                 <UserContext.Consumer>
                     {user=>(
