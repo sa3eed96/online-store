@@ -28,6 +28,7 @@ module.exports.index = async (req, res, next) => {
                 model: Color,
                 include: [Image]
             }],
+            distinct: true,
         });
         return res.json({ products, count });
     } catch (err) {
