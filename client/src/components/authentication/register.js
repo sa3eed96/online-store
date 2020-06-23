@@ -34,6 +34,7 @@ class Register extends React.Component{
             });
             // let { from } = this.props.location.state || { from: { pathname: "/" } };
             this.props.history.replace('/');
+            alert('confirmation link has been sent to your email');
     }catch(err){
         this.setState({error: err.response.data});
     }

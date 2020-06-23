@@ -19,6 +19,8 @@ import Purchase from './purchase/purchase';
 import Purchases from './purchase/purchases';
 import PurchaseDetails from './purchase/purchasedetails';
 import PageNotFound from './PageNotFound';
+import ForgotPassword from './authentication/forogtpassword';
+import EmailVerify from './emailverify';
 
 function App(props){
     return (
@@ -45,6 +47,8 @@ function App(props){
                                 <Route path="/settings/changepassword" render={(props) =>user.state.isAuthenticated ? <ChangePassword {...props} /> : <Redirect to='/login' /> } />
                                 <Route path="/settings/deleteaccount" render={(props) =>user.state.isAuthenticated ? <DeleteAccount user={user} {...props} /> : <Redirect to='/login' /> } />
                                 <Route path="/settings" render={(props) =>user.state.isAuthenticated ? <Settings {...props} /> : <Redirect to='/login' /> } />
+                                <Route path="/forgotpassword/:id" component={ForgotPassword} />
+                                <Route path="/emailverify/:id" component={EmailVerify} />
                                 <Route component={PageNotFound} />
                             </Switch>
                         </div>

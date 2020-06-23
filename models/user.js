@@ -57,6 +57,9 @@ module.exports = (sequelize, DataTypes) => {
         isAfter: Date(),
       },
     },
+    verified: {
+      type: DataTypes.BOOLEAN,
+    },
     fullName: {
       type: DataTypes.VIRTUAL,
       get: function(){

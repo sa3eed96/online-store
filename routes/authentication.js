@@ -12,4 +12,6 @@ router.put('/changepassword', validate('changepassword'), authController.changeP
 router.get('/logout', authController.checkAuthentication, authController.logout);
 router.get('/getloggedin', authController.checkAuthentication, authController.returnLoggedInUser);
 
+router.post('/reset', validate('reset'), authController.passwordReset);
+
 module.exports = router;

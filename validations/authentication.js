@@ -23,5 +23,11 @@ module.exports = (method) => {
                 body('newPassword').exists(),
             ];
         }
+        case 'reset':{
+            return [
+                body('password').exists(),
+                body('id').exists(),
+            ];
+        }
     }
 }

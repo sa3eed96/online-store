@@ -10,7 +10,8 @@ const adminBro = require('./admin');
 dotenv.config();
 
 let RedisStore = require('connect-redis')(session);
-
+const { getChannel }= require('./email/addToQueue');
+getChannel();
 
 const { redisClient } = require('./redis');
 const adminRouter = require('./routes/admin');
@@ -22,6 +23,8 @@ const purchaseRouter = require('./routes/purchase');
 const userRouter = require('./routes/users');
 const autoCompleteRouter = require('./routes/autocomplete');
 const CategoryRouter = require('./routes/category');
+const emailConfirmRouter = require('./routes/emailconfirm');
+const passwordResetRouter = require('./routes/passwordreset');
 
 const app = express();
 
@@ -52,6 +55,8 @@ app.use('/api/purchase', purchaseRouter);
 app.use('/api/user', userRouter);
 app.use('/api/autocomplete', autoCompleteRouter);
 app.use('/api/category', CategoryRouter);
+app.use('/api/verify', emailConfirmRouter);
+app.use('/api/passwordreset', passwordResetRouter);
 
 app.use((req, res, next)=>{
     next(createError(404, 'Not Found'));

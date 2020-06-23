@@ -1,6 +1,11 @@
 const User = require('../models/index').User;
+const EmailLinks = require('../models/index').EmailLinks;
 const createError = require('http-errors');
 const bcrypt = require('bcrypt');
+const crypto = require("crypto");
+const {addToQueue} = require('../email/addToQueue');
+const sequelize = require('../models/index').sequelize; 
+
 
 module.exports.login = async (req, res, next) => {
     try{
@@ -26,8 +31,11 @@ module.exports.login = async (req, res, next) => {
 module.exports.register = async (req, res, next) => {
     try{
         const {firstName, lastName, email, password, phone } = req.body;
-        const user = await User.create({firstName, lastName, email, password, phone});
+        const user = await User.create({firstName, lastName, email, password, phone, verified: false});
         req.user = user.toJSON();
+        const link = crypto.randomBytes(15).toString('hex');
+        await EmailLinks.create({link, UserId: user.id, type: 'email'});
+        addToQueue('email', email, link);
         next();
     }catch(err){
         if(err.name === 'SequelizeUniqueConstraintError'){
@@ -68,12 +76,9 @@ module.exports.returnLoggedInUser = (req, res, next)=> {
 
 module.exports.changePassword = async(req, res, next)=> {
     try{
-
         const {oldPassword, newPassword} = req.body;
         const user = await User.findByPk(req.session.user.id);
-        console.log('am here 1');
         const passwordCheck = await bcrypt.compare(oldPassword, user.password);
-        console.log('am here 2');
         if(!passwordCheck){
             return next(createError(400, 'incorrect password'));
         }
@@ -84,3 +89,23 @@ module.exports.changePassword = async(req, res, next)=> {
         next(createError(500, err));
     }
 };
+
+module.exports.passwordReset = async(req, res, next)=> {
+    try{
+        const { password, id } = req.body;
+        await sequelize.transaction(async(transaction)=>{
+            const link = await EmailLinks.findOne({where: {type: 'password', link: id}});
+            const user = await User.findOne({where: {id: link.UserId}});
+            if(!link || !user){
+                return next(createError(404));
+            }
+            user.password = password;
+            await user.save();
+            await link.destroy();
+            return;
+        });
+        return res.json({});
+    }catch(err){
+        next(createError(500, err));
+    }
+}

@@ -1,6 +1,8 @@
 import React from 'react';
 import Input from '../common/formInput';
-const axios = require('axios');
+import ForgotPasswordLink from './forgotpasswordlink';
+import axios from 'axios';
+
 
 class Login extends React.Component{
     constructor(props){
@@ -67,6 +69,7 @@ class Login extends React.Component{
                                 <label class="form-check-label" for="rememberme">remember me for a week</label>
                             </div>
                             <p><small style={{color: 'red'}}>{this.state.error}</small></p>
+                            <ForgotPasswordLink />
                             <button class="btn btn-outline-primary">login</button>
                     </form>
                 </div>
