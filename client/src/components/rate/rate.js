@@ -27,7 +27,7 @@ const Rate = (props)=> {
                     });
                     const temp = [...rateView];
                     for (let index = 0; index < 5; index++) {
-                        if(index < data.myRate.rate){
+                        if(index <= data.myRate.rate){
                             temp[index] = <FaStar />;
                         }else{
                             temp[index] = <FaRegStar />
@@ -138,13 +138,14 @@ const Rate = (props)=> {
             {rates.length > 0 &&
                 <h6>{rates.length} reviews</h6>
             }
-            {rates.map(rate=>(
-                <div key={rate.id}>
-                    {rate.comment && rate.Purchase.User.id !== props.user.state.user.id &&
+            {rates.map(r=>(
+                <div key={r.id}>
+                    {console.log(r)}
+                    {r.comment && (!props.user.state.user || r.Purchase.User.id !== props.user.state.user.id) &&
                         <div>
-                            <i>{rate.Purchase.User.fullName}</i> | <b>{rate.rate+1}</b>
+                            <i>{r.Purchase.User.fullName}</i> | <b>{r.rate+1} stars</b>
                             <br />
-                            <p>{rate.comment}</p>
+                            <p>{r.comment}</p>
                             <hr />
                         </div>
                     }

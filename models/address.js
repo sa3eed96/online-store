@@ -6,7 +6,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         min: 2,
-        is: /^[a-z]+(\s|[a-z])*$/,
+        is: /^[a-zA-Z]+(\s|[a-zA-Z])*$/,
       },
     },
     city: {
