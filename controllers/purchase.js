@@ -13,7 +13,7 @@ module.exports.index = async (req, res, next) => {
         const limit = 15;
         const offset = (page - 1) * limit;
         const {count, rows: purchases} = await Purchase.findAndCountAll({ 
-            where: { UserId: req.session.user.id }, limit, offset, include: [Shipment]
+            where: { UserId: req.session.user.id }, limit, offset, include: [Shipment], order: [['createdAt', 'Desc']]
         });
         return res.json({ purchases, count });
     } catch (err) {

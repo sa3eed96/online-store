@@ -25,6 +25,7 @@ const autoCompleteRouter = require('./routes/autocomplete');
 const CategoryRouter = require('./routes/category');
 const emailConfirmRouter = require('./routes/emailconfirm');
 const passwordResetRouter = require('./routes/passwordreset');
+const currencyRouter = require('./routes/currency');
 
 const app = express();
 
@@ -57,6 +58,7 @@ app.use('/api/autocomplete', autoCompleteRouter);
 app.use('/api/category', CategoryRouter);
 app.use('/api/verify', emailConfirmRouter);
 app.use('/api/passwordreset', passwordResetRouter);
+app.use('/api/currency', currencyRouter);
 
 app.use((req, res, next)=>{
     next(createError(404, 'Not Found'));

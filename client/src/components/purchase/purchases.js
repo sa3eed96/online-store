@@ -34,6 +34,13 @@ const Purchases = (props) => {
         return <span className="text-success">Delivered</span>;
     };
 
+    const isPaid = (flag)=> {
+        if(!flag){
+            return <span className="text-danger">Not Paid</span>
+        }
+        return <span className="text-success">Paid</span>;
+    };
+
     return(
         <div className="row">
             <h1 className="col-12">Purchases History</h1>
@@ -42,7 +49,7 @@ const Purchases = (props) => {
                 {purchases.map(purchase =>
                         (
                         <Link to={`${url}/${purchase.id}`} className="list-group-item list-group-item-action" key={purchase.id}>
-                            <p>status: {isDelivered(purchase.Shipment.delivered)}</p>
+                            <p>status: {isPaid(purchase.isPaid)} {isDelivered(purchase.Shipment.delivered)}</p>
                             <p><b>ordered on:</b> {moment(purchase.createdAt).format('DD-MM-YYYY HH:mm')}</p>
                             <p><b>payment type:</b> {purchase.paymentType}</p>
                             <p><b>total:</b> {purchase.total}</p>

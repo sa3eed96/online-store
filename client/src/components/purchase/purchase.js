@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import AddressChoose from './addressChoose';  
 import OnDoorPurchase from './ondoor';
+import Paypal from './paypal';
 
 const Purchase = (props)=> {
     const total = props.location.state;
@@ -58,7 +59,7 @@ const Purchase = (props)=> {
                 <OnDoorPurchase {...props} total={total} addressId={addressId} />
             }
             {addressId && payment === 'paypal' &&
-                <p className="text-danger">paypal is not available now please choose another payment method</p>
+                <Paypal {...props} total={total} addressId={addressId} />
             }
         </div>
     );
