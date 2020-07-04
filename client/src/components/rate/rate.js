@@ -19,7 +19,7 @@ const Rate = (props)=> {
     useEffect(()=>{
         const getMyRate = async()=>{
             if(props.user.state.isAuthenticated){
-                const {data} = await axios.get(`/api/product/${props.productId}/purchasedetail/myrate`);
+                const {data} = await axios.get(`/api/product/${props.productId}/userrate/myrate`);
                 if(data.hasOwnProperty('myRate')){
                     setMyRate({
                         ...data.myRate,
@@ -43,7 +43,7 @@ const Rate = (props)=> {
     useEffect(() => {
         const getRates = async()=>{
             try {
-                const {data} = await axios.get(`/api/product/${props.productId}/purchasedetail?page=${page}`);
+                const {data} = await axios.get(`/api/product/${props.productId}/userrate?page=${page}`);
                 setRates(data.rates);
                 setCount(data.count);
             } catch (err) {
@@ -60,8 +60,8 @@ const Rate = (props)=> {
             setError(null);
             setRate(data.rate.rate);
             setMyRate({
-                ...data.details,
-                checkedRate: data.details.rate,    
+                ...data.userRate,
+                checkedRate: data.userRate.rate,    
             });
         }catch(err){
             setError(err.response.data);
@@ -141,9 +141,9 @@ const Rate = (props)=> {
             {rates.map(r=>(
                 <div key={r.id}>
                     {console.log(r)}
-                    {r.comment && (!props.user.state.user || r.Purchase.User.id !== props.user.state.user.id) &&
+                    {r.comment && (!props.user.state.user || r.PurchaseDetails[0].Purchase.User.id !== props.user.state.user.id) &&
                         <div>
-                            <i>{r.Purchase.User.fullName}</i> | <b>{r.rate+1} stars</b>
+                            <i>{r.PurchaseDetails[0].Purchase.User.fullName}</i> | <b>{r.rate+1} stars</b>
                             <br />
                             <p>{r.comment}</p>
                             <hr />

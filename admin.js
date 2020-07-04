@@ -30,6 +30,7 @@ const adminBro = new AdminBro({
         models.Subcategory,
         models.Specification,
         models.EmailLinks,
+        models.UserRate,
     ],
     rootPath: '/admin',
     branding: {

@@ -3,6 +3,7 @@ const Product = require('../models/index').Product;
 const PurchaseDetail = require('../models/index').PurchaseDetail;
 const Shipment = require('../models/index').Shipment;
 const Address = require('../models/index').Address;
+const UserRate = require('../models/index').UserRate;
 const sequelize = require('../models/index').sequelize; 
 const createError = require('http-errors');
 const { hmGetAllAsync, delAsync } = require('../redis');

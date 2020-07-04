@@ -9,21 +9,11 @@ module.exports = (sequelize, DataTypes) => {
         isInt: true,
       },
     },
-    rate: {
-      type: DataTypes.INTEGER,
-      validate: {
-        min:0,
-        max:4,
-        isInt: true,
-      },
-    },
-    comment: {
-      type: DataTypes.TEXT,
-    },
   }, {});
   PurchaseDetail.associate = function (models) {
     models.PurchaseDetail.belongsTo(models.Purchase, { onDelete: 'CASCADE' });
     models.PurchaseDetail.belongsTo(models.Product, { onDelete: 'SET NULL' });
+    models.PurchaseDetail.belongsTo(models.UserRate, {onDelete: 'CASCADE'});
   };
   return PurchaseDetail;
 };
