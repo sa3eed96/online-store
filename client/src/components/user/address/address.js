@@ -1,20 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import Input from '../../common/formInput';
 import axios from 'axios';
-import { getNames } from 'country-list';
 
 const Address = (props) => {
     const [address, setAddress] = useState(props.location.hasOwnProperty('state') ?
         props.location.state : {
-            country: '',
-            state: '',
-            city: '',
+            country: 'Egypt',
+            city: 'Cairo',
             address: '',
             zipCode: '',
         });
-    const [countries, getCountries] = useState(getNames());
 
     const handleChange = (e) => {
+        console.log(e.target.value);
+        console.log(e.target.name);
         setAddress({
             ...address,
             [e.target.name]: e.target.value,
@@ -43,31 +42,16 @@ const Address = (props) => {
                     <div className="form-group">
                         <label htmlFor="country">Country</label>
                         <select name="country" class="form-control" id="country" onChange={handleChange}  required>
-                            {countries.map((c, index) => (
-                                <option key={index}>{c}</option>
-                            ))}
+                                <option>Egypt</option>
                         </select>
                     </div>
-                    <Input
-                        id="state"
-                        label="state"
-                        value={address.state}
-                        name='state'
-                        onChange={handleChange}
-                        type="text"
-                        required="required"
-                        pattern="[a-z]+(\s|[a-z])*$"
-                    />
-                    <Input
-                        id="city"
-                        label="city"
-                        value={address.city}
-                        name="city"
-                        onChange={handleChange}
-                        type="text"
-                        required="required"
-                        pattern="[a-z]+(\s|[a-z])*$"
-                    />
+                    <div className="form-group">
+                        <label htmlFor="city">City</label>
+                        <select name="city" class="form-control" id="city" onChange={handleChange}  required>
+                                <option>Cairo</option>
+                                <option>Alexandria</option>
+                        </select>
+                    </div>
                     <Input
                         id="address"
                         label="address"

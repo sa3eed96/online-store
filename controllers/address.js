@@ -2,7 +2,7 @@ const Address = require('../models/index').Address;
 const User = require('../models/index').User;
 const createError = require('http-errors');
 
-const updateFieldsRegex = /(country|state|city|address|zipCode)/;
+const updateFieldsRegex = /(country|city|address|zipCode)/;
 
 module.exports.index = async (req, res, next) => {
     try{
@@ -18,8 +18,8 @@ module.exports.index = async (req, res, next) => {
 
 module.exports.create = async (req, res, next) => {
     try{
-        const { country, city, state, address, zipCode } = req.body;
-        const userAddress = await Address.create({ country, city, state, address, zipCode, UserId: req.session.user.id });
+        const { country, city, address, zipCode } = req.body;
+        const userAddress = await Address.create({ country, city, address, zipCode, UserId: req.session.user.id });
         return res.status(201).json({ address: userAddress });
     }catch(err){
         next(createError(500, err));
