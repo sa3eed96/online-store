@@ -34,23 +34,6 @@ module.exports.index = async(req, res, next)=> {
 module.exports.show = async(req, res, next)=> {
     try{
         const { productId } = req.params;
-        // const myRate = await UserRate.findOne({
-        //     include: {
-        //         model: PurchaseDetail,
-        //         where:{
-        //             ProductId: productId
-        //         },
-        //         include: {
-        //             model: Purchase,
-        //             include: {
-        //                 model:User,
-        //                 where: {
-        //                     id: req.session.user.id,
-        //                 }
-        //             },
-        //         },
-        //     },
-        // });
         const purchaseDetail = await PurchaseDetail.findOne({
             where:{
                 ProductId: productId

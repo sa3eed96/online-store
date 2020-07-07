@@ -1,6 +1,7 @@
 const Rate = require('../models/index').Rate;
 const User = require('../models/index').User;
 const Purchase = require('../models/index').Purchase;
+const Shipment = require('../models/index').Shipment;
 const PurchaseDetail = require('../models/index').PurchaseDetail;
 const UserRate = require('../models/index').UserRate;
 const sequelize = require('../models/index').sequelize;
@@ -20,11 +21,13 @@ module.exports.update = async (req, res, next) => {
                 where: {
                     UserId: req.session.user.id
                 },
-                include: [User],
+                include: [User, Shipment],
             }
         });
         if (!details)
             return next(createError(400, 'you need to purchase the product to be able to rate it'));
+        if(!details.Purchase.Shipment.delivered)
+            return next(createError(400, 'product not delivered yet'));
         let result;
         [result, userRate] = await sequelize.transaction(async (transaction) => {
             rateArray[rate]++;
