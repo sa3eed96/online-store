@@ -51,6 +51,7 @@ const Purchases = (props) => {
                         <Link to={`${url}/${purchase.id}`} className="list-group-item list-group-item-action" key={purchase.id}>
                             <p>status: {isPaid(purchase.isPaid)} {isDelivered(purchase.Shipment.delivered)}</p>
                             <p><b>ordered on:</b> {moment(purchase.createdAt).format('DD-MM-YYYY HH:mm')}</p>
+                            <p><b>delivered on:</b> {moment(purchase.Shipment.delivery).format('DD-MM-YYYY')}</p>
                             <p><b>payment type:</b> {purchase.paymentType}</p>
                             <p><b>total:</b> {purchase.total}</p>
                         </Link>

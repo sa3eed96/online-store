@@ -45,17 +45,20 @@ module.exports.create = async (req, res, next) => {
             const {purchaseDetails, total} = Purchase.parseCart(cart);
             const productUpdateQuery = Product.getUpdateQuery(purchaseDetails);
             await sequelize.query(productUpdateQuery, {transaction});
-            let time = new Date();
-            time = time.setDate(time.getDate()+3);
-            const shipment = { AddressId: addressId, delivery: new Date(time) };
+            // let time = new Date();
+            // time = time.setDate(time.getDate()+3);
+            // const shipment = { AddressId: addressId };
             const purchase = await Purchase.create({
                 UserId: req.session.user.id,
                 total,
                 isPaid,
                 paymentType,
                 PurchaseDetails: purchaseDetails,
-                Shipment: shipment
-            }, {include: [PurchaseDetail, Shipment], transaction}); 
+            }, {include: [PurchaseDetail], transaction});
+            const shipment = await Shipment.create({AddressId: addressId},{transaction});
+            purchase.ShipmentId = shipment.id;
+            await purchase.save({transaction});
+            purchase.Shipment = shipment.toJSON();
             await delAsync(`cart-${req.session.user.id}`);
             return purchase;
         });

@@ -29,6 +29,7 @@ const PurchaseDetails = (props)=> {
                     <h6>Shipment Address:</h6>
                     <p>{purchase.Shipment.Address.country} | {purchase.Shipment.Address.city}</p>
                     <p>{purchase.Shipment.Address.address}</p>
+                    <p>Delivered on: {purchase.Shipment.delivery}</p>
                     <hr />
                 </div>
             }
