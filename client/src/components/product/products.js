@@ -33,7 +33,14 @@ const Products = (props) => {
     const redirectToProduct = (id, e)=>{
         e.preventDefault();
         props.history.push(`/product/${id}`);
-    }
+    };
+
+    const productPrice = (product)=> {
+        if(product.discount > 0){
+            return product.discountPrice;
+        }
+        return product.price;
+    };
 
     return (
         <div className="row">
@@ -46,7 +53,8 @@ const Products = (props) => {
                         <img className="card-img-top" onClick={e=> redirectToProduct(product.id, e)} width="35px" height="275px" src={'public/images/'+product.Colors[0].Images[0].image} alt="product image"></img>
                         <div className="card-body border-top">
                             <h5 className="card-title">{product.name}</h5>
-                                <h6 className="card-subtitle mb-2 text-primary">price: <b>{product.price} EGP</b></h6>
+                                {product.discount> 0 && <h6 className="text-danger"><s>was: {product.price} EGP </s>{product.discount}% off</h6>}
+                                <h6 className="card-subtitle mb-2 text-primary">price: <b>{productPrice(product)} EGP</b></h6>
                                 <RateView rate={product.Rate.rate} />
                         </div>
                         <div className="overlay" onClick={e=> redirectToProduct(product.id, e)}>

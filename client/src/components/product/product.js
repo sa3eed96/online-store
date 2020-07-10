@@ -44,6 +44,13 @@ const Product = (props)=>{
         }
     };
 
+    const productPrice = (product)=> {
+        if(product.discount > 0){
+            return product.discountPrice;
+        }
+        return product.price;
+    };
+
     return (
         <div>
             {product &&
@@ -54,7 +61,8 @@ const Product = (props)=>{
                             <ImageView images={color} />
                     </div>
                     <div className="col-sm-12 col-md-4">
-                        <h3 className="text-primary">{product.price} <small>EGP</small></h3>
+                        {product.discount> 0 && <h4 className="text-danger"><s>was: {product.price} EGP </s>{product.discount}% off</h4>}
+                        <h3 className="card-subtitle mb-2 text-primary">price: <b>{productPrice(product)} EGP</b></h3> 
                         <ul className="list-group w-50">
                             {product.Colors.map(c=>(
                                 <a href="#" onClick={e=> changeColor(c, e)} key={c.id} className={`list-group-item list-group-item-action ${c.Color == color.Color?'active' : ''}`}>{c.Color}</a>

@@ -40,8 +40,7 @@ module.exports = (sequelize, DataTypes) => {
     discountPrice: {
       type: DataTypes.VIRTUAL,
       get: function(){
-        return this.getDataValue('price') +
-          this.getDataValue('price') * this.getDataValue('discount');
+        return this.getDataValue('discount')/100 * this.getDataValue('price');
       },
     }
   }, {

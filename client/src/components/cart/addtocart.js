@@ -25,7 +25,7 @@ const addToCart = (props)=>{
                 productId: product.id,
                 productName: product.name,
                 quantity,
-                price: product.price,
+                price: product.discount> 0 ? product.discountPrice : product.price,
                 op: 1
             };
             await axios.put('/api/cart', cartProduct);
@@ -39,6 +39,13 @@ const addToCart = (props)=>{
         setQuantity(e.target.value);
     };
 
+    const productPrice = (product)=> {
+        if(product.discount > 0){
+            return product.discountPrice;
+        }
+        return product.price;
+    };
+
     return(
         <div>
             {product.stockCount &&
@@ -48,8 +55,8 @@ const addToCart = (props)=>{
                         <small className="pl-4">{product.stockCount} in stock</small>
                     </h3>
                     <div className="col-12">
-                        <p>price: {product.price}</p>
-                        <h6>total: {product.price * quantity}</h6>
+                        <p>price: {productPrice(product)}</p>
+                        <h6>total: {productPrice(product) * quantity}</h6>
                         <form onSubmit={handleAdd}>
                             <label htmlFor="cartQuantity">quantity</label>
                             <input
