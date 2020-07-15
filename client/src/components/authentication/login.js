@@ -41,9 +41,9 @@ class Login extends React.Component{
     render(){
         return(
             <div class="row">
-                <div className="card offset-sm-1 col-sm-10 offset-md-4 col-md-4 border border-radius p-4 mt-4">
+                <div className="card mx-auto col-sm-10 col-md-3 border border-radius p-4 mt-4">
                     <form className="card-body" onSubmit={this.handleSubmit}>
-                            <h5 className="card-title pb-1 text-center">Login</h5>
+                            <h5 className="card-title pb-1 text-center text-secondary">Login</h5>
                             <Input
                                 type="email"
                                 name="email"
@@ -68,9 +68,9 @@ class Login extends React.Component{
                                 <input type="checkbox" class="form-check-input" id="rememberme" />
                                 <label class="form-check-label" for="rememberme">remember me for a week</label>
                             </div>
-                            <p><small style={{color: 'red'}}>{this.state.error}</small></p>
                             <ForgotPasswordLink />
-                            <button class="btn btn-outline-primary">login</button>
+                            <p><small style={{color: 'red'}}>{this.state.error}</small></p>
+                            <button class="btn btn-primary form-control">login</button>
                     </form>
                 </div>
             </div>

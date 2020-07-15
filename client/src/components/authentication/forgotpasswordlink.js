@@ -29,7 +29,7 @@ const ForgotPasswordLink = (props) => {
 
     return (
         <div>
-            <a className="m-2" href="#" data-toggle="modal" data-target="#fullImageModal">Forgot Password</a>
+            <a href="#" data-toggle="modal" data-target="#fullImageModal"><small><u>Forgot Password?</u></small></a>
             <div className="modal fade" id="fullImageModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog modal-dialog-centered " role="document">
                     <div className="modal-content">
@@ -44,7 +44,7 @@ const ForgotPasswordLink = (props) => {
                                 label="email"
                                 required='required'
                             />
-                            <button class="btn btn-outline-primary">Send</button>
+                            <button class="btn btn-primary">Send</button>
                         </form>
                     </div>
                 </div>

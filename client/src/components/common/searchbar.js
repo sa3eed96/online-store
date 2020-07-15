@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
+import { FaSearch } from 'react-icons/fa'
 import axios from 'axios';
 
 const searchBar = (props)=> {
@@ -27,8 +28,9 @@ const searchBar = (props)=> {
     };
 
     return (
-        <div>
+        <div className="w-50 position-relative">
             <form className="form-inline" onSubmit={handleSubmit}>
+                <label class="sr-only" for="search">search products</label>
                 <input
                     id="search"
                     type="search"
@@ -36,21 +38,20 @@ const searchBar = (props)=> {
                     value={search}
                     onChange={handleChange}
                     placeholder="search products"
-                    className="form-control mr-sm-2"
-                />
-                <button  className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button> 
+                    className="form-control mr-0 w-75"
+                    autocomplete="off"
+                    />
+                <button className="btn btn btn-secondary ml-0 my-2 my-sm-0" type="submit"><FaSearch /></button> 
             </form>
             {search.length > 0 && (
-                <div style={{position: 'absolute', width:'300px', height: '250px', backgroundColor:'white', border:'1px solid black', zIndex: '1' }}>
+                <ul className="list-group list-group-flush w-75" style={{position: 'absolute', zIndex: '1' }}>
                     {autocomplete.map((product, index)=> (
                         <div key={index}>
-                            <Link to={{pathname: '/', search: `?q=${product.name}` }} >{product.name}</Link>
-                            <br />
-                            <Link to={{pathname: '/', search: `q=${product.name}&c=${product.SubcategoryName}` }}>{product.name} in {product.SubcategoryName}</Link>
-                            <br />
+                            <Link className="list-group-item list-group-item-action text-primary" to={{pathname: '/', search: `?q=${product.name}` }} >{product.name}</Link>
+                            <Link className="list-group-item list-group-item-action text-primary" to={{pathname: '/', search: `q=${product.name}&c=${product.SubcategoryName}` }}>{product.name} in {product.SubcategoryName}</Link>
                         </div>
                     ))}                    
-                </div>
+                </ul>
             )}
         </div>
     );

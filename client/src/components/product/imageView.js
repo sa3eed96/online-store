@@ -16,7 +16,7 @@ const ImageView = (props)=>{
 
     return (
         <div className="row">
-            <div className="col-5 p-1">
+            {/* <div className="col-5 p-1">
                 <img src={'/public/images/'+currentImage} className="clickable img-thumbnail" width="250px" height="250px" alt="product image" data-toggle="modal" data-target="#fullImageModal"></img>
             </div>
             <div className="col-1 p-1">
@@ -35,6 +35,26 @@ const ImageView = (props)=>{
                 </div>
                 </div>
             </div>
+            </div> */}
+            <div style={{height: (window.screen.height / 3)}} id="carouselExampleIndicators" className="carousel slide col-12" data-ride="carousel">
+                <div className="carousel-inner h-100">
+                    {images.map((image, index)=>(
+                        <div className={`carousel-item h-100 ${index===0? 'active':''}`}>
+                            <img key={image.id} src={'/public/images/'+image.image} className="clickable h-100 w-100" alt="product image"></img>
+                        </div>
+                    ))}
+                </div>
+                {images.length > 1 && 
+                <div>
+                <a className="carousel-control-prev bg-dark" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span className="sr-only">Previous</span>
+                </a>
+                <a className="carousel-control-next bg-dark" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span className="sr-only">Next</span>
+                </a>
+                </div>}
             </div>
         </div>
     );

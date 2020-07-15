@@ -52,67 +52,71 @@ const Product = (props)=>{
     };
 
     return (
-        <div>
+        <div className="row mt-4">
             {product &&
-                <div className="row mt-4">
-                    <div className="col-sm-12 col-md-4">
+                <div className="col-10 mx-auto bg-white">
+                    <div className="row">
+                        <div className="col-sm-12 col-md-4">
                             <h3>{product.name}</h3>
                             <RateView rate={product.Rate.rate} />
                             <ImageView images={color} />
-                    </div>
-                    <div className="col-sm-12 col-md-4">
-                        {product.discount> 0 && <h4 className="text-danger"><s>was: {product.price} EGP </s>{product.discount}% off</h4>}
-                        <h3 className="card-subtitle mb-2 text-primary">price: <b>{productPrice(product)} EGP</b></h3> 
-                        <ul className="list-group w-50">
+                        </div>
+                        <div className="col-sm-12 col-md-4">
+                            <h3 className="card-subtitle mb-2 text-primary"><b>{productPrice(product)} <small>EGP</small></b></h3> 
+                            {product.discount> 0 && <h6><small className="text-secondary"><s>{product.price} EGP </s></small> - {product.discount}% off</h6>}
+                            <p><small><b>FREE Shipping</b></small></p>
+                            <hr />
+                            <p><b>Color:</b><br />
                             {product.Colors.map(c=>(
-                                <a href="#" onClick={e=> changeColor(c, e)} key={c.id} className={`list-group-item list-group-item-action ${c.Color == color.Color?'active' : ''}`}>{c.Color}</a>
+                                <a href="#" onClick={e=> changeColor(c, e)} key={c.id} className={`btn mr-1 ${c.Color == color.Color?'btn-secondary' : 'btn-outline-secondary'}`}>{c.Color}</a>
                             ))}
-                        </ul>
-                        <p><small>{product.stockCount} in stock</small></p>
-                        <p><b>description:</b>
-                                {description}
-                        </p>
-                    </div>
-                    <div className="col-sm-12 col-md-4">
-                        <UserContext.Consumer>
-                            {user=>(
-                            <div>
-                                {user.state.isAuthenticated &&
-                                    <Link className="btn btn-primary form-control" to={{pathname:cart? '/cart':'/addtocart', state: cart? null : product}}>{cart? 'added to cart':'add to cart'}</Link>
+                            <br />
+                            <small>{product.stockCount} in stock</small>
+                            </p>
+                            <hr />
+                            <p className="pt-0"><b>Description:</b> <br />
+                            {description}</p>
+                        </div>
+                        <div className="col-sm-12 col-md-4 mt-1">
+                            <UserContext.Consumer>
+                                {user=>(
+                                <div>
+                                    {user.state.isAuthenticated &&
+                                        <Link className="btn btn-primary form-control" to={{pathname:cart? '/cart':'/addtocart', state: cart? null : {product: {...product}, color}}}>{cart? 'added to cart':'add to cart'}</Link>
+                                    }
+                                </div>
+                                )}
+                            </UserContext.Consumer>
+                        </div>
+                        <div style={{minHeight: (window.screen.height/2)}} className="col-12 mt-4">
+                            <ul className="nav nav-tabs">
+                                <li className="nav-item">
+                                    <a onClick={switchTab} className={`nav-link ${tabIndex == 0 ? 'active': ''}`} href="#">Specifications</a>
+                                </li>
+                                <li className="nav-item">
+                                    <a onClick={switchTab} className={`nav-link ${tabIndex == 1 ? 'active': ''}`} href="#">Description</a>
+                                </li>
+                            </ul>
+                            {tabIndex == 0 && Object.keys(product.Specification).map((spec, index)=> (
+                            <div key={index}>
+                                {product.Specification[spec] &&
+                                    <p><b>{spec}</b>: {product.Specification[spec]}</p>
                                 }
                             </div>
-                            )}
-                        </UserContext.Consumer>
-                    </div>
-                    <hr />
-                    <div className="col-12">
-                        <ul className="nav nav-tabs">
-                            <li className="nav-item">
-                                <a onClick={switchTab} className={`nav-link ${tabIndex == 0 ? 'active': ''}`} href="#">Specifications</a>
-                            </li>
-                            <li className="nav-item">
-                                <a onClick={switchTab} className={`nav-link ${tabIndex == 1 ? 'active': ''}`} href="#">Description</a>
-                            </li>
-                        </ul>
-                        {tabIndex == 0 && Object.keys(product.Specification).map((spec, index)=> (
-                        <div key={index}>
-                            {product.Specification[spec] &&
-                                <p><b>{spec}</b>:{product.Specification[spec]}</p>
-                            }
+                            ))}
+                            {tabIndex == 1 && <p>
+                                {product.description}
+                            </p>}
                         </div>
-                        ))}
-                        {tabIndex == 1 && <p>
-                            {product.description}
-                        </p>}
-                    </div>
-                    <div className="col-12">
-                        <UserContext.Consumer>
-                            {user=>(product.id && 
-                                <div>
-                                    <Rate productId={product.id} rate={product.Rate} user={user} />
-                                </div>
-                            )}
-                        </UserContext.Consumer>
+                        <div className=" border-top col-12">
+                            <UserContext.Consumer>
+                                {user=>(product.id && 
+                                    <div>
+                                        <Rate productId={product.id} rate={product.Rate} user={user} />
+                                    </div>
+                                )}
+                            </UserContext.Consumer>
+                        </div>
                     </div>
                 </div>
             }

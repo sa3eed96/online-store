@@ -21,6 +21,7 @@ import PurchaseDetails from './purchase/purchasedetails';
 import PageNotFound from './PageNotFound';
 import ForgotPassword from './authentication/forogtpassword';
 import EmailVerify from './emailverify';
+import './App.css';
 
 function App(props){
     return (

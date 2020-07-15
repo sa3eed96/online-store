@@ -42,16 +42,16 @@ class Register extends React.Component{
     
     render(){
         return(
-            <div className="card offset-sm-1 col-sm-10 offset-md-4 col-md-4 border border-radius p-4 mt-4">
+            <div className="card mx-auto col-sm-10 col-md-3 border border-radius mt-4">
                 <form  className="card-body" onSubmit={this.handleSubmit}>
-                <h5 className="card-title pb-1 text-center">Register</h5>
+                <h5 className="card-title pb-1 text-center text-secondary">Register</h5>
                         <Input
                             type="text"
                             name="firstName"
                             value={this.state.firstName}
                             onChange={this.handleChange}
                             id="firstName"
-                            label="firstName"
+                            label="First name"
                             required='required'
                             pattern="[a-zA-Z]{2,}"
                         />
@@ -61,7 +61,7 @@ class Register extends React.Component{
                             value={this.state.lastName}
                             onChange={this.handleChange}
                             id="lastName"
-                            label="lastName"
+                            label="Last name"
                             required='required'
                             pattern="[a-zA-Z]{2,}"
                         />
@@ -71,7 +71,7 @@ class Register extends React.Component{
                             value={this.state.email}
                             onChange={this.handleChange}
                             id="email"
-                            label="email"
+                            label="Email"
                             required='required'
                         />
                         <Input 
@@ -80,10 +80,11 @@ class Register extends React.Component{
                             value={this.state.password}
                             onChange={this.handleChange}
                             id="password"
-                            label="password"
+                            label="Password"
                             required='required'
                             minLength="8"
                             maxLength="30"
+                            info="password must be atleast 8 characters"
                         />
                         <Input
                             type="text"
@@ -91,12 +92,13 @@ class Register extends React.Component{
                             value={this.state.phone}
                             onChange={this.handleChange}
                             id="phone"
-                            label="mobile number"
+                            label="Mobile Number"
                             pattern="[0-9]{11}"
                             required='required'
+                            info="Egyptian mobile number"
                         />
                         <p><small style={{color: 'red'}}>{this.state.error}</small></p>
-                        <button className="btn btn-outline-success text-center">register</button>
+                        <button className="btn btn-primary form-control">register</button>
                 </form>
             </div>
         );

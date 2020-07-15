@@ -38,7 +38,7 @@ const Address = (props) => {
         <div class="row">
             <div className="card offset-sm-1 col-sm-10 offset-md-4 col-md-4 border border-radius p-4 mt-4">
                 <form className="card-body" onSubmit={handleSubmit}>
-                    <h5 className="card-title pb-1 text-center">Address</h5>
+                    <h5 className="card-title pb-1 text-center">Edit Address</h5>
                     <div className="form-group">
                         <label htmlFor="country">Country</label>
                         <select name="country" class="form-control" id="country" onChange={handleChange}  required>
@@ -72,7 +72,7 @@ const Address = (props) => {
                         required="required"
                         pattern="[0-9]{3,6}"
                     />
-                    <button className="btn btn-outline-success">save</button>
+                    <button className="btn btn-primary">save</button>
                 </form>
             </div>
         </div>

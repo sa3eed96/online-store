@@ -49,7 +49,7 @@ const UserInfo = (props)=> {
         <div class="row">
             <div className="card offset-sm-1 col-sm-10 offset-md-4 col-md-4 border border-radius p-4 mt-4">
                 <form className="card-body" onSubmit={handleSubmit}>
-                    <h5 className="card-title pb-1 text-center">Personal Information</h5>
+                    <h5 className="card-title pb-1 text-center">Edit Personal Information</h5>
                     <Input
                         id="firstName"
                         label="firstName"
@@ -90,7 +90,7 @@ const UserInfo = (props)=> {
                         pattern="[0-9]{11}"
                     />
                     <p style={{color:'red'}}><small>{error}</small></p>
-                    <button  class="btn btn-outline-success">update</button>
+                    <button  class="btn btn-primary">update</button>
                 </form>
             </div>
         </div>

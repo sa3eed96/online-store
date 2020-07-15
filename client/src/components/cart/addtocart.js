@@ -2,10 +2,12 @@ import React, {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import FormInput from '../common/formInput';
 import axios from 'axios';
+import ImageView from '../product/imageView';
 
 const addToCart = (props)=>{
-    const [quantity, setQuantity] = useState(props.location.state.quantity || 1);
-    const [product, setProduct] = useState(props.location.state);
+    const [quantity, setQuantity] = useState(props.location.state.product.quantity || 1);
+    const [product, setProduct] = useState(props.location.state.product);
+    const [images, setImages] = useState(props.location.state.color);
 
     useEffect(()=>{
         if(product.hasOwnProperty('stockCount')){
@@ -49,29 +51,51 @@ const addToCart = (props)=>{
     return(
         <div>
             {product.stockCount &&
-                <div className="row">
-                    <h3 className="col-12">
-                        <Link to={{pathname: `/product/${product.id}`}}>{product.name}</Link>
-                        <small className="pl-4">{product.stockCount} in stock</small>
-                    </h3>
-                    <div className="col-12">
-                        <p>price: {productPrice(product)}</p>
-                        <h6>total: {productPrice(product) * quantity}</h6>
-                        <form onSubmit={handleAdd}>
-                            <label htmlFor="cartQuantity">quantity</label>
-                            <input
-                                type="number"
-                                id='cartQuantity'
-                                name='quantity'
-                                value={quantity}
-                                onChange={handleQuantityChange}
-                                required='required'
-                                min="1"
-                                max={product.stockCount}
-                                className="form-control w-25"
-                            />
-                            <button className="btn btn-outline-success mt-1">Add to Cart</button>
-                        </form>
+                <div className="row mt-4">
+                    <div className="col-md-8 bg-white mx-auto border">
+                        <div className="row border-bottom my-2">
+                            <h5 className="col">Add to Cart</h5>
+                        </div>
+                        <div className="row">
+                            <div className="col-md-3 col-sm-10 offset-sm-1 mx-1">
+                                <ImageView images={images} />
+                            </div>
+                            <div className="col-md-4 col-sm-12 border-left">
+                                <div className="row">
+                                    <div className="col">
+                                        <p className=""><Link to={{pathname: `/product/${product.id}`}}>{product.name}</Link></p>
+                                    </div>
+                                    <div className="col">
+                                        <p><small> {product.stockCount} in stock</small></p>
+                                    </div>
+                                </div>
+                                <div className="row">
+                                    <div className="col">
+                                        <p className="">price: {productPrice(product)} <small> EGP</small></p>
+                                    </div>
+                                    <div className="col">
+                                        <p className="">total: <b>{productPrice(product) * quantity}</b> <small> EGP</small></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-md-3 col-sm-12 border-left">
+                                <form onSubmit={handleAdd}>
+                                    <label htmlFor="cartQuantity">quantity</label>
+                                    <input
+                                        type="number"
+                                        id='cartQuantity'
+                                        name='quantity'
+                                        value={quantity}
+                                        onChange={handleQuantityChange}
+                                        required='required'
+                                        min="1"
+                                        max={product.stockCount}
+                                        className="form-control w-50"
+                                    />
+                                <button className="btn btn-success mt-1">Add to Cart</button>
+                            </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             }

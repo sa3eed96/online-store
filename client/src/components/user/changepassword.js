@@ -76,7 +76,7 @@ const ChangePassword = (props)=> {
                         maxLength="30"
                     />
                     <p style={{color: 'red'}}><small>{error}</small></p>
-                    <button className="btn btn-outline-success">update</button>
+                    <button className="btn btn-success">Update</button>
                 </form>
                 </div>
             </div>
