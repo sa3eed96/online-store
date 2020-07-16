@@ -9,7 +9,7 @@ const { hmGetAsync } = require('../redis');
 
 module.exports.index = async (req, res, next) => {
     try {
-        const { page, q, c } = req.query;
+        const { page, q, c, sort, by } = req.query;
         const limit = 12;
         const offset = (page - 1) * limit;
         const where = {
@@ -17,6 +17,12 @@ module.exports.index = async (req, res, next) => {
         };
         q ? where['name'] = q: null;
         c ? where['SubcategoryName'] = c: null;
+        let order = [];
+        if(sort){
+            order.push([sort, by]);
+        }else{
+            order = null;
+        }
         const { count, rows: products } = await Product.findAndCountAll({
             where,
             limit,
@@ -28,6 +34,7 @@ module.exports.index = async (req, res, next) => {
                 model: Color,
                 include: [Image]
             }],
+            order,
             distinct: true,
         });
         return res.json({ products, count });

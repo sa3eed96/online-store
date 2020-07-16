@@ -10,6 +10,8 @@ const Products = (props) => {
     const [page, setPage] = useState(1);
     const [count, setCount] = useState(0);
     const [category, setCategory] = useState('');
+    const [sort, setSort] = useState([]);
+    const [sortDisplay, setSortDisplay] = useState(['No Sort']);
 
     useEffect(() => {
         const getProducts = async () => {
@@ -17,8 +19,12 @@ const Products = (props) => {
                 const query = new URLSearchParams(props.location.search);
                 const productName = query.get('q') ? `&q=${query.get('q')}`: '';
                 const categoryName = query.get('c') ? `&c=${query.get('c')}`: '';
+                let sortQuery = ``;
+                if(sort.length === 2){
+                    sortQuery = `&sort=${sort[0]}&by=${sort[1]}`   
+                }
                 setCategory(query.get('c') ? query.get('c'): 'All Products');
-                const {data} = await axios.get(`/api/product?page=${page}${productName}${categoryName}`);
+                const {data} = await axios.get(`/api/product?page=${page}${productName}${categoryName}${sortQuery}`);
                 setProducts(data.products);
                 setCount(data.count);
             } catch (err) {
@@ -26,7 +32,7 @@ const Products = (props) => {
             }
         };
         getProducts();
-    }, [page, props.location.search]);
+    }, [page, props.location.search, sort]);
 
     const updatePage = (page)=> {
         setPage(page);
@@ -44,6 +50,18 @@ const Products = (props) => {
         return product.price;
     };
 
+
+    const changeSort = (s, d, e)=>{
+        e.preventDefault();
+        if(s.length === 0){
+            setSort([]);
+        }else{
+            const [field, type] = s.split(' ');
+            setSort([field, type]);
+        }
+        setSortDisplay(d);
+    }
+
     return (
         <div>
             <div className="row">
@@ -52,6 +70,21 @@ const Products = (props) => {
                 </div>
             </div>
             <div className="row bg-white mx-1">
+                {products.length > 0 && 
+                    <div className="col-12">
+                        <div className="dropdown">
+                            <a className=" col-1 dropdown-toggle" type="button" id="dropdownSortButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <small>Sort By: <span className="text-primary">{sortDisplay}</span></small>
+                            </a>
+                            <div className="dropdown-menu" aria-labelledby="dropdownSortButton">
+                                <a onClick={e => changeSort('', 'No Sort', e)} className="dropdown-item" href="#">No Sort</a>
+                                <a onClick={e => changeSort('name ASC', 'Name', e)} className="dropdown-item" href="#">Name</a>
+                                <a onClick={e => changeSort('price ASC', 'Price: Low to High', e)} className="dropdown-item" href="#">price: Low to High</a>
+                                <a onClick={e => changeSort('price DESC', 'Price: High to Low', e)} className="dropdown-item" href="#">price: High to Low</a>
+                            </div>
+                        </div>
+                    </div>
+                }
                 {products.map(product =>
                     (
                         <div className="col-sm-12 col-md-2 card ml-3 mr-3 mt-3 clickable" key={product.id}>
