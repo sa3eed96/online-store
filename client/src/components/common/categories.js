@@ -14,8 +14,7 @@ const Categories = (props)=>{
     }, []);
 
     return (
-        <div>
-            {categories.map((cat=> (
+            <ul className="navbar-nav mr-auto">            {categories.map((cat=> (
                 <li key={cat.name} className="nav-item dropdown">
                     <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         {cat.name}
@@ -28,7 +27,7 @@ const Categories = (props)=>{
                 </li>
             )))
             }
-        </div>
+            </ul>
     );
 };
 

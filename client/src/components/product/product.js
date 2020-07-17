@@ -13,6 +13,8 @@ const Product = (props)=>{
     const [color, setColor] = useState(null);
     const [description, setDescription] = useState(null);
     const [tabIndex, setTabIndex] = useState(0);
+    const [loading, setLoading] = useState(true);
+
     let descriptionPart;
     useEffect(()=>{
         const getProduct = async()=>{
@@ -23,6 +25,7 @@ const Product = (props)=>{
                 setProduct(product.data.product);
                 setDescription(product.data.product.description.length > 150 ? <span>{product.data.product.description.substring(0, 149)}...<a href="#">read more</a> </span>:
                 <span>{product.data.product.description}</span>);
+                setLoading(false);
             }catch(err){
                 alert(err);
             }
@@ -53,7 +56,12 @@ const Product = (props)=>{
 
     return (
         <div className="row mt-4">
-            {product &&
+            {loading &&
+                <div className="spinner-border text-primary mx-auto" role="status">
+                    <span className="sr-only">Loading...</span>
+                </div>
+            }
+            {!loading &&
                 <div className="col-10 mx-auto bg-white">
                     <div className="row">
                         <div className="col-sm-12 col-md-4">
