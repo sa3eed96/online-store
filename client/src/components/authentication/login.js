@@ -12,6 +12,7 @@ class Login extends React.Component{
             password: '',
             rememberMe: false,
             error: '',
+            loading: false,
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -27,6 +28,7 @@ class Login extends React.Component{
         try{
             this.setState({error: ''});
             e.preventDefault();
+            this.setState({loading: true});
             const user = await axios.post('/api/login', {email: this.state.email, password: this.state.password, rememberMe: this.state.rememberMe});
             this.props.user.dispatch({
                 type: 'login',
@@ -34,6 +36,7 @@ class Login extends React.Component{
             });
             this.props.history.replace('/');
         }catch(err){
+            this.setState({loading: false});
             this.setState({error: err.response.data});
         }
     }
@@ -69,6 +72,13 @@ class Login extends React.Component{
                                 <label class="form-check-label" for="rememberme">remember me for a week</label>
                             </div>
                             <ForgotPasswordLink showNotifiction={this.props.showNotifiction} />
+                            {this.state.loading &&
+                            <div className="d-flex justify-content-center">
+                                <div className="spinner-border text-primary" role="status">
+                                    <span className="sr-only">Loading...</span>
+                                </div>
+                            </div>
+                            }
                             <p><small style={{color: 'red'}}>{this.state.error}</small></p>
                             <button class="btn btn-primary form-control">login</button>
                     </form>

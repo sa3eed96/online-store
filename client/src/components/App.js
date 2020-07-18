@@ -46,8 +46,8 @@ function App(props){
                             <Switch>
                                 <Route exact path="/" component={Products} />
                                 <Route path="/product/:id" component={Product} />
-                                <Route path="/login" render={(props)=><Login {...props} user={user} />} />
-                                <Route path="/register" render={(props)=><Register showNotification={showNotification} {...props} user={user} />} />
+                                <Route path="/login" render={(props)=>!user.state.isAuthenticated ?<Login {...props} user={user} />: <Redirect to='/' />} />
+                                <Route path="/register" render={(props)=>!user.state.isAuthenticated ?<Register showNotification={showNotification} {...props} user={user} />:<Redirect to='/' />} />
                                 <Route path="/addtocart" render={(props) =>user.state.isAuthenticated ? <AddToCart {...props} /> : <Redirect to='/login' />} />
                                 <Route path="/cart" render={(props) =>user.state.isAuthenticated ? <Cart {...props} showNotification={showNotification} /> : <Redirect to='/login' /> } />
                                 <Route path="/purchase" render={(props) =>user.state.isAuthenticated ? <Purchase {...props} /> : <Redirect to='/login' /> } />

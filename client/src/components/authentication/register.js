@@ -12,6 +12,7 @@ class Register extends React.Component{
             password: '',
             phone: '',
             error: '',
+            loadng: false,
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -28,6 +29,7 @@ class Register extends React.Component{
         try{
             e.preventDefault();
             this.setState({error: ''});
+            this.setState({loading: true});
             const user = await axios.post('/api/register', this.state);
             this.props.user.dispatch({
                 type: 'register',
@@ -37,6 +39,7 @@ class Register extends React.Component{
             this.props.history.replace('/');
             this.showNotification('confirmation link has been sent to your email','bg-success','Registered successfully');
     }catch(err){
+        this.setState({loading: false});
         this.setState({error: err.response.data});
     }
     }
@@ -98,6 +101,13 @@ class Register extends React.Component{
                             required='required'
                             info="Egyptian mobile number"
                         />
+                        {this.state.loading &&
+                            <div className="d-flex justify-content-center">
+                                <div className="spinner-border text-primary" role="status">
+                                    <span className="sr-only">Loading...</span>
+                                </div>
+                            </div>
+                        }   
                         <p><small style={{color: 'red'}}>{this.state.error}</small></p>
                         <button className="btn btn-primary form-control">register</button>
                 </form>
