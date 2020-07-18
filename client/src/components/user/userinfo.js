@@ -24,16 +24,17 @@ const UserInfo = (props)=> {
         try {
             e.preventDefault();
             setError('');
-            const updatedUser = await axios.put('/api/user', user);
-            if(updatedUser.data.hasOwnProperty('user')){
+            const {data} = await axios.put('/api/user', user);
+            if(data.hasOwnProperty('user')){
+                console.log(data);
                 props.user.dispatch({
                     type: 'infoUpdate',
                     payload: {
                         ...props.user.state.user,
-                        firstName: user.firstName,
-                        lastName: user.lastName,
-                        phone: user.phone,
-                        email: user.email,
+                        firstName: data.user[0].firstName,
+                        lastName: data.user[0].lastName,
+                        phone: data.user[0].phone,
+                        email: data.user[0].email,
                     }
                 });
             }
