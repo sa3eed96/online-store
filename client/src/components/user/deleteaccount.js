@@ -20,12 +20,13 @@ const DeleteAccount = (props)=> {
             props.user.dispatch({
                 type: 'logout'
             });
+            props.showNotification('Account Deleted', 'bg-success', 'Success');
             props.history.replace('/login');
         }catch(err){
             if(err.response.status === 400){
                 return setError(err.response.data);
             }
-            alert('could not delete account, try again later');
+            props.showNotification('Could Not Delete Account, try again later', 'bg-danger', 'Error');
         }
     };
 

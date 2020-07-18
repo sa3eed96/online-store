@@ -27,9 +27,9 @@ const ForgotPassword  = (props)=>{
             e.preventDefault();
             await axios.post('/api/reset',{password, id});
             props.history.push('/login');
-            alert('password updated');
+            props.showNotification('Password Reset Success','bg-success', 'Success');
         }catch(err){
-            alert('update failed');
+            props.showNotification('Failed to Reset Password','bg-danger', 'Error');
         }
     };
 

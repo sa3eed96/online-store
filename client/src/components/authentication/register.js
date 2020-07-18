@@ -15,6 +15,7 @@ class Register extends React.Component{
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.showNotification = props.showNotification;
     }
 
     handleChange(e){
@@ -34,7 +35,7 @@ class Register extends React.Component{
             });
             // let { from } = this.props.location.state || { from: { pathname: "/" } };
             this.props.history.replace('/');
-            alert('confirmation link has been sent to your email');
+            this.showNotification('confirmation link has been sent to your email','bg-success','Registered successfully');
     }catch(err){
         this.setState({error: err.response.data});
     }

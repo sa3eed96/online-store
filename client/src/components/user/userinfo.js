@@ -37,12 +37,13 @@ const UserInfo = (props)=> {
                     }
                 });
             }
+            props.showNotification('Info updated', 'bg-success', 'Success');
             props.history.replace('/settings');
         } catch (err) {
             if(err.response.hasOwnProperty('data')){
                 return setError(err.response.data);
             }
-            alert('could not register, try again later');
+            props.showNotification('Could Not Updated Info, try again later', 'bg-danger', 'Error');
         }
     };
     return (

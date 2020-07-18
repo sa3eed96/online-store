@@ -15,7 +15,7 @@ const Addresses = (props)=> {
                 setAddresses(addresses.data.addresses);
                 setLoading(false);
             }catch(err){
-                alert(err);
+                props.showNotification('failed to fetch Addresses','bg-danger', 'Error');
             }
         };
         getAddresses();        
@@ -28,8 +28,9 @@ const Addresses = (props)=> {
             const tempAddresses = [...addresses];
             tempAddresses.splice(index, 1);
             setAddresses(tempAddresses);
+            props.showNotification('Address Deleted','bg-success', 'Success');
         }catch(err){
-            alert(err);
+            props.showNotification('failed to delete Address','bg-danger', 'Error');
         }
         
     }

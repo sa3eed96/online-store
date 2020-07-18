@@ -16,17 +16,18 @@ const ChangePassword = (props)=> {
             setError('');
             if(password.newPassword !== password.confirmPassword)
             {
-                alert('new password does not match confirm password');
+                setError('new password does not match confirm password');
                 return;
             }
             await axios.put('/api/changepassword', {newPassword: password.newPassword, oldPassword:password.oldPassword});
+            props.showNotification('Password Updated', 'bg-success', 'Success');
             props.history.replace('/settings');
         }catch(err){
             console.log(err.response);
             if(err.response.status === 400){
                 return setError(err.response.data);
             }
-            alert('error changing password, try again later');
+            props.showNotification('error changing password, try again later', 'bg-danger', 'Error');
         }
     };
 

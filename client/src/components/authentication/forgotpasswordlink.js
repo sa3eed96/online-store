@@ -11,9 +11,9 @@ const ForgotPasswordLink = (props) => {
         try{
             await axios.post('/api/passwordreset', {email});
             setShowForm(false);
-            alert('email containing password reset link has been sent');
+            props.showNotification('email containing password reset link has been sent','bg-success', 'Success');
         }catch(err){
-            alert('could not send password reset link, try again later');
+            props.showNotification('could not send password reset link, try again later','bg-danger', 'Error');
             console.log(err.response);
         }
     };

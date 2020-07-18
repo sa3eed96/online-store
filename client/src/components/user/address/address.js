@@ -31,7 +31,7 @@ const Address = (props) => {
             }
             props.history.replace('/settings/addresses');
         } catch (err) {
-            alert(err);
+            props.showNotification('failed to add Addess','bg-danger', 'Error');
         }
     };
     return (

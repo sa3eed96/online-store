@@ -68,7 +68,7 @@ class Login extends React.Component{
                                 <input type="checkbox" class="form-check-input" id="rememberme" />
                                 <label class="form-check-label" for="rememberme">remember me for a week</label>
                             </div>
-                            <ForgotPasswordLink />
+                            <ForgotPasswordLink showNotifiction={this.props.showNotifiction} />
                             <p><small style={{color: 'red'}}>{this.state.error}</small></p>
                             <button class="btn btn-primary form-control">login</button>
                     </form>

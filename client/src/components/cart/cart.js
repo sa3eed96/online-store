@@ -19,7 +19,7 @@ const Cart = (props)=> {
                 setCartTotal(total);
                 setLoading(false);
             }catch(err){
-                alert(err);
+                props.showNotification(err, 'bg-danger','Error');
             }
         };
         getCart();
@@ -30,7 +30,7 @@ const Cart = (props)=> {
             await axios.delete('/api/cart');
             setCart([]);
         }catch(err){
-            alert(err);
+            props.showNotification(err, 'bg-danger','Error');
         }
     };
 
@@ -47,7 +47,7 @@ const Cart = (props)=> {
             });
             setCartTotal(total);
         }catch(err){
-            alert(err);
+            props.showNotification(err, 'bg-danger','Error');
         }
     };
 
