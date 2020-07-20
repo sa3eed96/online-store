@@ -15,6 +15,7 @@ class Paypal extends Component {
           total: props.total,
           addressId: props.addressId,
           history: props.history,
+          error: '',
         };
     
         window.React = React;
@@ -49,6 +50,7 @@ class Paypal extends Component {
 
     createOrder = async(data, actions) => {
       try{
+      this.setState({error: ''});
       const {data} = await axios.get('/api/currency');
       const total = (this.state.total / data.egp).toFixed(2);
         return actions.order.create({
@@ -63,7 +65,7 @@ class Paypal extends Component {
           ]
         });
       }catch(err){
-        alert('could not process purchase, try again later');
+        this.setState({error: 'could not process purchase, try again later'});
       }
     };
 
@@ -85,12 +87,21 @@ class Paypal extends Component {
     render() {
         const { showButtons, loading, paid } = this.state;
         return (
-            <div className="row">
-                <p className="col-12">pay online.</p>
-                <h6 className="col-12">total: {this.state.total} EGP</h6>
-                {loading && <span className="text-success">Loading...</span>}
+            <div className="col-md-6 col-sm-12">
+                <div className="row">
+                  <p className="col-auto">pay online.</p>
+                  <h6 className="col-auto"><b>total: {this.state.total} EGP</b></h6>
+                </div>
+                {loading && 
+                  <div className="spinner-border text-primary" role="status">
+                    <span className="sr-only">Loading...</span>
+                  </div>
+                }
+                <div className="row">
+                  <p className="text-danger"><small>{this.state.error}</small></p>
+                </div>
                 {showButtons && (
-                    <div>
+                    <div className="row ml-1">
                         <PaypalButton
                             createOrder={(data, actions) => this.createOrder(data, actions)}
                             onApprove={(data, actions) => this.onApprove(data, actions)}

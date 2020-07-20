@@ -1,11 +1,13 @@
-import React from 'react';
+import React, {useState} from 'react';
 import axios from 'axios';
 
 const OnDoorPurchase = (props)=> {
     const {total, addressId} = props;
+    const [error, setError] = useState('');
 
     const addOrder = async()=> {
         try{
+            setError('');
             await axios.post('/api/purchase',{
                 addressId,
                 paymentType: 'ondoor',
@@ -13,14 +15,21 @@ const OnDoorPurchase = (props)=> {
             });
             props.history.replace('/purchases');
         }catch(err){
-            alert(err);
+            setError('could not process purchase, please try again later');
         }
     };
     return (
-        <div className="row">
-            <p className="col-12">pay when items are delivered at your door.</p>
-            <h6 className="col-12">total: {total} EGP</h6>
-            <button className="btn btn-success" onClick={addOrder}>submit order</button>
+        <div className="col-md-6 col-sm-12">
+            <div className="row">
+                <p className="col-auto">pay when items are delivered at your door.</p>
+                <p className="col-auto">total: <b>{total} EGP</b></p>
+            </div>
+            <div className="row">
+                <p className="text-danger"><small>{error}</small></p>
+            </div>
+            <div className="row ml-1">
+                <button className="btn w-50 btn-success" onClick={addOrder}>Submit Order</button>
+            </div>
         </div>
     );
 };

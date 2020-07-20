@@ -44,7 +44,7 @@ function App(props){
                             <Header user={user} />
                             <Toast body={notification.body} background={notification.background} header={notification.header} />
                             <Switch>
-                                <Route exact path="/" component={Products} />
+                                <Route exact path="/" showNotification={showNotification} component={Products} />
                                 <Route path="/product/:id" component={Product} />
                                 <Route path="/login" render={(props)=>!user.state.isAuthenticated ?<Login {...props} user={user} />: <Redirect to='/' />} />
                                 <Route path="/register" render={(props)=>!user.state.isAuthenticated ?<Register showNotification={showNotification} {...props} user={user} />:<Redirect to='/' />} />

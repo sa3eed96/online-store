@@ -43,11 +43,12 @@ const Rate = (props)=> {
     useEffect(() => {
         const getRates = async()=>{
             try {
+                setError('');
                 const {data} = await axios.get(`/api/product/${props.productId}/userrate?page=${page}`);
                 setRates(data.rates);
                 setCount(data.count);
             } catch (err) {
-                alert(err);
+                setError('could not fetch rate');
             }
         }
         getRates();

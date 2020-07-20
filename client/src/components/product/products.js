@@ -31,7 +31,7 @@ const Products = (props) => {
                 setCount(data.count);
                 setLoading(false);
             } catch (err) {
-                alert(err);
+                props.showNotification('could not fetch products, try again later','bg-danger','Error');
             }
         };
         getProducts();
