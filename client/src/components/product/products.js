@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Pagination from '../common/pagination';
 import axios from 'axios';
 import RateView from '../rate/rateview';
+import {IKImage} from  "imagekitio-react";
 
 const Products = (props) => {
 
@@ -104,15 +105,27 @@ const Products = (props) => {
                                         <small className="p-1 text-white">{product.discount}%</small>
                                     </div>
                                 }
-                                <img className="card-img-top w-50 h-50 mx-auto" onClick={e=> redirectToProduct(product.id, e)} src={'public/images/'+product.Colors[0].Images[0].image} alt="product image"></img>
+                                <IKImage 
+                                    publicKey="public_iTgWxt6Swv2sA/BUpcR3EA43QkI="
+                                    urlEndpoint="https://ik.imagekit.io/rvfdomceug"
+                                    alt="product image"
+                                    src={product.Colors[0].Images[0].image }
+                                    className="card-img-top"
+                                    transformation={[{
+                                    "width": "175",
+                                    "aspectRatio":"1-1",
+                                    "cropMode":"pad_resize"
+                                }]}
+                                />
                                 <div className="card-body px-1 border-top row">
                                     <h6 className="card-title pl-0 col-12">{product.name}</h6>
-                                    <div className="card-subtitle pl-0 text-primary col-6">
-                                        <p className="mb-0"><b>{productPrice(product)} EGP</b></p>
-                                        {product.discount> 0 && <p className="text-muted mt-0"><small><s>was: {product.price} EGP </s></small></p>}
+                                    <div className="card-subtitle pl-0 text-primary col-12">
+                                        <p className="mb-0"><b>{productPrice(product)} EGP</b>
+                                        {product.discount> 0 && <small className="text-muted ml-1"><s>was: {product.price} EGP </s></small>}
+                                        </p>
                                     </div>
-                                    <div className="pl-0 col-6">
-                                        <RateView rate={product.Rate.rate} />
+                                    <div className="pl-0 col-12">
+                                            <RateView rate={product.Rate.rate} />
                                     </div>
                                 </div>
                                 <div className="overlay" onClick={e=> redirectToProduct(product.id, e)}>

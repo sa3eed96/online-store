@@ -57,7 +57,7 @@ const addToCart = (props)=>{
                             <h5 className="col">Add to Cart</h5>
                         </div>
                         <div className="row">
-                            <div className="col-md-3 col-sm-10 offset-sm-1 mx-1">
+                            <div className="col-md-4 col-sm-10 offset-sm-1 mx-1">
                                 <ImageView images={images} />
                             </div>
                             <div className="col-md-4 col-sm-12 border-left">
