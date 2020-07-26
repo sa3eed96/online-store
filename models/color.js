@@ -5,6 +5,14 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    stockCount: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        min: 0,
+        isInt: true,
+      },
+    },
   }, {});
   Color.associate = function (models) {
     models.Color.belongsTo(models.Product, { onDelete: 'CASCADE' });

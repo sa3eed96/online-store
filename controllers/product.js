@@ -12,9 +12,7 @@ module.exports.index = async (req, res, next) => {
         const { page, q, c, sort, by } = req.query;
         const limit = 12;
         const offset = (page - 1) * limit;
-        const where = {
-            stockCount: { [sequelize.Op.gt]: 0 },
-        };
+        const where = {};
         q ? where['name'] = q: null;
         c ? where['SubcategoryName'] = c: null;
         let order = [];
@@ -46,11 +44,16 @@ module.exports.index = async (req, res, next) => {
 module.exports.show = async (req, res, next) => {
     try {
         const { id } = req.params;
+        const { color } = req.query;
+        const where = {};
+        if(color)
+            where['Color'] = color;
         const product = await Product.findByPk(id, { include: [{
             model: Rate,
             attributes:{exclude: ['createdAt', 'updatedAt', 'ProductId']},
         }, {
             model: Color,
+            where,
             attributes:{exclude: ['createdAt', 'updatedAt', 'ProductId']},
             include: {
                 model: Image,
@@ -62,8 +65,8 @@ module.exports.show = async (req, res, next) => {
             }] 
         });
         let cart = null;
-        if (req.session.user)
-            cart = await hmGetAsync(`cart-${req.session.user.id}`, `${product.id}-${product.name}`);
+        if (req.session.user && color)
+            cart = await hmGetAsync(`cart-${req.session.user.id}`, `${product.id}-${product.name}-${color}`);
         return res.json({ product, cart });
     } catch (err) {
         next(createError(500, err));

@@ -26,10 +26,11 @@ module.exports = (sequelize, DataTypes) => {
     let total = 0;
     for (const key in cart) {
       const ProductId = key.split('-')[0];
+      const color = key.split('-')[2];
       const quantityPrice = cart[key].split('-');
       const quantity = quantityPrice[0];
       total += quantity * quantityPrice[1];
-      purchaseDetails.push({ProductId, quantity});
+      purchaseDetails.push({ProductId, quantity, color});
     }
     if(purchaseDetails.length === 0){
       throw new Error('cart is empty');

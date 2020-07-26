@@ -69,6 +69,7 @@ const PurchaseDetails = (props)=> {
                                     <div className="row ml-2">
                                         <h6 className="col-sm-12 col-md-12"><Link to={{pathname: `/product/${p.Product.productId}`}}>{p.Product.name}</Link></h6>
                                         <p className="col-sm-12 col-md-6" className="col">quantity: {p.quantity}</p>
+                                        <p className="col-sm-12 col-md-6" className="col">color: {p.color}</p>
                                         <p className="col-sm-12 col-md-6" className="col">total: {p.Product.price * p.quantity}<small> EGP</small></p>
                                 </div>
                                 ))}

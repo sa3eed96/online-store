@@ -79,7 +79,7 @@ const Product = (props)=>{
                                 <a href="#" onClick={e=> changeColor(c, e)} key={c.id} className={`btn mr-1 ${c.Color == color.Color?'btn-secondary' : 'btn-outline-secondary'}`}>{c.Color}</a>
                             ))}
                             <br />
-                            <small>{product.stockCount} in stock</small>
+                            <small className={color.stockCount === 0 ? 'text-danger': ''}>{color.stockCount} in stock</small>
                             </p>
                             <hr />
                             <p className="pt-0"><b>Description:</b> <br />
@@ -90,7 +90,9 @@ const Product = (props)=>{
                                 {user=>(
                                 <div>
                                     {user.state.isAuthenticated &&
-                                        <Link className="btn btn-primary form-control" to={{pathname:cart? '/cart':'/addtocart', state: cart? null : {product: {...product}, color}}}>{cart? 'added to cart':'add to cart'}</Link>
+                                        <Link className={`btn btn-primary form-control ${color.stockCount === 0 ? 'disabled': ''}`} 
+                                            to={{pathname: '/addtocart', state: {product: {...product}, color}}}>add to cart
+                                        </Link>
                                     }
                                 </div>
                                 )}

@@ -8,7 +8,7 @@ const adminBro = new AdminBro({
     resources: [
         { resource: models.User, options: { listProperties: ['id','firstName', 'lastName', 'email', 'phone', 'lockUntil'] } },
         { resource: models.Product, options: { 
-            listProperties: ['id', 'name', 'description', 'price', 'stockCount', 'discount'] ,
+            listProperties: ['id', 'name', 'description', 'price', 'discount'] ,
             actions:  {
                 new:{
                     after: async(res, req, context)=>{

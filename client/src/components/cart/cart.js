@@ -89,12 +89,16 @@ const Cart = (props)=> {
                                     <h6><Link to={{pathname: `/product/${product.productId}`}}>{product.productName}</Link></h6>
                                     <h6>quantity: {product.quantity}</h6>
                                     <h6>total: {product.price * product.quantity}<small> EGP</small></h6>
+                                    <h6>color: {product.color}</h6>
                                     <button className="btn btn-secondary mr-2" onClick={(e) => handleRemoveProduct(product, index, e)}>Delete</button>
                                     <Link className="btn btn-primary mr-2" to={{pathname:"/addtocart", state:{
-                                        id: product.productId,
-                                        name: product.productName,
-                                        quantity: product.quantity,
-                                        price: product.price,
+                                        product:{
+                                            id: product.productId,
+                                            name: product.productName,
+                                            quantity: product.quantity,
+                                            price: product.price,
+                                        },
+                                        color: product.color,
                                     }}}>Edit</Link>
                                 </div>   
                             )

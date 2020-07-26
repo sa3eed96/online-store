@@ -9,6 +9,10 @@ module.exports = (sequelize, DataTypes) => {
         isInt: true,
       },
     },
+    color: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
   }, {});
   PurchaseDetail.associate = function (models) {
     models.PurchaseDetail.belongsTo(models.Purchase, { onDelete: 'CASCADE' });

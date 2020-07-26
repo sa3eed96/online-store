@@ -29,14 +29,6 @@ module.exports = (sequelize, DataTypes) => {
         isInt: true,
       },
     },
-    stockCount: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      validate: {
-        min: 0,
-        isInt: true,
-      },
-    },
     discountPrice: {
       type: DataTypes.VIRTUAL,
       get: function(){
@@ -54,19 +46,19 @@ module.exports = (sequelize, DataTypes) => {
   
 
   Product.getUpdateQuery = function(purchaseDetails){
-    let query = 'update "Products" set "stockCount" = ';
+    let query = 'update "Colors" set "stockCount" = ';
     let ids = '';
     if(purchaseDetails.length > 1){
       query+='case ';
       for (const detail of purchaseDetails) {
-        query+=`when id=${detail.ProductId} then "stockCount"-${detail.quantity} `;
+        query+=`when "ProductId"=${detail.ProductId} and "Color"='${detail.color}' then "stockCount"-${detail.quantity} `;
         ids+=`${detail.ProductId},`;
       }
       query+= 'end ';
       ids = ids.substring(0, ids.length -1);
-      return query+=`where id in (${ids})`;
+      return query+=`where "ProductId" in (${ids})`;
     }else{
-      return query+=`"stockCount"-${purchaseDetails[0].quantity} where id = ${purchaseDetails[0].ProductId}`;
+      return query+=`"stockCount"-${purchaseDetails[0].quantity} where "ProductId"=${purchaseDetails[0].ProductId} and "Color"='${purchaseDetails[0].color}'`;
     }
   };
 
