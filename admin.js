@@ -31,6 +31,7 @@ const adminBro = new AdminBro({
         models.Specification,
         models.EmailLinks,
         models.UserRate,
+        models.Refund,
     ],
     rootPath: '/admin',
     branding: {

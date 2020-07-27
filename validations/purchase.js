@@ -19,5 +19,10 @@ module.exports = (method) => {
                 body('isPain').exists().isBoolean(),
             ];
         }
+        case 'destroy':{
+            return [
+                param('id').exists().isInt(),
+            ];
+        }
     }
 }

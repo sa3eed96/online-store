@@ -34,5 +34,6 @@
   #toastPos{
     position: absolute;
     width: 200px;
+    z-index: 10;
   }
 

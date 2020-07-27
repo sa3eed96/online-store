@@ -3,7 +3,7 @@ const Product = require('../models/index').Product;
 const PurchaseDetail = require('../models/index').PurchaseDetail;
 const Shipment = require('../models/index').Shipment;
 const Address = require('../models/index').Address;
-const UserRate = require('../models/index').UserRate;
+const Refund = require('../models/index').Refund;
 const sequelize = require('../models/index').sequelize; 
 const createError = require('http-errors');
 const { hmGetAllAsync, delAsync } = require('../redis');
@@ -39,8 +39,8 @@ module.exports.show = async (req, res, next) => {
 
 module.exports.create = async (req, res, next) => {
     try {
+        const {addressId, isPaid, paymentType} = req.body;
         const result = await sequelize.transaction(async(transaction)=>{
-            const {addressId, isPaid, paymentType} = req.body;
             const cart = await hmGetAllAsync(`cart-${req.session.user.id}`);
             const {purchaseDetails, total} = Purchase.parseCart(cart);
             const productUpdateQuery = Product.getUpdateQuery(purchaseDetails);
@@ -61,7 +61,31 @@ module.exports.create = async (req, res, next) => {
         });
         return res.status(201).json({ purchase: result });
     } catch (err) {
-        console.log(err.stack);
+        next(createError(500, err));
+    }
+};
+
+module.exports.destroy = async(req, res, next)=> {
+    try{
+        const { id } = req.params;
+        await sequelize.transaction(async(transaction)=>{
+            const purchase = await Purchase.findOne({where: {id, UserId: req.session.user.id},
+                include: [PurchaseDetail, Shipment],
+                transaction});
+            if(!purchase)
+                next(createError(404));
+            if(purchase.Shipment.delivered)
+                next(createError(400, 'order is already delivered'));
+            if(purchase.paymentType === 'paypal')
+                await Refund.create({UserId: req.session.user.id, amount: purchase.total, paymentType: purchase.paymentType}, {transaction});
+            const productDeleteQuery = Product.getDeleteQuery(purchase.PurchaseDetails);
+            await sequelize.query(productDeleteQuery, {transaction});
+            await purchase.Shipment.destroy({transaction});
+            await purchase.destroy({transaction});
+    
+        });
+        return res.json({});
+    }catch(err){
         next(createError(500, err));
     }
 };

@@ -95,10 +95,10 @@ const Purchases = (props) => {
                                     )
                                 )
                                 }
+                                <hr />
                             </div>
                         }
                     </div>
-                    <hr />
                     {count > 0 &&
                         <Pagination page={page} count={count} updatePage={updatePage} perPage={12} />
                     }
