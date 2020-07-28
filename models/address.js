@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         min: 2,
-        is: /^[a-z0-9]+(\s|\w)*$/,
+        is: /^[a-zA-Z0-9]+(\s|\w)*$/,
       },
     },
     zipCode: {

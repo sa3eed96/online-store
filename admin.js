@@ -4,6 +4,22 @@ const models = require('./models/index');
 
 AdminBro.registerAdapter(require('admin-bro-sequelizejs'));
 
+const productParent = {
+    name: 'Products',
+}
+
+const userParent = {
+    name: 'Users',
+}
+
+const purchaseParent = {
+    name: 'Purchases',
+}
+
+const categoryParent = {
+    name: 'Categories',
+}
+
 const adminBro = new AdminBro({
     resources: [
         {resource: models.Admin, options: {
@@ -19,9 +35,14 @@ const adminBro = new AdminBro({
                 },
             },
         }},
-        { resource: models.User, options: { listProperties: ['id','firstName', 'lastName', 'email', 'phone', 'lockUntil'] } },
+        { resource: models.User, options: { 
+            listProperties: ['id','firstName', 'lastName', 'email', 'phone', 'lockUntil'], 
+            editProperties: ['firstName', 'lastName', 'email', 'phone', 'lockUntil', 'verified'], 
+            parent: userParent, } },
         { resource: models.Product, options: { 
-            listProperties: ['id', 'name', 'description', 'price', 'discount'] ,
+            editProperties : ['name', 'description', 'price', 'discount', 'SubcategoryName'],
+            showProperties : ['id','name', 'description', 'price', 'discount', 'discountPrice','SubcategoryName'],
+            parent: productParent,
             actions:  {
                 new:{
                     after: async(res, req, context)=>{
@@ -32,19 +53,19 @@ const adminBro = new AdminBro({
             },
         } 
         },
-        models.Address,
-        models.Rate,
-        models.Purchase,
-        models.PurchaseDetail,
-        models.Color,
-        models.Image,
-        models.Shipment,
-        models.Category,
-        models.Subcategory,
-        models.Specification,
-        models.EmailLinks,
-        models.UserRate,
-        models.Refund,
+        {resource: models.Address, options: { parent: userParent, }},
+        {resource: models.Rate, options: {parent: productParent,},},
+        {resource: models.Purchase      , options: { parent: purchaseParent}, },
+        {resource: models.PurchaseDetail, options: { parent: purchaseParent}, },
+        {resource: models.Color, options: {parent: productParent,},},
+        {resource: models.Image, options: {parent: productParent,},},
+        {resource: models.Shipment, options: { parent: purchaseParent}, },
+        {resource: models.Category, options: {parent: categoryParent}},
+        {resource: models.Subcategory, options: {parent: categoryParent}},
+        {resource: models.Specification,  options: {parent: productParent,},},
+        {resource: models.EmailLinks, options: {parent:userParent,}},
+        { resource: models.UserRate, options: { parent: userParent, } },
+        { resource: models.Refund, options: { parent: userParent, } },
     ],
     rootPath: '/admin',
     branding: {
