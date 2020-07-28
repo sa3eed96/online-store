@@ -29,6 +29,7 @@ const currencyRouter = require('./routes/currency');
 
 const app = express();
 
+app.use(adminBro.options.rootPath, adminRouter);
 app.use(logger('dev'));
 app.use(session({
     secret: process.env.SESSION_SECRET,
@@ -47,7 +48,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(adminBro.options.rootPath, adminRouter);
 app.use('/api', authRouter);
 app.use('/api/product', productRouter);
 app.use('/api/address', addressRouter);

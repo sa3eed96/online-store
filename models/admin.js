@@ -1,22 +1,6 @@
 const bcrypt = require('bcrypt');
 module.exports = (sequelize, DataTypes) => {
     const Admin = sequelize.define('Admin', {
-      firstName: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-          isAlpha: true,
-          min: 2,
-        },
-      },
-      lastName: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-          isAlpha: true,
-          min: 2,
-        },
-      },
       email: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -31,13 +15,13 @@ module.exports = (sequelize, DataTypes) => {
           min: 8,
         },
       },
-      fullName: {
-        type: DataTypes.VIRTUAL,
-        get: function(){
-          return this.getDataValue('firstName') +
-            ' ' + this.getDataValue('lastName');
-        }
-      },
+      role: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          is: /super|user/,
+        },
+      }
     }, {});
 
     Admin.beforeSave((admin, options) => {

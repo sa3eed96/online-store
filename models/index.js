@@ -39,9 +39,21 @@ db.Sequelize = Sequelize;
 // db.sequelize.sync({ force: true}).then(async () => {
 //   console.log('Database Created!!');
   
+//  await db.Admin.create({
+//    email:'root@onlinestore.com',
+//    password:'password1234',
+//    role: 'super', 
+//  });
+
+//  await db.Admin.create({
+//    email:'admin@onlinestore.com',
+//    password:'password1234',
+//    role: 'user', 
+//  });
+
 //   await db.Category.create({
 //     name: 'Home'
-//   })
+//   });
 
 //   await db.Subcategory.create({
 //     name: 'Kitchen',

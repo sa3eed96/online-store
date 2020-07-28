@@ -6,6 +6,19 @@ AdminBro.registerAdapter(require('admin-bro-sequelizejs'));
 
 const adminBro = new AdminBro({
     resources: [
+        {resource: models.Admin, options: {
+            actions: {
+                edit: {
+                    isAccessible: ({ currentAdmin }) => currentAdmin && currentAdmin.role === 'super',
+                },
+                delete: {
+                    isAccessible: ({ currentAdmin }) => currentAdmin && currentAdmin.role === 'super',
+                },
+                new: {
+                    isAccessible: ({ currentAdmin }) => currentAdmin && currentAdmin.role === 'super',
+                },
+            },
+        }},
         { resource: models.User, options: { listProperties: ['id','firstName', 'lastName', 'email', 'phone', 'lockUntil'] } },
         { resource: models.Product, options: { 
             listProperties: ['id', 'name', 'description', 'price', 'discount'] ,
