@@ -1,0 +1,21 @@
+{
+  "development": {
+    "username": "",
+    "password": "phiketew6",
+    "database": "ecom_dev",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "operatorsAliases": false
+  },
+  "test": {
+    "username": "",
+    "password": "",
+    "database": "ecom_test",
+    "host": "127.0.0.1",
+    "dialect": "postgres",
+    "operatorsAliases": false
+  },
+  "production": {
+    "url": "postgres://dxakqwjz:0LEIR1iD_OSemTsGbapw8qwj4kHhRLOV@drona.db.elephantsql.com:5432/dxakqwjz"
+  }
+}

@@ -67,4 +67,3 @@ typings/
 
 #dev db files
 /seeders/*
-/config/*
