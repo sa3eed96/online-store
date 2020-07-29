@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {IKImage} from  "imagekitio-react";
-
+import $ from 'jquery';
 
 const ImageView = (props)=>{
     const [images, setImages] = useState(props.images.Images);
@@ -14,6 +14,7 @@ const ImageView = (props)=>{
     useEffect(()=>{
         setImages(props.images.Images);
         setCurrentImage(props.images.Images[0].image);
+        $('#carouselExampleIndicators').carousel(0);
     },[props.images])
 
     return (
@@ -21,7 +22,7 @@ const ImageView = (props)=>{
             <div style={{height: (window.screen.height / 3)}} id="carouselExampleIndicators" className="carousel slide col-12" data-ride="carousel">
                 <div className="carousel-inner h-100">
                     {images.map((image, index)=>(
-                        <div className={`carousel-item h-100 ${index===0? 'active':''}`}>
+                        <div key={index} className={`carousel-item h-100 ${index===0? 'active':''}`}>
                             <IKImage 
                                     key={image.id}
                                     publicKey="public_iTgWxt6Swv2sA/BUpcR3EA43QkI="

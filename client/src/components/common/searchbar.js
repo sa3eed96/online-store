@@ -30,7 +30,7 @@ const searchBar = (props)=> {
     return (
         <div className="w-50 position-relative">
             <form className="form-inline" onSubmit={handleSubmit}>
-                <label class="sr-only" for="search">search products</label>
+                <label className="sr-only" htmlFor="search">search products</label>
                 <input
                     id="search"
                     type="search"
@@ -39,7 +39,7 @@ const searchBar = (props)=> {
                     onChange={handleChange}
                     placeholder="search products"
                     className="form-control mr-0 w-75"
-                    autocomplete="off"
+                    autoComplete="off"
                     />
                 <button className="btn btn btn-secondary ml-0 my-2 my-sm-0" type="submit"><FaSearch /></button> 
             </form>

@@ -29,6 +29,7 @@ const Cart = (props)=> {
         try{
             await axios.delete('/api/cart');
             setCart([]);
+            setCartTotal(0);
         }catch(err){
             props.showNotification(err, 'bg-danger','Error');
         }
