@@ -6,10 +6,8 @@ const session = require('express-session');
 const createError = require('http-errors');
 const adminBro = require('./admin');
 
-if(process.env.NODE_ENV == "development"){
-    const dotenv = require('dotenv');
-    dotenv.config();
-}
+const dotenv = require('dotenv');
+dotenv.config();
 
 let RedisStore = require('connect-redis')(session);
 const { getChannel }= require('./email/addToQueue');

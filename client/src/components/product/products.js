@@ -113,12 +113,13 @@ const Products = (props) => {
                                     className="card-img-top"
                                     transformation={[{
                                     "width": "175",
-                                    "aspectRatio":"1-1",
-                                    "cropMode":"pad_resize"
+                                    "height":"200",
+                                    // "aspectRatio":"1-1",
+                                    "crop":"force"
                                 }]}
                                 />
                                 <div className="card-body px-1 border-top row">
-                                    <h6 className="card-title pl-0 col-12">{product.name}</h6>
+                                    <h6 className="card-title pl-0 col-12">{product.name.length > 25 ? product.name.substring(0,23)+"..." :product.name}</h6>
                                     <div className="card-subtitle pl-0 text-primary col-12">
                                         <p className="mb-0"><b>{productPrice(product)} EGP</b>
                                         {product.discount> 0 && <small className="text-muted ml-1"><s>was: {product.price} EGP </s></small>}

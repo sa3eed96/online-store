@@ -23,7 +23,7 @@ const Product = (props)=>{
                 setCart(product.data.cart);
                 setColor(product.data.product.Colors[0]);
                 setProduct(product.data.product);
-                setDescription(product.data.product.description.length > 150 ? <span>{product.data.product.description.substring(0, 149)}...<a href="#">read more</a> </span>:
+                setDescription(product.data.product.description.length > 150 ? <span>{product.data.product.description.substring(0, 149)}...<a onClick={setTabToDesc} href="#description">read more</a> </span>:
                 <span>{product.data.product.description}</span>);
                 setLoading(false);
             }catch(err){
@@ -45,6 +45,10 @@ const Product = (props)=>{
         }else{
             setTabIndex(0);
         }
+    };
+
+    const setTabToDesc = ()=>{
+        setTabIndex(1);
     };
 
     const productPrice = (product)=> {
@@ -98,7 +102,7 @@ const Product = (props)=>{
                                 )}
                             </UserContext.Consumer>
                         </div>
-                        <div style={{minHeight: (window.screen.height/2)}} className="col-12 mt-4">
+                        <div id="description" style={{minHeight: (window.screen.height/2)}} className="col-12 mt-4">
                             <ul className="nav nav-tabs">
                                 <li className="nav-item">
                                     <a onClick={switchTab} className={`nav-link ${tabIndex == 0 ? 'active': ''}`} href="#">Specifications</a>

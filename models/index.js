@@ -60,19 +60,25 @@ db.Sequelize = Sequelize;
 //     CategoryName: 'Home',
 //   });
 
+//   await db.Subcategory.create({
+//     name: 'Decor',
+//     CategoryName: 'Home',
+//   });
+
 //   await db.Product.create({
-//     name: 'Glass Bottle',
-//     description: 'Glass Bottle for water and juice',
-//     price: '4'
+//     name: 'RCR Glass Water Bottle - Clear',
+//     description: 'Glass and clear Bottle with diffrent colors for water and juice, Dish washer proof',
+//     price: '4',
+//     SubcategoryName: 'Kitchen',
 //   });
 
 //   await db.Specification.create({
 //     ProductId: '1',
-//     weight: '320 gm',
-//     width: ' 15 cm',
+//     weight: '1608 gm',
+//     width: ' 26 cm',
 //     height: '32 cm',
-//     brand: 'Ikea',
-//     specs: 'heat resistent',
+//     brand: 'RCR',
+//     specs: 'Type:Water Bottle,Material:Glass',
 //   });
 
 //   await db.Rate.create({
@@ -102,6 +108,77 @@ db.Sequelize = Sequelize;
 //   await db.Image.create({
 //     ColorId: '2',
 //     image: 'https://ik.imagekit.io/rvfdomceug/silver_EO4EGRrXQw.jpg',
+//   });
+
+//   await db.Product.create({
+//     name: 'Indes Fuggerhaus Polyester Grey 140 x 245 cm Denton Single Panel Curtain',
+//     description: 'The grey colored curtain "Denton" comes in a classic design and fits into the most diverse living styles. Incorporated eyelets ensure a foolproof suspension. With this blackout curtain you can dim your room, an ideal sunscreen for bedroom or nursery',
+//     price: '150',
+//     SubcategoryName: 'Decor',
+//   });
+
+//   await db.Specification.create({
+//     ProductId: '2',
+//     weight: '1 kg',
+//     width: ' 140 cm',
+//     height: '245 cm',
+//     brand: 'Indes Fuggerhaus',
+//     specs: 'Material:polyester,Type:Single Curtain Panels,Pattern:Solid,Country of Origin:Germany,Fabric Quality:Blackout,Suspension:Eyelets',
+//   });
+
+//   await db.Rate.create({
+//     ProductId: '2',
+//     rate: [0, 0, 0, 0, 0],
+//   });
+
+//   await db.Color.create({
+//     ProductId: '2',
+//     Color: 'Grey',
+//     stockCount: '50'
+//   });
+//   await db.Image.create({
+//     ColorId: '3',
+//     image: 'https://ik.imagekit.io/rvfdomceug/cur1_aH7fuMOWc5X.jpg'
+//   });
+//   await db.Image.create({
+//     ColorId: '3',
+//     image: 'https://ik.imagekit.io/rvfdomceug/cur2_nIKc8Ce3MJh.jpg',
+//   });
+
+  
+//   await db.Product.create({
+//     name: 'DIY Removable Wall Stickers For Living Room Home Decor -Bead curtain',
+//     description: 'Removable wall stickers for iving and bed rooms, water resistant and totally removable and adhesive.',
+//     price: '184',
+//     SubcategoryName: 'Decor',
+//   });
+
+//   await db.Specification.create({
+//     ProductId: '3',
+//     weight: '-',
+//     width: ' 70 cm',
+//     height: '50 cm',
+//     brand: 'Other',
+//     specs: 'Theme:Cartoon,Material:PVC,Installation Type:Self-Adhesive',
+//   });
+
+//   await db.Rate.create({
+//     ProductId: '3',
+//     rate: [0, 0, 0, 0, 0],
+//   });
+
+//   await db.Color.create({
+//     ProductId: '3',
+//     Color: 'Black',
+//     stockCount: '28'
+//   });
+//   await db.Image.create({
+//     ColorId: '4',
+//     image: 'https://ik.imagekit.io/rvfdomceug/d1_TZMPr5Luoy7.jpg'
+//   });
+//   await db.Image.create({
+//     ColorId: '4',
+//     image: 'https://ik.imagekit.io/rvfdomceug/d2_L4LybozO6L2.jpg',
 //   });
 
 // });
