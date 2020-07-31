@@ -20,7 +20,7 @@ const Purchase = (props)=> {
         <div style={{minHeight: screen.height/3}} className="row mt-4">
             <div className="col-md-8 mx-auto bg-white">
                 {!addressId &&
-                    <AddressChoose setSelectedAddress={setSelectedAddress} />    
+                    <AddressChoose {...props} setSelectedAddress={setSelectedAddress} />    
                 }
                 {addressId &&
                 <div>

@@ -114,7 +114,6 @@ const Products = (props) => {
                                     transformation={[{
                                     "width": "175",
                                     "height":"200",
-                                    // "aspectRatio":"1-1",
                                     "crop":"force"
                                 }]}
                                 />

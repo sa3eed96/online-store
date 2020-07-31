@@ -12,6 +12,7 @@ const Cart = (props)=> {
             try{
                 const {data} = await axios.get('/api/cart');
                 setCart(data.cart);
+                console.log(data.cart);
                 let total = 0;
                 data.cart.forEach(prod => {
                     total+= prod.quantity*prod.price;

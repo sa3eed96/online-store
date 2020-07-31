@@ -35,8 +35,11 @@ class Register extends React.Component{
                 type: 'register',
                 payload: user.data.user,
             });
-            // let { from } = this.props.location.state || { from: { pathname: "/" } };
-            this.props.history.replace('/');
+            if(this.props.history.length > 1){
+                this.props.history.goBack();
+            }else{
+                this.props.history.replace('/');
+            }
             this.showNotification('confirmation link has been sent to your email','bg-success','Registered successfully');
     }catch(err){
         this.setState({loading: false});

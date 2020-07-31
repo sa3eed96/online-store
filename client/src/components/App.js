@@ -53,7 +53,7 @@ function App(props){
                                 <Route path="/purchase" render={(props) =>user.state.isAuthenticated ? <Purchase {...props} /> : <Redirect to='/login' /> } />
                                 <Route path="/purchases/:id" render={(props) =>user.state.isAuthenticated ? <PurchaseDetails showNotification={showNotification} {...props} /> : <Redirect to='/login' /> } />
                                 <Route path="/purchases" render={(props) =>user.state.isAuthenticated ? <Purchases {...props} /> : <Redirect to='/login' /> } />
-                                <Route path={"/settings/addresses/add" } render={(props) =>user.state.isAuthenticated ? <Address {...props} />: <Redirect to='/login' /> } />
+                                <Route path={"/settings/addresses/add" } render={(props) =>user.state.isAuthenticated ? <Address {...props} showNotification={showNotification} />: <Redirect to='/login' /> } />
                                 <Route path={`/settings/addresses/:addId`}  render={(props) =>user.state.isAuthenticated ? <Address {...props} showNotification={showNotification} />: <Redirect to='/login' /> } />
                                 <Route path="/settings/addresses" render={(props) =>user.state.isAuthenticated ? <Addresses {...props} showNotification={showNotification} />: <Redirect to='/login' /> } />
                                 <Route path="/settings/userinfo" render={(props) =>user.state.isAuthenticated ? <UserInfo {...props} user={user} showNotification={showNotification} />: <Redirect to='/login' /> } />

@@ -1,3 +1,7 @@
+
+const dotenv = require('dotenv');
+dotenv.config();
+
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
@@ -5,9 +9,6 @@ const logger = require('morgan');
 const session = require('express-session');
 const createError = require('http-errors');
 const adminBro = require('./admin');
-
-// const dotenv = require('dotenv');
-// dotenv.config();
 
 let RedisStore = require('connect-redis')(session);
 const { getChannel }= require('./email/addToQueue');

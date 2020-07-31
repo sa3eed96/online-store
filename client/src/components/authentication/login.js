@@ -16,6 +16,7 @@ class Login extends React.Component{
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        console.log(this.props);
     }
 
     handleChange(e){
@@ -34,7 +35,12 @@ class Login extends React.Component{
                 type: 'login',
                 payload: user.data.user,
             });
-            this.props.history.replace('/');
+            if(this.props.history.length > 1){
+                this.props.history.goBack();
+            }else{
+                this.props.history.replace('/');
+            }
+            
         }catch(err){
             this.setState({loading: false});
             this.setState({error: err.response.data});
@@ -43,7 +49,7 @@ class Login extends React.Component{
     
     render(){
         return(
-            <div class="row">
+            <div className="row">
                 <div className="card mx-auto col-sm-10 col-md-3 border border-radius p-4 mt-4">
                     <form className="card-body" onSubmit={this.handleSubmit}>
                             <h5 className="card-title pb-1 text-center text-secondary">Login</h5>
@@ -67,9 +73,9 @@ class Login extends React.Component{
                                 minLength='8'
                                 maxLength='30'
                             />
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="rememberme" />
-                                <label class="form-check-label" for="rememberme">remember me for a week</label>
+                            <div className="form-check">
+                                <input type="checkbox" className="form-check-input" id="rememberme" />
+                                <label className="form-check-label" htmlFor="rememberme">remember me for a week</label>
                             </div>
                             <ForgotPasswordLink showNotifiction={this.props.showNotifiction} />
                             {this.state.loading &&
@@ -80,7 +86,7 @@ class Login extends React.Component{
                             </div>
                             }
                             <p><small style={{color: 'red'}}>{this.state.error}</small></p>
-                            <button class="btn btn-primary form-control">login</button>
+                            <button className="btn btn-primary form-control">login</button>
                     </form>
                 </div>
             </div>

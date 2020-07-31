@@ -44,7 +44,7 @@ const ForgotPasswordLink = (props) => {
                                 label="email"
                                 required='required'
                             />
-                            <button class="btn btn-primary">Send</button>
+                            <button className="btn btn-primary">Send</button>
                         </form>
                     </div>
                 </div>

@@ -29,7 +29,7 @@ const Address = (props) => {
             else {
                 await axios.post(`/api/address`, address);
             }
-            props.history.replace('/settings/addresses');
+            props.history.goBack();
         } catch (err) {
             props.showNotification('failed to add Addess','bg-danger', 'Error');
         }
