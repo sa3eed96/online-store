@@ -16,19 +16,19 @@ class Login extends React.Component{
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        console.log(this.props);
     }
 
     handleChange(e){
+        const target = e.target.name === "rememberMe" ? e.target.checked : e.target.value; 
         this.setState({
-           [e.target.name]: e.target.value,
+           [e.target.name]: target,
         });
     }
 
     async handleSubmit(e){
         try{
-            this.setState({error: ''});
             e.preventDefault();
+            this.setState({error: ''});
             this.setState({loading: true});
             const user = await axios.post('/api/login', {email: this.state.email, password: this.state.password, rememberMe: this.state.rememberMe});
             this.props.user.dispatch({
@@ -74,7 +74,14 @@ class Login extends React.Component{
                                 maxLength='30'
                             />
                             <div className="form-check">
-                                <input type="checkbox" className="form-check-input" id="rememberme" />
+                                <input 
+                                    name="rememberMe" 
+                                    type="checkbox" 
+                                    checked={this.state.rememberMe}
+                                    onChange={this.handleChange} 
+                                    className="form-check-input" 
+                                    id="rememberme" 
+                                />
                                 <label className="form-check-label" htmlFor="rememberme">remember me for a week</label>
                             </div>
                             <ForgotPasswordLink showNotifiction={this.props.showNotifiction} />

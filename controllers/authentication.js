@@ -49,6 +49,7 @@ module.exports.createSession = (req, res, next) => {
     req.session.regenerate(async (err) => {
         if (err)
             next(createError(500, 'could not login', { expose: true }));
+            console.log(req.body.rememberMe);
         if (req.body.rememberMe)
             req.session.cookie.maxAge = 3600000 * 24 * 7;
         req.session.user = req.user;
