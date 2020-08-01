@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, lazy, Suspense} from 'react';
 import { useParams, Link } from 'react-router-dom';
-import Rate from '../rate/rate';
+const Rate = lazy(()=> import('../rate/rate'));
 import axios from 'axios';
 import {UserContext, UserContextProvider} from '../../contexts/user';
 import RateView from '../rate/rateview';
@@ -126,7 +126,9 @@ const Product = (props)=>{
                             <UserContext.Consumer>
                                 {user=>(product.id && 
                                     <div>
-                                        <Rate productId={product.id} rate={product.Rate} user={user} />
+                                        <Suspense fallback={<div></div>}>
+                                            <Rate productId={product.id} rate={product.Rate} user={user} />
+                                        </Suspense>
                                     </div>
                                 )}
                             </UserContext.Consumer>
