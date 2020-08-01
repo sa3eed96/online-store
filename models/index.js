@@ -1,6 +1,6 @@
 'use strict';
 const env = process.env.NODE_ENV || 'development';
-const config = env === "production" ? process.env.POSTGRES_URL:{
+const config = env === "production" ? {url: process.env.POSTGRES_URL}:{
     "username": "",
     "password": process.env.DB_LOCAL_PASS,
     "database": "ecom_dev",
