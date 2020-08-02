@@ -5,6 +5,7 @@ import axios from 'axios';
 import {UserContext, UserContextProvider} from '../../contexts/user';
 import RateView from '../rate/rateview';
 import ImageView from './imageView';
+import ErrorBoundry from '../errorboundry';
 
 const Product = (props)=>{
     let { id } = useParams();
@@ -70,8 +71,12 @@ const Product = (props)=>{
                     <div className="row">
                         <div className="col-sm-12 col-md-4">
                             <h3>{product.name}</h3>
-                            <RateView rate={product.Rate.rate} />
-                            <ImageView images={color} />
+                            <ErrorBoundry>
+                                <RateView rate={product.Rate.rate} />
+                            </ErrorBoundry>
+                            <ErrorBoundry>
+                                <ImageView images={color} />
+                            </ErrorBoundry>
                         </div>
                         <div className="col-sm-12 col-md-4">
                             <h3 className="card-subtitle mb-2 text-primary"><b>{productPrice(product)} <small>EGP</small></b></h3> 
@@ -126,9 +131,11 @@ const Product = (props)=>{
                             <UserContext.Consumer>
                                 {user=>(product.id && 
                                     <div>
-                                        <Suspense fallback={<div></div>}>
-                                            <Rate productId={product.id} rate={product.Rate} user={user} />
-                                        </Suspense>
+                                        <ErrorBoundry>
+                                            <Suspense fallback={<div></div>}>
+                                                <Rate productId={product.id} rate={product.Rate} user={user} />
+                                            </Suspense>
+                                        </ErrorBoundry>
                                     </div>
                                 )}
                             </UserContext.Consumer>

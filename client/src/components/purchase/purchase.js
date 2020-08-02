@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import AddressChoose from './addressChoose';  
 import OnDoorPurchase from './ondoor';
 import Paypal from './paypal';
-
+import ErrorBoundry from '../errorboundry';
 const Purchase = (props)=> {
     const total = props.location.state;
     const [addressId, setAddressId] = useState(null);
@@ -20,7 +20,9 @@ const Purchase = (props)=> {
         <div style={{minHeight: screen.height/3}} className="row mt-4">
             <div className="col-md-8 mx-auto bg-white">
                 {!addressId &&
-                    <AddressChoose {...props} setSelectedAddress={setSelectedAddress} />    
+                    <ErrorBoundry>
+                        <AddressChoose {...props} setSelectedAddress={setSelectedAddress} />
+                    </ErrorBoundry>
                 }
                 {addressId &&
                 <div>
@@ -58,10 +60,14 @@ const Purchase = (props)=> {
                             </div>
                         </form>
                         {addressId && payment === 'ondoor' &&
-                            <OnDoorPurchase {...props} total={total} addressId={addressId} />
+                            <ErrorBoundry>
+                                <OnDoorPurchase {...props} total={total} addressId={addressId} />
+                            </ErrorBoundry>
                         }
                         {addressId && payment === 'paypal' &&
-                            <Paypal {...props} total={total} addressId={addressId} />
+                            <ErrorBoundry>
+                                <Paypal {...props} total={total} addressId={addressId} />
+                            </ErrorBoundry>
                         }
                     </div>
                 </div>

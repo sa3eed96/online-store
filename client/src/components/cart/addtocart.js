@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import FormInput from '../common/formInput';
 import axios from 'axios';
 import ImageView from '../product/imageView';
+import ErrorBoundary from '../errorboundry';
 
 const addToCart = (props)=>{
     const [quantity, setQuantity] = useState(props.location.state.product.quantity || 1);
@@ -70,7 +71,9 @@ const addToCart = (props)=>{
                         </div>
                         <div className="row">
                             <div className="col-md-4 col-sm-10 offset-sm-1 mx-1">
-                                <ImageView images={color} />
+                                <ErrorBoundary>
+                                    <ImageView images={color} />
+                                </ErrorBoundary>
                             </div>
                             <div className="col-md-4 col-sm-12 border-left">
                                 <div className="row">
