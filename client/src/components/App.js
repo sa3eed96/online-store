@@ -27,6 +27,7 @@ import './App.css';
 
 function App(props){
     const [notification, setNotification] = useState({});
+    const [show, setShow] = useState(false);
 
     const showNotification = (body, background, header)=>{
         setNotification({
@@ -34,6 +35,7 @@ function App(props){
             background,
             header,
         });
+        setShow(!show);
     };
 
     return (
@@ -43,7 +45,7 @@ function App(props){
                     {user=>(
                         <div>
                             <Header user={user} />
-                            <Toast body={notification.body} background={notification.background} header={notification.header} />
+                            <Toast show={show} body={notification.body} background={notification.background} header={notification.header} />
                             <ErrorBoundry>
                                 <Suspense fallback={<div></div>}>
                                     <Switch>

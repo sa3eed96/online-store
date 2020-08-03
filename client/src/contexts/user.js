@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const UserContext  = React.createContext(null);
@@ -35,6 +35,7 @@ const reduce = (state, action)=> {
 
 const UserContextProvider = (props)=>{
     const [state, dispatch] = React.useReducer(reduce, intialState);
+    const [loading, setLoading] = React.useState(true);
 
     useEffect(()=>{
         const getUser = async ()=>{
@@ -46,7 +47,9 @@ const UserContextProvider = (props)=>{
                         payload: data.user
                     });
                 }
+                setLoading(false);
             }catch(err){
+                setLoading(false); 
                 return;
             }
         }
@@ -54,14 +57,25 @@ const UserContextProvider = (props)=>{
     }, []);
 
     return (
-        <UserContext.Provider
-            value={{
-                state,
-                dispatch
-            }}
-        >
-            {props.children}
-        </UserContext.Provider>
+        <div>
+            {loading &&
+                <div className="d-flex justify-content-center">
+                    <div className="spinner-border text-primary mt-4" role="status">
+                        <span className="sr-only">Loading...</span>
+                    </div>
+                </div>
+            }
+            {!loading &&         
+                <UserContext.Provider
+                    value={{
+                        state,
+                        dispatch
+                    }}
+                >
+                    {props.children}
+                </UserContext.Provider>
+            }
+        </div>
     );
 };
 

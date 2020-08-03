@@ -5,11 +5,10 @@ const Toast = (props)=> {
     
     useEffect(()=>{
         if(props.body){
-            console.log('am shown');
             $('.toast').toast({ delay: 3000 });
             $('.toast').toast('show');
         }
-    }, [props.body]);
+    }, [props.show]);
 
     return(
         <div>
