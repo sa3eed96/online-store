@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
+import Spinner from '../common/spinner';
 
 const AddressChoose = (props)=> {
     const [addresses, setAddresses] = useState([]);
@@ -43,14 +44,7 @@ const AddressChoose = (props)=> {
 
     return (
         <div>
-            {loading &&
-                <div className="row">
-                    <div className="spinner-border text-primary mx-auto" role="status">
-                        <span className="sr-only">Loading...</span>
-                    </div>
-                </div>
-            }
-            {!loading&&
+            <Spinner loading={loading}>
                 <div>
                     <div className="row mt-1">
                         <h5 className="col-auto">Choose Delivery Address</h5>
@@ -93,7 +87,7 @@ const AddressChoose = (props)=> {
                         }
                     </div>
                 </div>
-            }
+            </Spinner>
         </div>
         );
     };

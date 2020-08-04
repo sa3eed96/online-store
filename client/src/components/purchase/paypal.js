@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom';
 import scriptLoader from 'react-async-script-loader'
 import axios from 'axios';
+import Spinner from '../common/spinner';
 
 let PaypalButton = null;
 class Paypal extends Component {
@@ -92,11 +93,7 @@ class Paypal extends Component {
                   <p className="col-auto">pay online.</p>
                   <h6 className="col-auto"><b>total: {this.state.total} EGP</b></h6>
                 </div>
-                {loading && 
-                  <div className="spinner-border text-primary" role="status">
-                    <span className="sr-only">Loading...</span>
-                  </div>
-                }
+                <Spinner loading={this.state.loading}></Spinner>
                 <div className="row">
                   <p className="text-danger"><small>{this.state.error}</small></p>
                 </div>

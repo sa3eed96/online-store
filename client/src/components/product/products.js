@@ -4,6 +4,7 @@ import Pagination from '../common/pagination';
 import axios from 'axios';
 import RateView from '../rate/rateview';
 import {IKImage} from  "imagekitio-react";
+import Spinner from '../common/spinner';
 
 const Products = (props) => {
 
@@ -73,74 +74,66 @@ const Products = (props) => {
                     <p><b>{category}</b><small> ({count} items found)</small></p>
                 </div>
             </div>
-            {loading &&
-                <div className="row">
-                    <div className="spinner-border text-primary mx-auto" role="status">
-                        <span className="sr-only">Loading...</span>
-                    </div>
-                </div>
-            }
-            {!loading &&
-                <div className="row bg-white col-11 mx-auto">
-                    {products.length > 0 && 
-                        <div className="col-12">
-                            <div className="dropdown">
-                                <a className=" col-1 dropdown-toggle" type="button" id="dropdownSortButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <small>Sort By: <span className="text-primary">{sortDisplay}</span></small>
-                                </a>
-                                <div className="dropdown-menu" aria-labelledby="dropdownSortButton">
-                                    <a onClick={e => changeSort('', 'No Sort', e)} className="dropdown-item" href="#">No Sort</a>
-                                    <a onClick={e => changeSort('name ASC', 'Name', e)} className="dropdown-item" href="#">Name</a>
-                                    <a onClick={e => changeSort('price ASC', 'Price: Low to High', e)} className="dropdown-item" href="#">price: Low to High</a>
-                                    <a onClick={e => changeSort('price DESC', 'Price: High to Low', e)} className="dropdown-item" href="#">price: High to Low</a>
+                <Spinner loading={loading}> 
+                    <div className="row bg-white col-11 mx-auto">
+                        {products.length > 0 && 
+                            <div className="col-12">
+                                <div className="dropdown">
+                                    <a className=" col-1 dropdown-toggle" type="button" id="dropdownSortButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <small>Sort By: <span className="text-primary">{sortDisplay}</span></small>
+                                    </a>
+                                    <div className="dropdown-menu" aria-labelledby="dropdownSortButton">
+                                        <a onClick={e => changeSort('', 'No Sort', e)} className="dropdown-item" href="#">No Sort</a>
+                                        <a onClick={e => changeSort('name ASC', 'Name', e)} className="dropdown-item" href="#">Name</a>
+                                        <a onClick={e => changeSort('price ASC', 'Price: Low to High', e)} className="dropdown-item" href="#">price: Low to High</a>
+                                        <a onClick={e => changeSort('price DESC', 'Price: High to Low', e)} className="dropdown-item" href="#">price: High to Low</a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    }
-                    {products.map(product =>
-                        (
-                            <div className="col-sm-12 col-md-2 card ml-3 mr-3 mt-3 clickable" key={product.id}>
-                                {product.discount> 0 &&
-                                    <div className="position-absolute bg-warning">
-                                        <small className="p-1 text-white">{product.discount}%</small>
+                        }
+                        {products.map(product =>
+                            (
+                                <div className="col-sm-12 col-md-2 card ml-3 mr-3 mt-3 clickable" key={product.id}>
+                                    {product.discount> 0 &&
+                                        <div className="position-absolute bg-warning">
+                                            <small className="p-1 text-white">{product.discount}%</small>
+                                        </div>
+                                    }
+                                    <IKImage 
+                                        publicKey="public_iTgWxt6Swv2sA/BUpcR3EA43QkI="
+                                        urlEndpoint="https://ik.imagekit.io/rvfdomceug"
+                                        alt="product image"
+                                        src={product.Colors[0].Images[0].image }
+                                        className="card-img-top"
+                                        transformation={[{
+                                        "width": "175",
+                                        "height":"200",
+                                        "crop":"force"
+                                    }]}
+                                    />
+                                    <div className="card-body px-1 border-top row">
+                                        <h6 className="card-title pl-0 col-12">{product.name.length > 25 ? product.name.substring(0,23)+"..." :product.name}</h6>
+                                        <div className="card-subtitle pl-0 text-primary col-12">
+                                            <p className="mb-0"><b>{productPrice(product)} EGP</b>
+                                            {product.discount> 0 && <small className="text-muted ml-1"><s>was: {product.price} EGP </s></small>}
+                                            </p>
+                                        </div>
+                                        <div className="pl-0 col-12">
+                                                <RateView rate={product.Rate.rate} />
+                                        </div>
                                     </div>
-                                }
-                                <IKImage 
-                                    publicKey="public_iTgWxt6Swv2sA/BUpcR3EA43QkI="
-                                    urlEndpoint="https://ik.imagekit.io/rvfdomceug"
-                                    alt="product image"
-                                    src={product.Colors[0].Images[0].image }
-                                    className="card-img-top"
-                                    transformation={[{
-                                    "width": "175",
-                                    "height":"200",
-                                    "crop":"force"
-                                }]}
-                                />
-                                <div className="card-body px-1 border-top row">
-                                    <h6 className="card-title pl-0 col-12">{product.name.length > 25 ? product.name.substring(0,23)+"..." :product.name}</h6>
-                                    <div className="card-subtitle pl-0 text-primary col-12">
-                                        <p className="mb-0"><b>{productPrice(product)} EGP</b>
-                                        {product.discount> 0 && <small className="text-muted ml-1"><s>was: {product.price} EGP </s></small>}
-                                        </p>
-                                    </div>
-                                    <div className="pl-0 col-12">
-                                            <RateView rate={product.Rate.rate} />
+                                    <div className="overlay" onClick={e=> redirectToProduct(product.id, e)}>
+                                        <div className="overlayText">View Details</div>
                                     </div>
                                 </div>
-                                <div className="overlay" onClick={e=> redirectToProduct(product.id, e)}>
-                                    <div className="overlayText">View Details</div>
-                                </div>
-                            </div>
-                        )
-                    )}
+                            )
+                        )}
                     {count > 0 &&
                         <Pagination page={page} count={count} updatePage={updatePage} perPage={12} />
                     }
                 </div>
-            }
+            </Spinner>
         </div>
-
     );
 };
 export default Products;

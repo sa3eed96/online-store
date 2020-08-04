@@ -1,6 +1,7 @@
 import React from 'react';
 import Input from '../common/formInput';
 import axios from 'axios';
+import Spinner from '../common/spinner';
 
 class Register extends React.Component{
     constructor(props){
@@ -104,13 +105,7 @@ class Register extends React.Component{
                             required='required'
                             info="Egyptian mobile number"
                         />
-                        {this.state.loading &&
-                            <div className="d-flex justify-content-center">
-                                <div className="spinner-border text-primary" role="status">
-                                    <span className="sr-only">Loading...</span>
-                                </div>
-                            </div>
-                        }   
+                        <Spinner loading={this.state.loading}></Spinner>
                         <p><small style={{color: 'red'}}>{this.state.error}</small></p>
                         <button className="btn btn-primary form-control">register</button>
                 </form>

@@ -4,6 +4,7 @@ import FormInput from '../common/formInput';
 import axios from 'axios';
 import ImageView from '../product/imageView';
 import ErrorBoundary from '../errorboundry';
+import Spinner from '../common/spinner';
 
 const addToCart = (props)=>{
     const [quantity, setQuantity] = useState(props.location.state.product.quantity || 1);
@@ -56,64 +57,59 @@ const addToCart = (props)=>{
 
     return(
         <div>
-            {loading &&
-                <div className="row mt-4">
-                    <div className="spinner-border text-primary mx-auto" role="status">
-                        <span className="sr-only">Loading...</span>
-                    </div>
-                </div>
-            }
-            {!loading && color.hasOwnProperty('stockCount') &&
-                <div className="row mt-4">
-                    <div className="col-md-8 bg-white mx-auto border">
-                        <div className="row border-bottom my-2">
-                            <h5 className="col">Add to Cart</h5>
-                        </div>
-                        <div className="row">
-                            <div className="col-md-4 col-sm-10 offset-sm-1 mx-1">
-                                <ErrorBoundary>
-                                    <ImageView images={color} />
-                                </ErrorBoundary>
+            <Spinner loading={loading}>
+                {color.hasOwnProperty('stockCount') &&
+                    <div className="row mt-4">
+                        <div className="col-md-8 bg-white mx-auto border">
+                            <div className="row border-bottom my-2">
+                                <h5 className="col">Add to Cart</h5>
                             </div>
-                            <div className="col-md-4 col-sm-12 border-left">
-                                <div className="row">
-                                    <div className="col">
-                                        <p className=""><Link to={{pathname: `/product/${product.id}`}}>{product.name}</Link></p>
+                            <div className="row">
+                                <div className="col-md-4 col-sm-10 offset-sm-1 mx-1">
+                                    <ErrorBoundary>
+                                        <ImageView images={color} />
+                                    </ErrorBoundary>
+                                </div>
+                                <div className="col-md-4 col-sm-12 border-left">
+                                    <div className="row">
+                                        <div className="col">
+                                            <p className=""><Link to={{pathname: `/product/${product.id}`}}>{product.name}</Link></p>
+                                        </div>
+                                        <div className="col">
+                                            <p><small> {color.stockCount} in stock</small></p>
+                                        </div>
                                     </div>
-                                    <div className="col">
-                                        <p><small> {color.stockCount} in stock</small></p>
+                                    <div className="row">
+                                        <div className="col">
+                                            <p className="">price: {productPrice(product)} <small> EGP</small></p>
+                                        </div>
+                                        <div className="col">
+                                            <p className="">total: <b>{productPrice(product) * quantity}</b> <small> EGP</small></p>
+                                        </div>
                                     </div>
                                 </div>
-                                <div className="row">
-                                    <div className="col">
-                                        <p className="">price: {productPrice(product)} <small> EGP</small></p>
-                                    </div>
-                                    <div className="col">
-                                        <p className="">total: <b>{productPrice(product) * quantity}</b> <small> EGP</small></p>
-                                    </div>
+                                <div className="col-md-3 col-sm-12 border-left">
+                                    <form onSubmit={handleAdd}>
+                                        <label htmlFor="cartQuantity">quantity</label>
+                                        <input
+                                            type="number"
+                                            id='cartQuantity'
+                                            name='quantity'
+                                            value={quantity}
+                                            onChange={handleQuantityChange}
+                                            required='required'
+                                            min="1"
+                                            max={color.stockCount}
+                                            className="form-control w-50"
+                                        />
+                                    <button className="btn btn-success mt-1">Add to Cart</button>
+                                </form>
                                 </div>
-                            </div>
-                            <div className="col-md-3 col-sm-12 border-left">
-                                <form onSubmit={handleAdd}>
-                                    <label htmlFor="cartQuantity">quantity</label>
-                                    <input
-                                        type="number"
-                                        id='cartQuantity'
-                                        name='quantity'
-                                        value={quantity}
-                                        onChange={handleQuantityChange}
-                                        required='required'
-                                        min="1"
-                                        max={color.stockCount}
-                                        className="form-control w-50"
-                                    />
-                                <button className="btn btn-success mt-1">Add to Cart</button>
-                            </form>
                             </div>
                         </div>
                     </div>
-                </div>
-            }
+                }
+            </Spinner>
         </div>
     );
 };

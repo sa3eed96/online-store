@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import Spinner from '../components/common/spinner';
 
 const UserContext  = React.createContext(null);
 const intialState = {
@@ -58,14 +59,7 @@ const UserContextProvider = (props)=>{
 
     return (
         <div>
-            {loading &&
-                <div className="d-flex justify-content-center">
-                    <div className="spinner-border text-primary mt-4" role="status">
-                        <span className="sr-only">Loading...</span>
-                    </div>
-                </div>
-            }
-            {!loading &&         
+            <Spinner loading={loading}>      
                 <UserContext.Provider
                     value={{
                         state,
@@ -74,7 +68,7 @@ const UserContextProvider = (props)=>{
                 >
                     {props.children}
                 </UserContext.Provider>
-            }
+            </Spinner>
         </div>
     );
 };

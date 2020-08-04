@@ -2,7 +2,7 @@ import React from 'react';
 import Input from '../common/formInput';
 import ForgotPasswordLink from './forgotpasswordlink';
 import axios from 'axios';
-
+import Spinner from '../common/spinner';
 
 class Login extends React.Component{
     constructor(props){
@@ -85,13 +85,7 @@ class Login extends React.Component{
                                 <label className="form-check-label" htmlFor="rememberme">remember me for a week</label>
                             </div>
                             <ForgotPasswordLink showNotifiction={this.props.showNotifiction} />
-                            {this.state.loading &&
-                            <div className="d-flex justify-content-center">
-                                <div className="spinner-border text-primary" role="status">
-                                    <span className="sr-only">Loading...</span>
-                                </div>
-                            </div>
-                            }
+                            <Spinner loading={this.state.loading}></Spinner>
                             <p><small style={{color: 'red'}}>{this.state.error}</small></p>
                             <button className="btn btn-primary form-control">login</button>
                     </form>

@@ -1,6 +1,7 @@
 import React,{useState} from 'react';
 import axios from 'axios';
 import $ from 'jquery';
+import Spinner from '../common/spinner';
 
 const CancelOrder = (props)=> {
     const [loading, setLoading] = useState(false);
@@ -29,14 +30,10 @@ const CancelOrder = (props)=> {
                         <div class="modal-body">
                             <h6>Are you sure you want to cancel the order?</h6>
                         </div>
-                        <div class="modal-footer">
+                        <div className="modal-footer">
                                 <button onClick={cancel} class="btn btn-danger">Confirm</button>
                                 <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                {loading &&
-                                    <div className="spinner-border text-primary" role="status">
-                                        <span className="sr-only">Loading...</span>
-                                    </div>
-                                }
+                                <Spinner loading={loading}></Spinner>
                         </div>
                     </div>
                 </div>

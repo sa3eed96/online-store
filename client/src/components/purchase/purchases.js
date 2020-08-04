@@ -3,6 +3,7 @@ import  {Link, useRouteMatch} from 'react-router-dom';
 import axios from 'axios';
 import moment from 'moment';
 import Pagination from '../common/pagination';
+import Spinner from '../common/spinner';
 
 const Purchases = (props) => {
     const [purchases, setPurchases] = useState([]);
@@ -46,13 +47,8 @@ const Purchases = (props) => {
 
     return(
         <div style={{minHeight: window.screen.height/3}} className="row mt-4">
-            {loading &&
-                <div className="spinner-border text-primary mx-auto" role="status">
-                    <span className="sr-only">Loading...</span>
-                </div>
-            }
-            {!loading &&
-                <div className="col-8 mx-auto bg-white">
+            <div className="col-8 mx-auto bg-white">
+                <Spinner loading={loading}>
                     <div className="row">
                         <h5 className="col">My Purchases</h5>
                     </div>
@@ -102,8 +98,8 @@ const Purchases = (props) => {
                     {count > 0 &&
                         <Pagination page={page} count={count} updatePage={updatePage} perPage={12} />
                     }
-                </div>
-            }
+                </Spinner>
+            </div>
         </div>
     );
 };
