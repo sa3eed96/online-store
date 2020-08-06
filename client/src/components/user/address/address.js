@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Input from '../../common/formInput';
 import axios from 'axios';
+import validateForm from '../../../helpers/validation';
 
 const Address = (props) => {
     const [address, setAddress] = useState(props.location.hasOwnProperty('state') ?
@@ -10,6 +11,13 @@ const Address = (props) => {
             address: '',
             zipCode: '',
         });
+
+    const [formValidation, setFormValidation] = useState({
+        address: true,
+        zipCode: true,
+        country: true,
+        city: true,
+    });
 
     const handleChange = (e) => {
         console.log(e.target.value);
@@ -23,6 +31,11 @@ const Address = (props) => {
     const handleSubmit = async (e) => {
         try {
             e.preventDefault();
+            const formValidation = validateForm(e.target.elements);
+            if(Object.keys(formValidation).filter(elem => !formValidation[elem]).length > 0){
+                setFormValidation(formValidation);
+                return;
+            }
             if (props.location.hasOwnProperty('state')) {
                 await axios.put(`/api/address/${address.id}`, address);
             }
@@ -37,13 +50,16 @@ const Address = (props) => {
     return (
         <div class="row">
             <div className="card offset-sm-1 col-sm-10 offset-md-4 col-md-4 border border-radius p-4 mt-4">
-                <form className="card-body" onSubmit={handleSubmit}>
+                <form className="card-body" onSubmit={handleSubmit} noValidate>
                     <h5 className="card-title pb-1 text-center">Edit Address</h5>
                     <div className="form-group">
                         <label htmlFor="country">Country</label>
                         <select name="country" class="form-control" id="country" onChange={handleChange}  required>
                                 <option>Egypt</option>
                         </select>
+                        {!formValidation['country'] && 
+                            <small className="text-danger">country is required</small>
+                        }
                     </div>
                     <div className="form-group">
                         <label htmlFor="city">City</label>
@@ -51,6 +67,9 @@ const Address = (props) => {
                                 <option>Cairo</option>
                                 <option>Alexandria</option>
                         </select>
+                        {!formValidation['city'] && 
+                            <small className="text-danger">city is required</small>
+                        }
                     </div>
                     <Input
                         id="address"
@@ -60,7 +79,9 @@ const Address = (props) => {
                         onChange={handleChange}
                         type="text"
                         required="required"
-                        pattern="[a-z|0-9]+(\s|[a-z|0-9])*$"
+                        pattern="[a-z|A-Z|0-9]+(\s|[a-z|A-Z|0-9])*$"
+                        error={!formValidation['address']}
+                        errorMsg="address can only contain letters, digits and whitespace"
                     />
                     <Input
                         id="zipcode"
@@ -71,6 +92,8 @@ const Address = (props) => {
                         type="text"
                         required="required"
                         pattern="[0-9]{3,6}"
+                        error={!formValidation['zipCode']}
+                        errorMsg="invalid zipcode, must be only digits and 6 characters maximum"
                     />
                     <button className="btn btn-primary">save</button>
                 </form>

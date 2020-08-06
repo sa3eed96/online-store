@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import axios from 'axios';
 import Input from '../common/formInput';
+import Spinner from '../common/spinner';
+import validateForm from '../../helpers/validation';
 
 const UserInfo = (props)=> {
 
@@ -10,8 +12,16 @@ const UserInfo = (props)=> {
             email: props.user.state.user.email,
             phone: props.user.state.user.phone,
         });
+
+        const [formValidation, setFormValidation] = useState({
+            firstName: true,
+            lastName: true,
+            email: true,
+            phone: true,
+        });
     
     const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const handleChange = (e) => {
         setUser({
@@ -24,6 +34,13 @@ const UserInfo = (props)=> {
         try {
             e.preventDefault();
             setError('');
+            setLoading(true);
+            const formValidation = validateForm(e.target.elements);
+            if(Object.keys(formValidation).filter(elem => !formValidation[elem]).length > 0){
+                setFormValidation(formValidation);
+                setLoading(false);
+                return;
+            }
             const {data} = await axios.put('/api/user', user);
             if(data.hasOwnProperty('user')){
                 console.log(data);
@@ -41,6 +58,7 @@ const UserInfo = (props)=> {
             props.showNotification('Info updated', 'bg-success', 'Success');
             props.history.replace('/settings');
         } catch (err) {
+            setLoading(false);
             if(err.response.hasOwnProperty('data')){
                 return setError(err.response.data);
             }
@@ -48,9 +66,9 @@ const UserInfo = (props)=> {
         }
     };
     return (
-        <div class="row">
+        <div className="row">
             <div className="card offset-sm-1 col-sm-10 offset-md-4 col-md-4 border border-radius p-4 mt-4">
-                <form className="card-body" onSubmit={handleSubmit}>
+                <form className="card-body" onSubmit={handleSubmit} noValidate>
                     <h5 className="card-title pb-1 text-center">Edit Personal Information</h5>
                     <Input
                         id="firstName"
@@ -61,6 +79,8 @@ const UserInfo = (props)=> {
                         type="text"
                         required="required"
                         pattern="[a-z|A-Z]{2,}"
+                        error={!formValidation["firstName"]}
+                        errorMsg="firstname must consist of only letters"
                     />
                     <Input
                         id="lastName"
@@ -71,6 +91,8 @@ const UserInfo = (props)=> {
                         type="text"
                         required="required"
                         pattern="[a-z|A-Z]{2,}"
+                        error={!formValidation["lastName"]}
+                        errorMsg="lastname must consist of only letters"
                     />
                     <Input
                         id="email"
@@ -80,6 +102,8 @@ const UserInfo = (props)=> {
                         onChange={handleChange}
                         type="email"
                         required="required"
+                        error={!formValidation["email"]}
+                        errorMsg="invalid email"
                     />
                     <Input
                         id="phone"
@@ -90,8 +114,11 @@ const UserInfo = (props)=> {
                         type="text"
                         required="required"
                         pattern="[0-9]{11}"
+                        error={!formValidation["phone"]}
+                        errorMsg="mobile number must be 11 digit egyptian number"
                     />
                     <p style={{color:'red'}}><small>{error}</small></p>
+                    <Spinner loading={loading}></Spinner>
                     <button  class="btn btn-primary">update</button>
                 </form>
             </div>

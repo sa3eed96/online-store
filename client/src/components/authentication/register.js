@@ -2,6 +2,7 @@ import React from 'react';
 import Input from '../common/formInput';
 import axios from 'axios';
 import Spinner from '../common/spinner';
+import validateForm from '../../helpers/validation';
 
 class Register extends React.Component{
     constructor(props){
@@ -12,8 +13,15 @@ class Register extends React.Component{
             email: '',
             password: '',
             phone: '',
-            error: '',
+            serverError: '',
             loadng: false,
+            formValidation: {
+                firstName: true,
+                lastName: true,
+                email: true,
+                password: true,
+                phone: true,
+            },
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -29,8 +37,12 @@ class Register extends React.Component{
     async handleSubmit(e){
         try{
             e.preventDefault();
-            this.setState({error: ''});
-            this.setState({loading: true});
+            this.setState({serverError: '', loading: true});
+            const formValidation = validateForm(e.target.elements);
+            if(Object.keys(formValidation).filter(elem => !formValidation[elem]).length > 0){
+                this.setState({formValidation, loading: false, serverError: ''});
+                return;
+            }
             const user = await axios.post('/api/register', this.state);
             this.props.user.dispatch({
                 type: 'register',
@@ -44,14 +56,14 @@ class Register extends React.Component{
             this.showNotification('confirmation link has been sent to your email','bg-success','Registered successfully');
     }catch(err){
         this.setState({loading: false});
-        this.setState({error: err.response.data});
+        this.setState({serverError: err.response.data});
     }
     }
     
     render(){
         return(
             <div className="card mx-auto col-sm-10 col-md-3 border border-radius mt-4">
-                <form  className="card-body" onSubmit={this.handleSubmit}>
+                <form  className="card-body" onSubmit={this.handleSubmit} noValidate>
                 <h5 className="card-title pb-1 text-center text-secondary">Register</h5>
                         <Input
                             type="text"
@@ -61,7 +73,9 @@ class Register extends React.Component{
                             id="firstName"
                             label="First name"
                             required='required'
-                            pattern="[a-zA-Z]{2,}"
+                            pattern="[a-zA-Z]{1,250}"
+                            error={!this.state.formValidation["firstName"]}
+                            errorMsg="firstname must consist of only letters"
                         />
                         <Input
                             type="text"
@@ -71,7 +85,9 @@ class Register extends React.Component{
                             id="lastName"
                             label="Last name"
                             required='required'
-                            pattern="[a-zA-Z]{2,}"
+                            pattern="[a-zA-Z]{1,250}"
+                            error={!this.state.formValidation["lastName"]}
+                            errorMsg="lastname must consist of only letters"
                         />
                         <Input
                             type="email"
@@ -81,6 +97,8 @@ class Register extends React.Component{
                             id="email"
                             label="Email"
                             required='required'
+                            error={!this.state.formValidation["email"]}
+                            errorMsg="invalid email"
                         />
                         <Input 
                             type="password"
@@ -92,7 +110,8 @@ class Register extends React.Component{
                             required='required'
                             minLength="8"
                             maxLength="30"
-                            info="password must be atleast 8 characters"
+                            error={!this.state.formValidation["password"]}
+                            errorMsg="password must be between 8 and 30 characters"
                         />
                         <Input
                             type="text"
@@ -101,12 +120,13 @@ class Register extends React.Component{
                             onChange={this.handleChange}
                             id="phone"
                             label="Mobile Number"
-                            pattern="[0-9]{11}"
+                            pattern="01[0-9]{9}"
                             required='required'
-                            info="Egyptian mobile number"
+                            error={!this.state.formValidation["phone"]}
+                            errorMsg="mobile number must be 11 digit egyptian number"
                         />
                         <Spinner loading={this.state.loading}></Spinner>
-                        <p><small style={{color: 'red'}}>{this.state.error}</small></p>
+                        <p><small style={{color: 'red'}}>{this.state.serverError}</small></p>
                         <button className="btn btn-primary form-control">register</button>
                 </form>
             </div>
