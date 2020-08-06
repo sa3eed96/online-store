@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Categories from './categories';
 import SearchBar from './searchbar';
 import axios from 'axios';
+import $ from 'jquery';
 
 const Header = (props) => {
     const activeStyle = { color: "#F15B2A"};
@@ -19,6 +20,10 @@ const Header = (props) => {
         }
     }
 
+    const collapseBar = (e)=>{
+        $('#navbarSupportedContent').collapse('hide');
+    };
+
     return(
         <div className="mb-2">
             <nav className="navbar navbar-expand-lg navbar-light bg-white">
@@ -30,31 +35,31 @@ const Header = (props) => {
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav ml-auto">
                         <li className="nav-item">
-                            <Link className="nav-link" to="/">Homepage</Link>
+                            <Link onClick={collapseBar} className="nav-link" to="/">Homepage</Link>
                         </li>
                         {!props.user.state.isAuthenticated &&
                             <li className="nav-item">
-                                <Link className="nav-link" to="/login" >Login</Link> 
+                                <Link onClick={collapseBar} className="nav-link" to="/login" >Login</Link> 
                             </li>
                         }
                         {!props.user.state.isAuthenticated &&
                             <li className="nav-item">
-                                <Link  className="nav-link" to="/register" >Register</Link>
+                                <Link onClick={collapseBar}  className="nav-link" to="/register" >Register</Link>
                             </li>
                         }
                         {props.user.state.isAuthenticated &&
                             <li className="nav-item">
-                                <Link className="nav-link" to="/cart">Cart</Link> 
+                                <Link onClick={collapseBar} className="nav-link" to="/cart">Cart</Link> 
                             </li>
                         }
                         {props.user.state.isAuthenticated &&
                             <li className="nav-item">
-                                <Link className="nav-link" to="/purchases">Purchases</Link> 
+                                <Link onClick={collapseBar} className="nav-link" to="/purchases">Purchases</Link> 
                             </li>
                         }
                         {props.user.state.isAuthenticated &&
                             <li className="nav-item">
-                                <Link className="nav-link" to="/settings">{props.user.state.user.firstName}</Link> 
+                                <Link onClick={collapseBar} className="nav-link" to="/settings">{props.user.state.user.firstName}</Link> 
                             </li>
                         }
                         {props.user.state.isAuthenticated &&
@@ -65,7 +70,7 @@ const Header = (props) => {
                     </ul>
                 </div>
             </nav>
-            <nav className="navbar navbar-expand-lg navbar-light m-0 p-0"  style={{backgroundColor: "#DCDCDC"}}>
+            <nav className="navbar navbar-expand-lg navbar-light py-0 my-0"  style={{backgroundColor: "#DCDCDC"}}>
                 <button className="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedCategories" aria-controls="navbarSupportedCategories" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>

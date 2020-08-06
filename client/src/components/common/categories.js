@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
+import $ from 'jquery';
 
 const Categories = (props)=>{
     const [categories, setCategories] = useState([]);
@@ -13,6 +14,10 @@ const Categories = (props)=>{
         getCategories();
     }, []);
 
+    const collapseBar = (e)=>{
+        $('#navbarSupportedCategories').collapse('hide');
+    };
+
     return (
             <ul className="navbar-nav mr-auto">            {categories.map((cat=> (
                 <li key={cat.name} className="nav-item dropdown">
@@ -21,7 +26,7 @@ const Categories = (props)=>{
                     </a>
                     <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                         {cat.Subcategories.map(sub=> (
-                                <Link key={sub.name} className="dropdown-item" to={{pathname:'/', search: `c=${sub.name}` }}>{sub.name}</Link>
+                                <Link onClick={collapseBar} key={sub.name} className="dropdown-item" to={{pathname:'/', search: `c=${sub.name}` }}>{sub.name}</Link>
                         ))}
                     </div>
                 </li>

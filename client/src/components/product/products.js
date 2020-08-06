@@ -92,7 +92,7 @@ const Products = (props) => {
                         }
                         {products.map(product =>
                             (
-                                <div className="col-sm-12 col-md-2 card ml-3 mr-3 mt-3 clickable" key={product.id}>
+                                <div className= "col-md-2 card ml-3 mr-3 mt-3 clickable" key={product.id}>
                                     {product.discount> 0 &&
                                         <div className="position-absolute bg-warning">
                                             <small className="p-1 text-white">{product.discount}%</small>
