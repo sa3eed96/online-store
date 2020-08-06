@@ -130,7 +130,7 @@ const Product = (props)=>{
                                         {user=>(product.id && 
                                             <div>
                                                 <ErrorBoundry>
-                                                    <Suspense fallback={<div></div>}>
+                                                    <Suspense fallback={<Spinner loading={true}></Spinner>}>
                                                         <Rate productId={product.id} rate={product.Rate} user={user} />
                                                     </Suspense>
                                                 </ErrorBoundry>

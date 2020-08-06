@@ -10,6 +10,7 @@ import PageNotFound from './PageNotFound';
 import Toast from './common/toast';
 import AddToCart from './cart/addtocart';
 import ErrorBoundry from './errorboundry';
+import Spinner from './common/spinner';
 const Settings =lazy(()=> import('./settings'));
 const Addresses=lazy(()=> import( './user/address/addresses'));
 const UserInfo = lazy(()=> import('./user/userinfo'));
@@ -47,7 +48,7 @@ function App(props){
                             <Header user={user} />
                             <Toast show={show} body={notification.body} background={notification.background} header={notification.header} />
                             <ErrorBoundry>
-                                <Suspense fallback={<div></div>}>
+                                <Suspense fallback={<Spinner loading={true}></Spinner>}>
                                     <Switch>
                                         <Route exact path="/" render={(props)=> <Products {...props} showNotification={showNotification} />} />
                                         <Route path="/product/:id" component={Product} />

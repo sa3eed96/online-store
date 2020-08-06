@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import Pagination from '../common/pagination';
 import axios from 'axios';
 import RateView from '../rate/rateview';
