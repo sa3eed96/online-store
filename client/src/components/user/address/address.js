@@ -81,7 +81,7 @@ const Address = (props) => {
                         required="required"
                         pattern="[a-z|A-Z|0-9]+(\s|[a-z|A-Z|0-9])*$"
                         error={!formValidation['address']}
-                        errorMsg="address can only contain letters, digits and whitespace"
+                        errormsg="address can only contain letters, digits and whitespace"
                     />
                     <Input
                         id="zipcode"
@@ -93,7 +93,7 @@ const Address = (props) => {
                         required="required"
                         pattern="[0-9]{3,6}"
                         error={!formValidation['zipCode']}
-                        errorMsg="invalid zipcode, must be only digits and 6 characters maximum"
+                        errormsg="invalid zipcode, must be only digits and 6 characters maximum"
                     />
                     <button className="btn btn-primary">save</button>
                 </form>

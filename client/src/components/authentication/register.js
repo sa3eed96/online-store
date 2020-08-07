@@ -75,7 +75,7 @@ class Register extends React.Component{
                             required='required'
                             pattern="[a-zA-Z]{1,250}"
                             error={!this.state.formValidation["firstName"]}
-                            errorMsg="firstname must consist of only letters"
+                            errormsg="firstname must consist of only letters"
                         />
                         <Input
                             type="text"
@@ -87,7 +87,7 @@ class Register extends React.Component{
                             required='required'
                             pattern="[a-zA-Z]{1,250}"
                             error={!this.state.formValidation["lastName"]}
-                            errorMsg="lastname must consist of only letters"
+                            errormsg="lastname must consist of only letters"
                         />
                         <Input
                             type="email"
@@ -98,7 +98,7 @@ class Register extends React.Component{
                             label="Email"
                             required='required'
                             error={!this.state.formValidation["email"]}
-                            errorMsg="invalid email"
+                            errormsg="invalid email"
                         />
                         <Input 
                             type="password"
@@ -111,7 +111,7 @@ class Register extends React.Component{
                             minLength="8"
                             maxLength="30"
                             error={!this.state.formValidation["password"]}
-                            errorMsg="password must be between 8 and 30 characters"
+                            errormsg="password must be between 8 and 30 characters"
                         />
                         <Input
                             type="text"
@@ -123,7 +123,7 @@ class Register extends React.Component{
                             pattern="01[0-9]{9}"
                             required='required'
                             error={!this.state.formValidation["phone"]}
-                            errorMsg="mobile number must be 11 digit egyptian number"
+                            errormsg="mobile number must be 11 digit egyptian number"
                         />
                         <Spinner loading={this.state.loading}></Spinner>
                         <p><small style={{color: 'red'}}>{this.state.serverError}</small></p>

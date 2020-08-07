@@ -80,7 +80,7 @@ const UserInfo = (props)=> {
                         required="required"
                         pattern="[a-z|A-Z]{2,}"
                         error={!formValidation["firstName"]}
-                        errorMsg="firstname must consist of only letters"
+                        errormsg="firstname must consist of only letters"
                     />
                     <Input
                         id="lastName"
@@ -92,7 +92,7 @@ const UserInfo = (props)=> {
                         required="required"
                         pattern="[a-z|A-Z]{2,}"
                         error={!formValidation["lastName"]}
-                        errorMsg="lastname must consist of only letters"
+                        errormsg="lastname must consist of only letters"
                     />
                     <Input
                         id="email"
@@ -103,7 +103,7 @@ const UserInfo = (props)=> {
                         type="email"
                         required="required"
                         error={!formValidation["email"]}
-                        errorMsg="invalid email"
+                        errormsg="invalid email"
                     />
                     <Input
                         id="phone"
@@ -115,7 +115,7 @@ const UserInfo = (props)=> {
                         required="required"
                         pattern="[0-9]{11}"
                         error={!formValidation["phone"]}
-                        errorMsg="mobile number must be 11 digit egyptian number"
+                        errormsg="mobile number must be 11 digit egyptian number"
                     />
                     <p style={{color:'red'}}><small>{error}</small></p>
                     <Spinner loading={loading}></Spinner>
