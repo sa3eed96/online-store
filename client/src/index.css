@@ -37,3 +37,14 @@
     z-index: 10;
   }
 
+  .footer {
+    position: absolute;
+    bottom: 0;
+    left:2%;
+    width: 98%;
+    height: 2.8rem;
+    background-color:#282828;
+    color: white;
+    border-radius: 2px;
+  }
+
