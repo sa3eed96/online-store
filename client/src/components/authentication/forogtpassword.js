@@ -34,11 +34,13 @@ const ForgotPassword  = (props)=>{
     };
 
     return (
-        <div class="row">
+        <div className="row">
             <div className="card offset-sm-1 col-sm-10 offset-md-4 col-md-4 border border-radius p-4 mt-4">
-                <form className="card-body" onSubmit={handleSubmit}>
+                <form id="forgotForm" className="card-body" onSubmit={handleSubmit}></form>
+                <div>
                         <h5 className="card-title pb-1 text-center">Reset Password</h5>
                         <Input
+                            form="forgotForm"
                             type="password"
                             name="password"
                             value={password}
@@ -47,8 +49,8 @@ const ForgotPassword  = (props)=>{
                             label="New password"
                             required='required'
                         />
-                        <button class="btn btn-outline-success">update</button>
-                </form>
+                        <button form="forgotForm" className="btn btn-outline-success">update</button>
+                </div>
             </div>
         </div>
     );

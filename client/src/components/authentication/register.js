@@ -126,7 +126,7 @@ class Register extends React.Component{
                             errormsg="mobile number must be 11 digit egyptian number"
                         />
                         <Spinner loading={this.state.loading}></Spinner>
-                        <p><small style={{color: 'red'}}>{this.state.serverError}</small></p>
+                        <p><small className="text-danger">{this.state.serverError}</small></p>
                         <button className="btn btn-primary form-control">register</button>
                 </form>
             </div>

@@ -27,12 +27,12 @@ const CancelOrder = (props)=> {
             <div className="modal fade" id="cancelModal" tabIndex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog modal-dialog-centered " role="document">
                     <div className="modal-content">
-                        <div class="modal-body">
+                        <div className="modal-body">
                             <h6>Are you sure you want to cancel the order?</h6>
                         </div>
                         <div className="modal-footer">
-                                <button onClick={cancel} class="btn btn-danger">Confirm</button>
-                                <button class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                <button onClick={cancel} className="btn btn-danger">Confirm</button>
+                                <button className="btn btn-secondary" data-dismiss="modal">Cancel</button>
                                 <Spinner loading={loading}></Spinner>
                         </div>
                     </div>

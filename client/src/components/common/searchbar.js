@@ -36,10 +36,10 @@ const searchBar = (props)=> {
     return (
         <div className="w-50 position-relative">
             <form className="form-inline " onSubmit={handleSubmit}>
-                <div class="input-group w-100">
+                <div className="input-group w-100">
                     <label className="sr-only" htmlFor="search">search products</label>
-                    <div class="input-group-prepend">
-                        <span class="input-group-text" id="basic-addon1"><FaSearch /></span>
+                    <div className="input-group-prepend">
+                        <span className="input-group-text" id="basic-addon1"><FaSearch /></span>
                     </div>
                     <input
                         id="search"
@@ -54,7 +54,7 @@ const searchBar = (props)=> {
                 </div>
             </form>
             {search.length > 0 && (
-                <ul className="list-group list-group-flush w-75" style={{position: 'absolute', zIndex: '1' }}>
+                <ul className="list-group list-group-flush w-75 searchList" >
                     {autocomplete.map((product, index)=> (
                         <div key={index}>
                             <Link onClick={removeSearch} className="list-group-item list-group-item-action text-primary" to={{pathname: '/', search: `?q=${product.name}` }} >{product.name}</Link>

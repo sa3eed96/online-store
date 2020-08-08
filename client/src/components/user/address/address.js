@@ -48,13 +48,13 @@ const Address = (props) => {
         }
     };
     return (
-        <div class="row">
+        <div className="row">
             <div className="card offset-sm-1 col-sm-10 offset-md-4 col-md-4 border border-radius p-4 mt-4">
                 <form className="card-body" onSubmit={handleSubmit} noValidate>
                     <h5 className="card-title pb-1 text-center">Edit Address</h5>
                     <div className="form-group">
                         <label htmlFor="country">Country</label>
-                        <select name="country" class="form-control" id="country" onChange={handleChange}  required>
+                        <select name="country" className="form-control" id="country" onChange={handleChange}  required>
                                 <option>Egypt</option>
                         </select>
                         {!formValidation['country'] && 
@@ -63,7 +63,7 @@ const Address = (props) => {
                     </div>
                     <div className="form-group">
                         <label htmlFor="city">City</label>
-                        <select name="city" class="form-control" id="city" onChange={handleChange}  required>
+                        <select name="city" className="form-control" id="city" onChange={handleChange}  required>
                                 <option>Cairo</option>
                                 <option>Alexandria</option>
                         </select>

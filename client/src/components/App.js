@@ -54,7 +54,7 @@ function App(props){
                                         <Switch>
                                             <Route exact path="/" render={(props)=> <Products {...props} showNotification={showNotification} />} />
                                             <Route path="/product/:id" component={Product} />
-                                            <Route path="/login" render={(props)=>!user.state.isAuthenticated ?<Login {...props} user={user} />: <Redirect to='/' />} />
+                                            <Route path="/login" render={(props)=>!user.state.isAuthenticated ?<Login {...props} user={user} showNotification={showNotification} />: <Redirect to='/' />} />
                                             <Route path="/register" render={(props)=>!user.state.isAuthenticated ?<Register showNotification={showNotification} {...props} user={user} />:<Redirect to='/' />} />
                                             <Route path="/addtocart" render={(props) =>user.state.isAuthenticated ? <AddToCart {...props} /> : <Redirect to='/login' />} />
                                             <Route path="/cart" render={(props) =>user.state.isAuthenticated ? <Cart {...props} showNotification={showNotification} /> : <Redirect to='/login' /> } />
@@ -68,7 +68,7 @@ function App(props){
                                             <Route path="/settings/changepassword" render={(props) =>user.state.isAuthenticated ? <ChangePassword {...props} showNotification={showNotification} /> : <Redirect to='/login' /> } />
                                             <Route path="/settings/deleteaccount" render={(props) =>user.state.isAuthenticated ? <DeleteAccount user={user} {...props} showNotification={showNotification} /> : <Redirect to='/login' /> } />
                                             <Route path="/settings" render={(props) =>user.state.isAuthenticated ? <Settings {...props} /> : <Redirect to='/login' /> } />
-                                            <Route path="/forgotpassword/:id" showNotification={showNotification} component={ForgotPassword} />
+                                            <Route path="/forgotpassword/:id" render={(props)=> <ForgotPassword {...props} showNotification={showNotification} />} />
                                             <Route path="/emailverify/:id" component={EmailVerify} />
                                             <Route component={PageNotFound} />
                                         </Switch>

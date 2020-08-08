@@ -39,7 +39,7 @@ const ChangePassword = (props)=> {
     };
 
     return (
-        <div class="row">
+        <div className="row">
             <div className="card offset-sm-1 col-sm-10 offset-md-4 col-md-4 border border-radius p-4 mt-4">
                 <form className="card-body" onSubmit={handleSubmit}>
                     <h5 className="card-title pb-1 text-center">change password</h5>
@@ -76,7 +76,7 @@ const ChangePassword = (props)=> {
                         minLength="8"
                         maxLength="30"
                     />
-                    <p style={{color: 'red'}}><small>{error}</small></p>
+                    <p className="text-danger"><small>{error}</small></p>
                     <button className="btn btn-success">Update</button>
                 </form>
                 </div>

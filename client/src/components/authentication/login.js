@@ -14,6 +14,7 @@ class Login extends React.Component{
             error: '',
             loading: false,
         };
+        this.showNotification = props.showNotification;
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -51,9 +52,11 @@ class Login extends React.Component{
         return(
             <div className="row">
                 <div className="card mx-auto col-sm-10 col-md-3 border border-radius p-4 mt-4">
-                    <form className="card-body" onSubmit={this.handleSubmit}>
+                    <form id="loginForm" onSubmit={this.handleSubmit}></form>
+                    <div className="card-body">
                             <h5 className="card-title pb-1 text-center text-secondary">Login</h5>
                             <Input
+                                form="loginForm"
                                 type="email"
                                 name="email"
                                 value={this.state.email}
@@ -62,7 +65,8 @@ class Login extends React.Component{
                                 label="email"
                                 required='required'
                             />
-                            <Input 
+                            <Input
+                                form="loginForm" 
                                 type="password"
                                 name="password"
                                 value={this.state.password}
@@ -75,6 +79,7 @@ class Login extends React.Component{
                             />
                             <div className="form-check">
                                 <input 
+                                    form="loginForm"
                                     name="rememberMe" 
                                     type="checkbox" 
                                     checked={this.state.rememberMe}
@@ -84,11 +89,11 @@ class Login extends React.Component{
                                 />
                                 <label className="form-check-label" htmlFor="rememberme">remember me for a week</label>
                             </div>
-                            <ForgotPasswordLink showNotifiction={this.props.showNotifiction} />
+                            <ForgotPasswordLink showNotification={this.showNotification} />
                             <Spinner loading={this.state.loading}></Spinner>
-                            <p><small style={{color: 'red'}}>{this.state.error}</small></p>
-                            <button className="btn btn-primary form-control">login</button>
-                    </form>
+                            <p><small className="text-danger">{this.state.error}</small></p>
+                            <button form="loginForm" className="btn btn-primary form-control">login</button>
+                    </div>
                 </div>
             </div>
         );

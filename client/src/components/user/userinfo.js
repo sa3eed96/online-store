@@ -117,9 +117,9 @@ const UserInfo = (props)=> {
                         error={!formValidation["phone"]}
                         errormsg="mobile number must be 11 digit egyptian number"
                     />
-                    <p style={{color:'red'}}><small>{error}</small></p>
+                    <p className="text-danger"><small>{error}</small></p>
                     <Spinner loading={loading}></Spinner>
-                    <button  class="btn btn-primary">update</button>
+                    <button  className="btn btn-primary">update</button>
                 </form>
             </div>
         </div>

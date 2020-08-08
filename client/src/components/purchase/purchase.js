@@ -26,7 +26,7 @@ const Purchase = (props)=> {
                 }
                 {addressId &&
                 <div>
-                    <div class="row mt-1">
+                    <div className="row mt-1">
                         <h5 className="col-12">Choose Payment Method</h5>
                     </div>
                     <hr />

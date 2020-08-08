@@ -70,7 +70,7 @@ const Header = (props) => {
                     </ul>
                 </div>
             </nav>
-            <nav className="navbar navbar-expand-lg navbar-light py-0 my-0"  style={{backgroundColor: "#DCDCDC"}}>
+            <nav className="navbar navbar-expand-lg navbar-light py-0 my-0 bg-offwhite" >
                 <button className="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedCategories" aria-controls="navbarSupportedCategories" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>

@@ -61,7 +61,7 @@ const DeleteAccount = (props)=> {
                         minLength="8"
                         maxLength="30"
                     />
-                    <p style={{color:'red'}}><small>{error}</small></p>
+                    <p className="text-danger"><small>{error}</small></p>
                     <button className="btn btn-danger">Delete Account</button>
                 </form>
             </div>
