@@ -13,7 +13,9 @@ module.exports.index = async (req, res, next) => {
         const limit = 12;
         const offset = (page - 1) * limit;
         const where = {};
-        q ? where['name'] = q: null;
+        q ? where['name'] = {
+            [sequelize.Op.iLike]: `%${q}%`
+        }: null;
         c ? where['SubcategoryName'] = c: null;
         let order = [];
         if(sort){
