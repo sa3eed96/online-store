@@ -2,3 +2,4 @@ Demo is hosted on: fierce-river-56667.herokuapp.com (note: email services for ve
 Reddis is used to manage sessions and cart.
 Rabbitmq is used to manage queue of emails that is consumed by a background worker.
 Project is still in progress.
+AdminBro is used as admin panel.
