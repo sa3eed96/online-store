@@ -8,6 +8,6 @@ export default (props) => (
             {...props}
             className="form-control"
         />
-        {props.error && <small className="text-danger">{props.errormsg}</small>}
+        {props.error === "true" && <small className="text-danger">{props.errormsg}</small>}
     </div>
 );

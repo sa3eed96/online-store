@@ -20,8 +20,6 @@ const Address = (props) => {
     });
 
     const handleChange = (e) => {
-        console.log(e.target.value);
-        console.log(e.target.name);
         setAddress({
             ...address,
             [e.target.name]: e.target.value,
@@ -80,7 +78,7 @@ const Address = (props) => {
                         type="text"
                         required="required"
                         pattern="[a-z|A-Z|0-9]+(\s|[a-z|A-Z|0-9])*$"
-                        error={!formValidation['address']}
+                        error={(!formValidation['address']).toString()}
                         errormsg="address can only contain letters, digits and whitespace"
                     />
                     <Input
@@ -92,7 +90,7 @@ const Address = (props) => {
                         type="text"
                         required="required"
                         pattern="[0-9]{3,6}"
-                        error={!formValidation['zipCode']}
+                        error={(!formValidation['zipCode']).toString()}
                         errormsg="invalid zipcode, must be only digits and 6 characters maximum"
                     />
                     <button className="btn btn-primary">save</button>

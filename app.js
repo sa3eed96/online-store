@@ -1,6 +1,6 @@
 
-// const dotenv = require('dotenv');
-// dotenv.config();
+const dotenv = require('dotenv');
+dotenv.config();
 
 const express = require('express');
 const path = require('path');
@@ -32,12 +32,16 @@ const app = express();
 
 app.use(adminBro.options.rootPath, adminRouter);
 app.use(logger('dev'));
-app.use(session({
+app.set('sessionMiddleware', session({
     secret: process.env.SESSION_SECRET,
     unset: 'destroy',
     store: new RedisStore({ client: redisClient }),
-    sameSite: 'lax'
-}));
+    sameSite: 'lax',
+    resave:false,
+    saveUninitialized:true
+    })
+);
+app.use((...args)=> app.get('sessionMiddleware')(...args));
 app.use((req, res, next)=>{
     if (!req.session) {
         return next(createError(500));
@@ -64,7 +68,7 @@ app.use('/api/*', (req, res, next)=>{
     next(createError(404, 'Not Found'));
 });
 
-if(process.env.NODE_ENV == "production"){
+if(process.env.NODE_ENV === "production"){
     app.get('/*', function(req, res) {
         res.sendFile(path.join(__dirname, 'build', 'index.html'));
     });

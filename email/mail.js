@@ -1,7 +1,6 @@
 const nodemailer = require('nodemailer');
 const open = require('amqplib/callback_api');
 
-console.log('mail worker running');
 //STARTTLS
 const transporter = nodemailer.createTransport({
   host: 'smtp.ethereal.email',
@@ -14,11 +13,11 @@ const transporter = nodemailer.createTransport({
   from: 'donotreply@onlinestore.com',
 });
 
-open.connect('amqp://hctwrgwm:PxHJ94zvWG8QcViltO2mvF0GuwWqA4oU@barnacle.rmq.cloudamqp.com/hctwrgwm',(err0,connection)=>{
+open.connect(process.env.RABBIT_URL,(err0,connection)=>{
   connection.createChannel((err, channel) => {
     if (err) {
-        console.error(err.stack);
-        console.log('sending failed');
+        // console.error(err.stack);
+        // console.log('sending failed');
         return;
     }
 

@@ -79,7 +79,7 @@ const UserInfo = (props)=> {
                         type="text"
                         required="required"
                         pattern="[a-z|A-Z]{2,}"
-                        error={!formValidation["firstName"]}
+                        error={(!formValidation["firstName"]).toString()}
                         errormsg="firstname must consist of only letters"
                     />
                     <Input
@@ -91,7 +91,7 @@ const UserInfo = (props)=> {
                         type="text"
                         required="required"
                         pattern="[a-z|A-Z]{2,}"
-                        error={!formValidation["lastName"]}
+                        error={(!formValidation["lastName"]).toString()}
                         errormsg="lastname must consist of only letters"
                     />
                     <Input
@@ -102,7 +102,7 @@ const UserInfo = (props)=> {
                         onChange={handleChange}
                         type="email"
                         required="required"
-                        error={!formValidation["email"]}
+                        error={(!formValidation["email"]).toString()}
                         errormsg="invalid email"
                     />
                     <Input
@@ -114,7 +114,7 @@ const UserInfo = (props)=> {
                         type="text"
                         required="required"
                         pattern="[0-9]{11}"
-                        error={!formValidation["phone"]}
+                        error={(!formValidation["phone"]).toString()}
                         errormsg="mobile number must be 11 digit egyptian number"
                     />
                     <p className="text-danger"><small>{error}</small></p>

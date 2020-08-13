@@ -1,4 +1,4 @@
-const EmailLinks = require('../models/index').EmailLinks;
+const EmailLink = require('../models/index').EmailLink;
 const createError = require('http-errors');
 const User = require('../models/index').User;
 const { addToQueue } = require('../email/addToQueue');
@@ -7,7 +7,7 @@ const crypto = require("crypto");
 module.exports.show = async(req, res, next)=> {
     const {id} = req.params;
     try{
-        const link = await EmailLinks.findOne({where: {link: id, type: 'password'}});
+        const link = await EmailLink.findOne({where: {link: id, type: 'password'}});
         console.log('am heeeeer', link);
         if(!link){
             return next(createError(400));
@@ -27,7 +27,7 @@ module.exports.create = async(req, res, next)=> {
             return next(createError(400, 'email is not registered'));
         }
         const link = crypto.randomBytes(15).toString('hex');
-        await EmailLinks.create({link, UserId: user.id, type: 'password'});
+        await EmailLink.create({link, UserId: user.id, type: 'password'});
         addToQueue('password', email, link);
         return res.status(201).json({});
     }catch(err){

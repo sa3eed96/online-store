@@ -1,10 +1,10 @@
 const User = require('../models/index').User;
-const EmailLinks = require('../models/index').EmailLinks;
+const EmailLink = require('../models/index').EmailLink;
 const createError = require('http-errors');
 const bcrypt = require('bcrypt');
 const crypto = require("crypto");
 const {addToQueue} = require('../email/addToQueue');
-const sequelize = require('../models/index').sequelize; 
+const sequelize = require('../models/index').sequelize;
 
 
 module.exports.login = async (req, res, next) => {
@@ -34,7 +34,7 @@ module.exports.register = async (req, res, next) => {
         const user = await User.create({firstName, lastName, email, password, phone, verified: false});
         req.user = user.toJSON();
         const link = crypto.randomBytes(15).toString('hex');
-        await EmailLinks.create({link, UserId: user.id, type: 'email'});
+        await EmailLink.create({link, UserId: user.id, type: 'email'});
         addToQueue('email', email, link);
         next();
     }catch(err){
@@ -49,7 +49,6 @@ module.exports.createSession = (req, res, next) => {
     req.session.regenerate(async (err) => {
         if (err)
             next(createError(500, 'could not login', { expose: true }));
-            console.log(req.body.rememberMe);
         if (req.body.rememberMe)
             req.session.cookie.maxAge = 3600000 * 24 * 7;
         req.session.user = req.user;
@@ -95,7 +94,7 @@ module.exports.passwordReset = async(req, res, next)=> {
     try{
         const { password, id } = req.body;
         await sequelize.transaction(async(transaction)=>{
-            const link = await EmailLinks.findOne({where: {type: 'password', link: id}});
+            const link = await EmailLink.findOne({where: {type: 'password', link: id}});
             const user = await User.findOne({where: {id: link.UserId}});
             if(!link || !user){
                 return next(createError(404));

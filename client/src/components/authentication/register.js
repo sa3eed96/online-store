@@ -54,10 +54,10 @@ class Register extends React.Component{
                 this.props.history.replace('/');
             }
             this.showNotification('confirmation link has been sent to your email','bg-success','Registered successfully');
-    }catch(err){
-        this.setState({loading: false});
-        this.setState({serverError: err.response.data});
-    }
+        }catch(err){
+            this.setState({loading: false});
+            this.setState({serverError: err.response.data});
+        }
     }
     
     render(){
@@ -74,7 +74,7 @@ class Register extends React.Component{
                             label="First name"
                             required='required'
                             pattern="[a-zA-Z]{1,250}"
-                            error={!this.state.formValidation["firstName"]}
+                            error={(!this.state.formValidation["firstName"]).toString()}
                             errormsg="firstname must consist of only letters"
                         />
                         <Input
@@ -86,7 +86,7 @@ class Register extends React.Component{
                             label="Last name"
                             required='required'
                             pattern="[a-zA-Z]{1,250}"
-                            error={!this.state.formValidation["lastName"]}
+                            error={(!this.state.formValidation["lastName"]).toString()}
                             errormsg="lastname must consist of only letters"
                         />
                         <Input
@@ -97,7 +97,7 @@ class Register extends React.Component{
                             id="email"
                             label="Email"
                             required='required'
-                            error={!this.state.formValidation["email"]}
+                            error={(!this.state.formValidation["email"]).toString()}
                             errormsg="invalid email"
                         />
                         <Input 
@@ -110,7 +110,7 @@ class Register extends React.Component{
                             required='required'
                             minLength="8"
                             maxLength="30"
-                            error={!this.state.formValidation["password"]}
+                            error={(!this.state.formValidation["password"]).toString()}
                             errormsg="password must be between 8 and 30 characters"
                         />
                         <Input
@@ -122,7 +122,7 @@ class Register extends React.Component{
                             label="Mobile Number"
                             pattern="01[0-9]{9}"
                             required='required'
-                            error={!this.state.formValidation["phone"]}
+                            error={(!this.state.formValidation["phone"]).toString()}
                             errormsg="mobile number must be 11 digit egyptian number"
                         />
                         <Spinner loading={this.state.loading}></Spinner>

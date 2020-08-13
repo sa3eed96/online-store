@@ -63,7 +63,7 @@ const adminBro = new AdminBro({
         {resource: models.Category, options: {parent: categoryParent}},
         {resource: models.Subcategory, options: {parent: categoryParent}},
         {resource: models.Specification,  options: {parent: productParent,},},
-        {resource: models.EmailLinks, options: {parent:userParent,}},
+        {resource: models.EmailLink, options: {parent:userParent,}},
         { resource: models.UserRate, options: { parent: userParent, } },
         { resource: models.Refund, options: { parent: userParent, } },
     ],

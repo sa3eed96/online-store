@@ -14,9 +14,7 @@ module.exports.update = async (req, res, next) => {
         }
         if(Object.keys(newFields).length === 0)
             return res.json({});
-        console.log(newFields);
         const [count, user] = await User.update(newFields, {where: {id: req.session.user.id }, returning: true});
-        console.log(user[0]);
         req.session.user = user[0].toJSON();
         return res.json({ user });
     }catch(err){

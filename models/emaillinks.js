@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const EmailLinks = sequelize.define('EmailLinks', {
+  const EmailLink = sequelize.define('EmailLink', {
     link: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -10,8 +10,8 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
   }, {});
-  EmailLinks.associate = function (models) {
-    models.EmailLinks.belongsTo(models.User, { onDelete: 'CASCADE' });
+  EmailLink.associate = function (models) {
+    models.EmailLink.belongsTo(models.User, { onDelete: 'CASCADE' });
   };
-  return EmailLinks;
+  return EmailLink;
 };
