@@ -16,7 +16,7 @@ module.exports.update = async (req, res, next) => {
             return res.json({});
         const [count, user] = await User.update(newFields, {where: {id: req.session.user.id }, returning: true});
         req.session.user = user[0].toJSON();
-        return res.json({ user });
+        return res.json({ user: user[0].toJSON() });
     }catch(err){
         next(createError(500, err));
     }

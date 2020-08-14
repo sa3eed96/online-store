@@ -18,7 +18,14 @@ describe('product', ()=> {
 
     beforeEach(async function(){
         this.timeout(0);
+        
+        await ImageSeeder.down();
+        await ColorSeeder.down();
+        await SpecificationSeeder.down();
+        await RateSeeder.down();
         await productSeeder.down();
+        await SubcategorySeeder.down();
+        await CategorySeeder.down();
 
         await CategorySeeder.up();
         await SubcategorySeeder.up();

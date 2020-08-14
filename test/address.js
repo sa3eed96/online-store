@@ -6,9 +6,8 @@ const app = require('../app');
 const User = require('../models/index').User;
 const Address = require('../models/index').Address;
 const AddressSeeder = require('../seeders/20200812170734-address');
-const UserSeeder = require('../seeders/20200812170734-address');
 
-describe.only('address',()=>{
+describe('address',()=>{
     before(async()=> {
         boot();
         const user = await User.findOne({where:{id: 1}});
