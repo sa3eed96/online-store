@@ -98,6 +98,14 @@ describe('authentication',()=> {
                 done();
             });
         });
+
+        it('should not change password with wrong password',(done)=>{
+            axios.put('http://localhost:3000/api/changepassword',{newPassword:'password2345', oldPassword: 'password12345'}).then((res)=>{
+            }).catch((err)=>{
+                expect(err.response.status).to.equal(400);
+                done();
+            });
+        });
     });
     
     describe('forgot password',()=>{
@@ -121,6 +129,14 @@ describe('authentication',()=> {
         it('should reset password and set new one',(done)=>{
             axios.post('http://localhost:3000/api/reset', {id:'123', password: 'password3456'}).then((res)=>{
                 expect(res.status).to.equal(200);
+                done();
+            });
+        });
+
+        it('should not reset password with invalid link',(done)=>{
+            axios.post('http://localhost:3000/api/reset', {id:'1234', password: 'password3456'}).then((res)=>{
+            }).catch((err)=>{
+                expect(err.response.status).to.equal(400);
                 done();
             });
         });

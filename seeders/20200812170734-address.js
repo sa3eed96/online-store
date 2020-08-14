@@ -20,12 +20,13 @@ module.exports = {
       }], {  individualHooks: true });
   },
 
-  down: () => {
+  down: async() => {
     /*
       Add reverting commands here.
       Return a promise to correctly handle asynchronicity.
 
       Example:*/
-      return sequelize.sync({ force: true });
+      await sequelize.sync();
+      return Address.sync({ force: true });
   }
 };

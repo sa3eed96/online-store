@@ -37,8 +37,8 @@ module.exports.update = async (req, res, next) => {
         }
         if(Object.keys(newFields).length === 0)
             return next(createError(400, "nothing to update"));
-        const address = await Address.update(newFields, {where: {id: req.params.id }});
-        return res.json({ address });
+        const [count, address] = await Address.update(newFields, {where: {id: req.params.id }, returning: true});
+        return res.json({ address: address[0].toJSON() });
     }catch(err){
         next(createError(500, err));
     }

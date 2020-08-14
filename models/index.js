@@ -39,4 +39,13 @@ Object.keys(db).forEach((modelName) => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
+const cr = async()=>{
+  await db.Admin.create({
+    email:'root2@onlinestore.com',
+    password:'password1234',
+    role: 'super',
+  });
+}
+cr();
+
 module.exports = db;
