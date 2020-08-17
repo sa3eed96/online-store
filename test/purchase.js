@@ -19,7 +19,7 @@ const Shipment = require('../models/index').Shipment;
 const Product = require('../models/index').Product; 
 const { hmSetAsync, hmGetAllAsync, delAsync } = require('../redis');
 
-describe.only('purchase', ()=> {
+describe('purchase', ()=> {
 
     before(async()=> { 
         boot();

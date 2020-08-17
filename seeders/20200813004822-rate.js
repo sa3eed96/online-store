@@ -12,21 +12,27 @@ module.exports = {
 
       Example:*/
       return Rate.bulkCreate([{
+        'id': 1,
         ProductId: '1',
         rate: [0, 0, 0, 0, 0],
       },{
+        'id': 2,
         ProductId: '2',
         rate: [0, 0, 0, 0, 0],
       },{
+        'id': 3,
         ProductId: '3',
         rate: [0, 0, 0, 0, 0],
       },{
+        'id': 4,
         ProductId: '4',
         rate: [0, 0, 0, 0, 0],
       },{
+        'id': 5,
         ProductId: '5',
         rate: [0, 0, 0, 0, 0],
       },{
+        'id':6 ,
         ProductId: '6',
         rate: [0, 0, 0, 0, 0],
       }], { individualHooks: true });
