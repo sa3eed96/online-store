@@ -82,7 +82,6 @@ module.exports.destroy = async(req, res, next)=> {
             await sequelize.query(productDeleteQuery, {transaction});
             await purchase.Shipment.destroy({transaction});
             await purchase.destroy({transaction});
-    
         });
         return res.json({});
     }catch(err){

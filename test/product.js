@@ -9,8 +9,6 @@ const SpecificationSeeder =require('../seeders/20200813004412-specification');
 const ImageSeeder =require('../seeders/20200813005359-image');
 const SubcategorySeeder =require('../seeders/20200812171956-subcategory');
 const CategorySeeder =require('../seeders/20200812171946-category');
-require('../bin/www');
-
 
 describe('product', ()=> {
 
