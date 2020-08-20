@@ -12,19 +12,19 @@ module.exports.login = async (req, res, next) => {
         const { email, password } = req.body;
         const user = await User.findOne({ where: { email } });
         if (!user)
-            return next(createError(400, 'email or password is incorrect'));
+            throw createError(400, 'email or password is incorrect');
         if(user.isLocked)
-            return next(createError(400, 'Account is Locked for reaching maximum login attempts'));
+            throw createError(400, 'Account is Locked for reaching maximum login attempts');
         const passwordCheck = await bcrypt.compare(password, user.password);
         if (!passwordCheck){
             await user.incLoginCountAndLock();
-            return next(createError(400, 'email or password is incorrect'));
+            throw createError(400, 'email or password is incorrect');
         }
         await user.successfulLogin();
         req.user = user.toJSON();
         next();
     }catch(err){
-        next(createError(500,err));
+        next(err);
     }
 };
 
@@ -41,7 +41,7 @@ module.exports.register = async (req, res, next) => {
         if(err.name === 'SequelizeUniqueConstraintError'){
             return next(createError(400, 'email is already registered'));
         }
-        next(createError(500, err));
+        next(err);
     }
 };
 
@@ -80,13 +80,13 @@ module.exports.changePassword = async(req, res, next)=> {
         const user = await User.findByPk(req.session.user.id);
         const passwordCheck = await bcrypt.compare(oldPassword, user.password);
         if(!passwordCheck){
-            return next(createError(400, 'incorrect password'));
+            throw createError(400, 'incorrect password');
         }
         user.password = newPassword;
         await user.save();
         return res.json({});
     }catch(err){
-        next(createError(500, err));
+        next(err);
     }
 };
 
@@ -95,9 +95,12 @@ module.exports.passwordReset = async(req, res, next)=> {
         const { password, id } = req.body;
         await sequelize.transaction(async(transaction)=>{
             const link = await EmailLink.findOne({where: {type: 'password', link: id}});
+            if(!link){
+                throw createError(404, 'invalid link, go to forget password form again to resend a new link');
+            }
             const user = await User.findOne({where: {id: link.UserId}});
-            if(!link || !user){
-                return next(createError(404));
+            if(!user){
+                throw createError(404, 'invalid link, go to forget password form again to resend a new link');
             }
             user.password = password;
             await user.save();
@@ -106,6 +109,6 @@ module.exports.passwordReset = async(req, res, next)=> {
         });
         return res.json({});
     }catch(err){
-        next(createError(500, err));
+        next(err);
     }
 }

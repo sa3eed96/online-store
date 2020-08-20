@@ -18,7 +18,7 @@ module.exports.index = async (req, res, next) => {
         });
         return res.json({ purchases, count });
     } catch (err) {
-        next(createError(500, err));
+        next(err);
     }
 };
 
@@ -33,7 +33,7 @@ module.exports.show = async (req, res, next) => {
         ]});
         return res.json({ purchase });
     } catch (err) {
-        next(createError(500, err));
+        next(err);
     }
 };
 
@@ -61,7 +61,7 @@ module.exports.create = async (req, res, next) => {
         });
         return res.status(201).json({ purchase: result });
     } catch (err) {
-        next(createError(500, err));
+        next(err);
     }
 };
 
@@ -73,9 +73,9 @@ module.exports.destroy = async(req, res, next)=> {
                 include: [PurchaseDetail, Shipment],
                 transaction});
             if(!purchase)
-                next(createError(404));
+                throw createError(404, 'purchase not found');
             if(purchase.Shipment.delivered)
-                next(createError(400, 'order is already delivered'));
+                throw createError(400, 'order is already delivered');
             if(purchase.paymentType === 'paypal')
                 await Refund.create({UserId: req.session.user.id, amount: purchase.total, paymentType: purchase.paymentType}, {transaction});
             const productDeleteQuery = Product.getDeleteQuery(purchase.PurchaseDetails);
@@ -85,6 +85,6 @@ module.exports.destroy = async(req, res, next)=> {
         });
         return res.json({});
     }catch(err){
-        next(createError(500, err));
+        next(err);
     }
 };

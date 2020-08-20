@@ -7,17 +7,11 @@ const shutdown = require('../bin/www').shutdown;
 const UserSeeder = require('../seeders/20200812003038-User');
 const app = require('../app');
 
-describe('authentication',()=> {
+describe.only('authentication',()=> {
 
     before(()=> boot());
-
+    
     describe('login',()=>{
-
-        beforeEach(async function(){
-            this.timeout(0);
-            await UserSeeder.down();
-            await UserSeeder.up();
-        });
 
         it('should login with correct credentials',(done)=>{
             axios.post('http://localhost:3000/api/login',{email: 'john@site.com', password: 'password1234'}).then((response)=>{
@@ -77,6 +71,8 @@ describe('authentication',()=> {
     describe('changePassword',()=>{
         
         before(async()=>{
+            
+        
             const user = await User.findOne({where:{id: 1}});
             app.set('sessionMiddleware', (req, res, next) => {
                 req.session = {
@@ -108,8 +104,11 @@ describe('authentication',()=> {
         });
     });
     
-    describe('forgot password',()=>{
-        before(async()=>{
+    describe.only('forgot password',()=>{
+        before(async function(){
+            this.timeout(0);
+            await UserSeeder.down();
+            await UserSeeder.up();
             const user = await User.findOne({where:{id: 1}});
             app.set('sessionMiddleware', (req, res, next) => {
                 req.session = {
@@ -117,12 +116,6 @@ describe('authentication',()=> {
                 };
                 next()
             });
-        });
-
-        beforeEach(async function(){
-            this.timeout(0);
-            await UserSeeder.down();
-            await UserSeeder.up();
             await EmailLink.create({link:'123', type: 'password', UserId: 1});
         });
         
@@ -136,7 +129,7 @@ describe('authentication',()=> {
         it('should not reset password with invalid link',(done)=>{
             axios.post('http://localhost:3000/api/reset', {id:'1234', password: 'password3456'}).then((res)=>{
             }).catch((err)=>{
-                expect(err.response.status).to.equal(400);
+                expect(err.response.status).to.equal(404);
                 done();
             });
         });

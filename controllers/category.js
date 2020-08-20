@@ -6,6 +6,6 @@ module.exports.index = async(req, res, next)=> {
         const categories = await Category.findAll({include: {all: true}});
         return res.json({categories});
     }catch(err){
-        next(createError(500, err));
+        next(err);
     }
 };

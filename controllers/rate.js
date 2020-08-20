@@ -25,9 +25,9 @@ module.exports.update = async (req, res, next) => {
             }
         });
         if (!details)
-            return next(createError(400, 'you need to purchase the product to be able to rate it'));
+            throw createError(400, 'you need to purchase the product to be able to rate it');
         if(!details.Purchase.Shipment.delivered)
-            return next(createError(400, 'product not delivered yet'));
+            throw createError(400, 'product not delivered yet');
         let result;
         [result, userRate] = await sequelize.transaction(async (transaction) => {
             rateArray[rate]++;
@@ -55,6 +55,6 @@ module.exports.update = async (req, res, next) => {
         });
         return res.json({ rate: result, userRate });
     } catch (err) {
-        next(createError(500, err));
+        next(err);
     }
 };

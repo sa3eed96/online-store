@@ -76,7 +76,7 @@ describe('product rate',()=>{
         },{include: [PurchaseDetail, Shipment],});
     });
 
-    describe.only('rate update', ()=> {
+    describe('rate update', ()=> {
         it('should not rate a not purchased product', (done)=>{
             axios.put(`http://localhost:3000/api/product/4/rate/4`,{
                 rateArray: [0, 0, 0, 0, 0], 

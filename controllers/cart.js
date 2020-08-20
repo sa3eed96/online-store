@@ -12,7 +12,7 @@ module.exports.index = async (req, res, next)=>{
         }
         return res.json({ cart });
     }catch(err){
-        next(createError(500, err));
+        next(err);
     }
 };
 
@@ -25,7 +25,7 @@ module.exports.update = async(req,res,next) => {
             await hDelAsync(`cart-${req.session.user.id}`, `${productId}-${productName}-${color}`);
         return res.json();
     }catch(err){
-        next(createError(500, err));
+        next(err);
     }
 };
 
@@ -34,6 +34,6 @@ module.exports.delete = async(req, res, next) => {
         await delAsync(`cart-${req.session.user.id}`);
         return res.json();
     }catch(err){
-        next(createError(500, err));
+        next(err);
     }
 };

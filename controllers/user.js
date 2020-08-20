@@ -18,7 +18,7 @@ module.exports.update = async (req, res, next) => {
         req.session.user = user[0].toJSON();
         return res.json({ user: user[0].toJSON() });
     }catch(err){
-        next(createError(500, err));
+        next(err);
     }
 };
 
@@ -28,11 +28,11 @@ module.exports.destroy = async(req, res, next)=> {
         const user = await User.findByPk(req.session.user.id);
         const passwordCheck = await bcrypt.compare(password, user.password);
         if(!passwordCheck){
-            return next(createError(400, 'invalid password'));
+            throw createError(400, 'invalid password');
         }
         await User.destroy({where: {id: req.session.user.id}});
         next();
     }catch(err){
-        next(createError(500, err));
+        next(err);
     }
 };

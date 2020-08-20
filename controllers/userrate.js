@@ -27,7 +27,7 @@ module.exports.index = async(req, res, next)=> {
         });
         return res.json({ rates, count });
     }catch(err){
-        next(createError(500, err));
+        next(err);
     }
 };
 
@@ -50,6 +50,6 @@ module.exports.show = async(req, res, next)=> {
         myRate = purchaseDetail.UserRate;
         return res.json({ myRate });
     }catch(err){
-        next(createError(500, err));
+        next(err);
     }
 };

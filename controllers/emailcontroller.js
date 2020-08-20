@@ -8,11 +8,10 @@ const crypto = require("crypto");
 module.exports.destroy = async(req, res, next)=> {
     try{
         const { id } = req.params;
-        console.log('am heeeeeer', id);
         await sequelize.transaction(async(transaction)=>{
             const link = await EmailLink.findOne({where: {link: id, type: 'email'}});
             if(!link)
-                return next(createError(404));
+                throw createError(404, 'not found');
             const user = await User.findOne({where: {id: link.UserId}});
             user.verified = 1;
             await user.save();
@@ -22,7 +21,7 @@ module.exports.destroy = async(req, res, next)=> {
         });
         return res.json({});
     }catch(err){
-        next(createError(500));
+        next(err);
     }
 };
 
@@ -30,7 +29,7 @@ module.exports.destroy = async(req, res, next)=> {
 module.exports.create = async(req, res, next)=> {
     try{
         if(req.session.user.verified === 1)
-            return next(createError(400, 'email already confirmed'));
+            throw createError(400, 'email already confirmed');
         await sequelize.transaction(async(transaction)=>{
             let link = await EmailLink.findOne({where: {UserId: req.session.user.id, type: 'email'}});
             if(link){
@@ -43,6 +42,6 @@ module.exports.create = async(req, res, next)=> {
         });
         return res.json({});
     }catch(err){
-        next(createError(500));
+        next(err);
     }
 };

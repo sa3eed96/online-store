@@ -39,7 +39,7 @@ module.exports.index = async (req, res, next) => {
         });
         return res.json({ products, count });
     } catch (err) {
-        next(createError(500, err));
+        next(err);
     }
 };
 
@@ -71,6 +71,6 @@ module.exports.show = async (req, res, next) => {
             cart = await hmGetAsync(`cart-${req.session.user.id}`, `${product.id}-${product.name}-${color}`);
         return res.json({ product, cart });
     } catch (err) {
-        next(createError(500, err));
+        next(err);
     }
 }

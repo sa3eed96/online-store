@@ -16,6 +16,6 @@ module.exports.index = async (req, res, next) => {
         const results = await sequelize.query(query, { replacements: keywords, type: Sequelize.QueryTypes.SELECT });
         return res.json({ results });
     } catch (err) {
-        next(createError(500, err));
+        next(err);
     }
 };

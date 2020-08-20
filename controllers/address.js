@@ -12,7 +12,7 @@ module.exports.index = async (req, res, next) => {
         });
         return res.json({ addresses });
     }catch(err){
-        next(createError(500, err));
+        next(err);
     }
 };
 
@@ -22,7 +22,7 @@ module.exports.create = async (req, res, next) => {
         const userAddress = await Address.create({ country, city, address, zipCode, UserId: req.session.user.id });
         return res.status(201).json({ address: userAddress });
     }catch(err){
-        next(createError(500, err));
+        next(err);
     }
 };
 
@@ -36,11 +36,11 @@ module.exports.update = async (req, res, next) => {
             }
         }
         if(Object.keys(newFields).length === 0)
-            return next(createError(400, "nothing to update"));
+            throw createError(400, "nothing to update");
         const [count, address] = await Address.update(newFields, {where: {id: req.params.id }, returning: true});
         return res.json({ address: address[0].toJSON() });
     }catch(err){
-        next(createError(500, err));
+        next(err);
     }
 };
 
@@ -49,6 +49,6 @@ module.exports.destroy = async(req, res, next) => {
         await Address.destroy({where: {id: req.params.id}});
         return res.json();
     }catch(err){
-        next(createError(500, err));
+        next(err);
     }
 }
