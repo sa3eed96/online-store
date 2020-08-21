@@ -30,7 +30,7 @@ module.exports.register = async (req, res, next) => {
     try{
         const {firstName, lastName, email, password, phone } = req.body;
         const user = await User.create({firstName, lastName, email, password, phone, verified: false});
-        createEmail(user.id, email);
+        createEmail('email', user.id, email);
         req.user = user.toJSON();
         next();
     }catch(err){

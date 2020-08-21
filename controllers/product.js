@@ -67,8 +67,9 @@ module.exports.show = async (req, res, next) => {
             }] 
         });
         let cart = null;
-        if (req.session.user && color)
+        if (req.session.user && color){
             cart = await hmGetAsync(`cart-${req.session.user.id}`, `${product.id}-${product.name}-${color}`);
+        }
         return res.json({ product, cart });
     } catch (err) {
         next(err);

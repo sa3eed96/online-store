@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        is: /(\w|'|-|\s)+/,
+        isLength:{min: 2},
       },
     },
     description: {

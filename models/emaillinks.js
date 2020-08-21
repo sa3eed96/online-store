@@ -7,7 +7,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     type: {
       type: DataTypes.STRING,
-      allowNull: false,
+      validate: {
+        is: /email|password/
+      }
     },
   }, {});
   EmailLink.associate = function (models) {
