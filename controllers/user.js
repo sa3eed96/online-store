@@ -1,19 +1,13 @@
 const User = require('../models/index').User;
 const createError = require('http-errors');
 const bcrypt = require('bcrypt');
+const fieldsToUpdate = require('../helper-modules/fieldstoupdate');
 
 const updateFieldsRegex = /(firstName|lastName|email|phone)/;
 
 module.exports.update = async (req, res, next) => {
     try{
-        const newFields = {};
-        for (const field in req.body) {
-            if (updateFieldsRegex.test(field)) {
-                newFields[field] = req.body[field];
-            }
-        }
-        if(Object.keys(newFields).length === 0)
-            return res.json({});
+        const newFields = fieldsToUpdate(req.body, updateFieldsRegex);
         const [count, user] = await User.update(newFields, {where: {id: req.session.user.id }, returning: true});
         req.session.user = user[0].toJSON();
         return res.json({ user: user[0].toJSON() });
@@ -21,7 +15,7 @@ module.exports.update = async (req, res, next) => {
         next(err);
     }
 };
-
+//
 module.exports.destroy = async(req, res, next)=> {
     try{
         const {password} = req.body;

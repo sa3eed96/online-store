@@ -1,6 +1,5 @@
 const Address = require('../models/index').Address;
-const User = require('../models/index').User;
-const createError = require('http-errors');
+const fieldsToUpdate = require('../helper-modules/fieldstoupdate');
 
 const updateFieldsRegex = /(country|city|address|zipCode)/;
 
@@ -29,14 +28,7 @@ module.exports.create = async (req, res, next) => {
 
 module.exports.update = async (req, res, next) => {
     try{
-        const newFields = {};
-        for (const field in req.body) {
-            if (updateFieldsRegex.test(field)) {
-                newFields[field] = req.body[field];
-            }
-        }
-        if(Object.keys(newFields).length === 0)
-            throw createError(400, "nothing to update");
+        const newFields = fieldsToUpdate(req.body, updateFieldsRegex);
         const [count, address] = await Address.update(newFields, {where: {id: req.params.id }, returning: true});
         return res.json({ address: address[0].toJSON() });
     }catch(err){
