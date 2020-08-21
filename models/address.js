@@ -5,7 +5,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        min: 2,
         is: /Egypt/,
       },
     },
@@ -13,7 +12,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        min: 2,
         is: /Cairo|Alexandria/,
       },
     },
@@ -21,8 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        min: 2,
-        is: /^[a-zA-Z0-9]+(\s|\w)*$/,
+        is: /^[a-z|A-Z|0-9]+(\s|\w)*$/,
       },
     },
     zipCode: {

@@ -15,7 +15,7 @@ module.exports.update = async (req, res, next) => {
         next(err);
     }
 };
-//
+
 module.exports.destroy = async(req, res, next)=> {
     try{
         const {password} = req.body;

@@ -1,5 +1,4 @@
 const Category = require('../models/index').Category;
-const createError = require('http-errors');
 
 module.exports.index = async(req, res, next)=> {
     try{

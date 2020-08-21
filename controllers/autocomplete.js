@@ -1,6 +1,3 @@
-const createError = require('http-errors');
-const Product = require('../models/index').Product;
-const Sequelize = require('sequelize');
 const sequelize = require('../models/index').sequelize;
 
 module.exports.index = async (req, res, next) => {

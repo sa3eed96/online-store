@@ -1,4 +1,3 @@
-const createError = require('http-errors');
 const axios = require('axios');
 
 module.exports.index = async(req, res, next)=> {
