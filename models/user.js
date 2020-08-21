@@ -8,16 +8,18 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        isAlpha: true,
-        min: 2,
+        isLength: {
+          min:2
+        },
       },
     },
     lastName: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        isAlpha: true,
-        min: 2,
+        isLength: {
+          min:2
+        },
       },
     },
     email: {
@@ -32,7 +34,9 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
-        min: 8,
+        isLength: {
+          min:2
+        },
       },
     },
     phone: {
@@ -40,6 +44,9 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         isNumeric: true,
+        validator: function(v) {
+          return /[0-9]{11}/.test(v);
+        },
       },
     },
     loginCount: {
@@ -91,7 +98,7 @@ module.exports = (sequelize, DataTypes) => {
   User.prototype.successfulLogin = function(){
     this.setDataValue('loginCount', 0);
     return this.save();
-  }
+  };
 
   User.beforeSave((user, options) => {
     if (user.changed('password')) {

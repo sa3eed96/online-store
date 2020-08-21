@@ -1,9 +1,8 @@
 const EmailLink = require('../models/index').EmailLink;
 const createError = require('http-errors');
 const User = require('../models/index').User;
-const { addToQueue } = require('../email/addToQueue');
 const sequelize = require('../models/index').sequelize; 
-const crypto = require("crypto");
+const createEmail = require('../helper-modules/createemail');
 
 module.exports.destroy = async(req, res, next)=> {
     try{
@@ -35,9 +34,7 @@ module.exports.create = async(req, res, next)=> {
             if(link){
                 await link.destory();
             }
-            link = crypto.randomBytes(15).toString('hex');
-            await EmailLink.create({where: {link, UserId: req.session.user.id, type: 'email'}});
-            addToQueue('email', req.session.user.email, link);
+            createEmail(req.session.user.id, req.session.user.email);
             return;
         });
         return res.json({});
