@@ -9,6 +9,8 @@ const UserSeeder = require('../seeders/20200812003038-User');
 describe('user info',()=>{
     before(async()=> {
         boot();
+        await UserSeeder.down();
+        await UserSeeder.up();
         const user = await User.findOne({where:{id: 1}});
         app.set('sessionMiddleware', (req, res, next) => {
             req.session = {
@@ -34,9 +36,9 @@ describe('user info',()=>{
                 expect(response.data).to.have.property('user');
                 expect(response.data.user.lastName).to.equal('dooo');
                 done();
-            });
+            }).catch(err=> {console.log(err); done()});
         });
-        it('should update user info given valid fields', (done)=>{
+        it('should not update user info given invalid fields', (done)=>{
             axios.put('http://localhost:3000/api/user', { lastName: ''}).then((response)=>{
             }).catch((err)=>{
                 expect(err.response.status).to.equal(500);

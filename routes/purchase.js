@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const authController = require('../controllers/authentication');
+const checkAuthentication = require('../middleware/checkauth');
 const purchaseController = require('../controllers/purchase');
 const validation = require('../validations/purchase');
 
-router.get('',authController.checkAuthentication, purchaseController.index);
-router.get('/:purchaseId',authController.checkAuthentication, validation('show'), purchaseController.show);
-router.post('',authController.checkAuthentication, validation('create'), purchaseController.create);
-router.delete('/:id', authController.checkAuthentication, validation('destroy') ,purchaseController.destroy);
+router.get('', checkAuthentication, purchaseController.index);
+router.get('/:purchaseId', checkAuthentication, validation('show'), purchaseController.show);
+router.post('', checkAuthentication, validation('create'), purchaseController.create);
+router.delete('/:id', checkAuthentication, validation('destroy') ,purchaseController.destroy);
 
 module.exports = router;

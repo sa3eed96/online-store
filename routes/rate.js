@@ -1,9 +1,9 @@
 const express = require('express');
-const authController = require('../controllers/authentication');
+const checkAuthentication = require('../middleware/checkauth');
 const rateController = require('../controllers/rate');
 const validation = require('../validations/rate');
 const router = express.Router({ mergeParams: true });
 
-router.put('/:rateId', validation('update'), authController.checkAuthentication, rateController.update);
+router.put('/:rateId', validation('update'), checkAuthentication, rateController.update);
 
 module.exports = router;

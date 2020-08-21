@@ -13,6 +13,12 @@ describe.only('authentication',()=> {
     
     describe('login',()=>{
 
+        before(async function() {
+            this.timeout(0);
+            await UserSeeder.down();
+            await UserSeeder.up();
+        });
+
         it('should login with correct credentials',(done)=>{
             axios.post('http://localhost:3000/api/login',{email: 'john@site.com', password: 'password1234'}).then((response)=>{
                 expect(response.status).to.equal(200);
@@ -104,7 +110,7 @@ describe.only('authentication',()=> {
         });
     });
     
-    describe.only('forgot password',()=>{
+    describe('forgot password',()=>{
         before(async function(){
             this.timeout(0);
             await UserSeeder.down();
