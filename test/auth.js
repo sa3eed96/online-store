@@ -7,7 +7,7 @@ const shutdown = require('../bin/www').shutdown;
 const UserSeeder = require('../seeders/20200812003038-User');
 const app = require('../app');
 
-describe.only('authentication',()=> {
+describe('authentication',()=> {
 
     before(()=> boot());
     

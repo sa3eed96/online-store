@@ -1,4 +1,5 @@
 const sequelize = require('../models/index').sequelize;
+const Sequelize = require('sequelize');
 
 module.exports.index = async (req, res, next) => {
     try {

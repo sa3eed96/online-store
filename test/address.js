@@ -6,10 +6,17 @@ const app = require('../app');
 const User = require('../models/index').User;
 const Address = require('../models/index').Address;
 const AddressSeeder = require('../seeders/20200812170734-address');
+const UserSeeder = require('../seeders/20200812003038-User');
 
 describe('address',()=>{
-    before(async()=> {
+    before(async function(){
         boot();
+        this.timeout(0);
+        await AddressSeeder.down();
+        await UserSeeder.down();
+
+        await UserSeeder.up();
+        await AddressSeeder.up();
         const user = await User.findOne({where:{id: 1}});
         app.set('sessionMiddleware', (req, res, next) => {
             req.session = {

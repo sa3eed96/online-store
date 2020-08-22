@@ -1,5 +1,4 @@
-const { hmSetAsync, hmGetAllAsync, hDelAsync, delAsync } = require('../redis');
-const 
+const { hmSetAsync, hmGetAllAsync, hDelAsync, delAsync } = require('../redis'); 
 
 module.exports.index = async (req, res, next)=>{
     try{

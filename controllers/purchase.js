@@ -51,11 +51,8 @@ module.exports.create = async (req, res, next) => {
                 isPaid,
                 paymentType,
                 PurchaseDetails: purchaseDetails,
-            }, {include: [PurchaseDetail], transaction});
-            const shipment = await Shipment.create({AddressId: addressId},{transaction});
-            purchase.ShipmentId = shipment.id;
-            await purchase.save({transaction});
-            purchase.Shipment = shipment.toJSON();
+                Shipment: { AddressId: addressId },
+            }, {include: [PurchaseDetail, Shipment], transaction});
             await delAsync(`cart-${req.session.user.id}`);
             return purchase;
         });
