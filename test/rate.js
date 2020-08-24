@@ -18,7 +18,7 @@ const Purchase = require('../models/index').Purchase;
 const PurchaseDetail = require('../models/index').PurchaseDetail; 
 const Shipment = require('../models/index').Shipment; 
 
-describe('product rate',()=>{
+describe.only('product rate',()=>{
 
     before(async()=> {
         boot();
@@ -101,7 +101,7 @@ describe('product rate',()=>{
                 expect(response.data.userRate.rate).to.equal(3);
                 expect(response.data.rate.rate[3]).to.equal(1);
                 done();
-            });
+            }).catch(err=> console.log(err));
         });
 
         it('should not rate a not delivered product', (done)=>{

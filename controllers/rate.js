@@ -15,7 +15,7 @@ module.exports.update = async (req, res, next) => {
         let details = await PurchaseDetail.findOne({
             where: {
                 ProductId: productId
-            }, 
+            },
             include: {
                 model: Purchase,
                 where: {
@@ -26,31 +26,38 @@ module.exports.update = async (req, res, next) => {
         });
         if (!details)
             throw createError(400, 'you need to purchase the product to be able to rate it');
-        if(!details.Purchase.Shipment.delivered)
+        if (!details.Purchase.Shipment.delivered)
             throw createError(400, 'product not delivered yet');
         let result;
         [result, userRate] = await sequelize.transaction(async (transaction) => {
             rateArray[rate]++;
             let userRate = await UserRate.findOne({
-                include: {
+                include:[{
                     model: PurchaseDetail,
                     where: {
-                        ProductId: productId
+                        ProductId: productId,
                     },
-                }
+                    include: {
+                        model: Purchase,
+                        where: {
+                            UserId: req.session.user.id,
+                        },
+                        duplicating: true
+                    }
+                }],
             });
-            if (userRate){
-                rateArray[userRate.rate]--;        
+            if (userRate) {
+                rateArray[userRate.rate]--;
                 userRate.setDataValue('rate', rate);
                 userRate.comment = comment;
                 await userRate.save({ transaction });
             }
-            else{
-                userRate = await UserRate.create({rate, comment, PurchaseDetailsId: details.id});    
+            else {
+                userRate = await UserRate.create({ rate, comment, PurchaseDetailsId: details.id });
                 details.UserRateId = userRate.id;
                 await details.save({ transaction });
             }
-            const [count, updatedRate] = await Rate.update({ rate: rateArray}, { where: { id: rateId }, transaction, returning: true });
+            const [count, updatedRate] = await Rate.update({ rate: rateArray }, { where: { id: rateId }, transaction, returning: true });
             return [updatedRate[0].toJSON(), userRate.toJSON()];
         });
         return res.json({ rate: result, userRate });
