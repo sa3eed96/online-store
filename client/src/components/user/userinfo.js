@@ -48,10 +48,10 @@ const UserInfo = (props)=> {
                     type: 'infoUpdate',
                     payload: {
                         ...props.user.state.user,
-                        firstName: data.user[0].firstName,
-                        lastName: data.user[0].lastName,
-                        phone: data.user[0].phone,
-                        email: data.user[0].email,
+                        firstName: data.user.firstName,
+                        lastName: data.user.lastName,
+                        phone: data.user.phone,
+                        email: data.user.email,
                     }
                 });
             }
