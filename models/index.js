@@ -7,8 +7,10 @@ const basename = path.basename(__filename);
 const db = {};
 const env = process.env.NODE_ENV || "test";
 
+let config = null;
+
 if(env !== "production"){
-  const config = require('../config/config.json')[env];
+  config = require('../config/config.json')[env];
 }
 
 let sequelize;

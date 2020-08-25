@@ -43,7 +43,6 @@ const UserInfo = (props)=> {
             }
             const {data} = await axios.put('/api/user', user);
             if(data.hasOwnProperty('user')){
-                console.log(data);
                 props.user.dispatch({
                     type: 'infoUpdate',
                     payload: {
@@ -59,7 +58,7 @@ const UserInfo = (props)=> {
             props.history.replace('/settings');
         } catch (err) {
             setLoading(false);
-            if(err.response.hasOwnProperty('data')){
+            if("response" in err && 'data' in err.response){
                 return setError(err.response.data);
             }
             props.showNotification('Could Not Updated Info, try again later', 'bg-danger', 'Error');
