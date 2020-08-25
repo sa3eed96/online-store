@@ -82,6 +82,15 @@ module.exports = (sequelize, DataTypes) => {
     }
   },{});
 
+  User.prototype.toJSON =  function () {
+    var values = Object.assign({}, this.get());
+  
+    delete values.password;
+    delete values.loginCount;
+    delete values.lockUntil;
+    return values;
+  }
+
   User.prototype.incLoginCountAndLock = function(){
     const loginCount = this.getDataValue('loginCount');
     if (loginCount === 5) {
