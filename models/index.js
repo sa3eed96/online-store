@@ -5,7 +5,7 @@ const path = require('path');
 const Sequelize = require('sequelize');
 const basename = path.basename(__filename);
 const db = {};
-const env = process.env.NODE_ENV || "test";
+const env = process.env.NODE_ENV || "development";
 
 let config = null;
 
@@ -43,14 +43,5 @@ Object.keys(db).forEach((modelName) => {
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
-
-const cr = async()=>{
-  await db.Admin.create({
-    email:'root2@onlinestore.com',
-    password:'password1234',
-    role: 'super',
-  });
-}
-cr();
 
 module.exports = db;

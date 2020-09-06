@@ -102,7 +102,7 @@ const Products = (props) => {
                                         publicKey="public_iTgWxt6Swv2sA/BUpcR3EA43QkI="
                                         urlEndpoint="https://ik.imagekit.io/rvfdomceug"
                                         alt="product image"
-                                        src={product.Colors[0].Images[0].image }
+                                        src={product.Colors[0].images[0] }
                                         className="card-img-top"
                                         transformation={[{
                                         "width": "175",

@@ -3,8 +3,9 @@ import {IKImage} from  "imagekitio-react";
 import $ from 'jquery';
 
 const ImageView = (props)=>{
-    const [images, setImages] = useState(props.images.Images);
-    const [currentImage, setCurrentImage] = useState(props.images.Images[0].image);
+    const [images, setImages] = useState(props.images);
+    console.log(images);
+    const [currentImage, setCurrentImage] = useState(props.images[0]);
 
     const changeImage = (img, e)=> {
         e.preventDefault();
@@ -12,8 +13,8 @@ const ImageView = (props)=>{
     };
 
     useEffect(()=>{
-        setImages(props.images.Images);
-        setCurrentImage(props.images.Images[0].image);
+        setImages(props.images);
+        setCurrentImage(props.images[0]);
         $('#carouselExampleIndicators').carousel(0);
     },[props.images])
 
@@ -27,7 +28,7 @@ const ImageView = (props)=>{
                                     key={image.id}
                                     publicKey="public_iTgWxt6Swv2sA/BUpcR3EA43QkI="
                                     urlEndpoint="https://ik.imagekit.io/rvfdomceug"
-                                    src={image.image}
+                                    src={image}
                                     className="mx-auto h-100 d-block img-fluid"
                                     alt="product image"
                                     transformation={[{

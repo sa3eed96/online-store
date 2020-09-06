@@ -73,7 +73,7 @@ const Product = (props)=>{
                                         <RateView rate={product.Rate.rate} />
                                     </ErrorBoundry>
                                     <ErrorBoundry>
-                                        <ImageView images={color} />
+                                        <ImageView images={color.images} />
                                     </ErrorBoundry>
                                 </div>
                                 <div className="col-sm-12 col-md-4">

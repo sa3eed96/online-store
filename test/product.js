@@ -6,7 +6,6 @@ const productSeeder =require('../seeders/20200813003652-product');
 const RateSeeder =require('../seeders/20200813004822-rate');
 const ColorSeeder =require('../seeders/20200813005034-color');
 const SpecificationSeeder =require('../seeders/20200813004412-specification');
-const ImageSeeder =require('../seeders/20200813005359-image');
 const SubcategorySeeder =require('../seeders/20200812171956-subcategory');
 const CategorySeeder =require('../seeders/20200812171946-category');
 
@@ -17,7 +16,6 @@ describe('product', ()=> {
     beforeEach(async function(){
         this.timeout(0);
         
-        await ImageSeeder.down();
         await ColorSeeder.down();
         await SpecificationSeeder.down();
         await RateSeeder.down();
@@ -31,7 +29,6 @@ describe('product', ()=> {
         await RateSeeder.up();
         await SpecificationSeeder.up();
         await ColorSeeder.up();
-        await ImageSeeder.up();
     });
 
 

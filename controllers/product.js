@@ -1,6 +1,5 @@
 const Product = require('../models/index').Product;
 const Rate = require('../models/index').Rate;
-const Image = require('../models/index').Image;
 const Color = require('../models/index').Color;
 const Specification = require('../models/index').Specification;
 const createError = require('http-errors');
@@ -30,10 +29,7 @@ module.exports.index = async (req, res, next) => {
             attributes:{
                 exclude: ['createdAt', 'updatedAt']
             },
-            include: [Rate, {
-                model: Color,
-                include: [Image]
-            }],
+            include: [Rate, Color],
             order,
             distinct: true,
         });
@@ -57,10 +53,6 @@ module.exports.show = async (req, res, next) => {
             model: Color,
             where,
             attributes:{exclude: ['createdAt', 'updatedAt', 'ProductId']},
-            include: {
-                model: Image,
-                exclude: ['id', 'createdAt', 'updatedAt', 'ColorId'],
-            }
         }, {
             model: Specification,
             attributes:{exclude: ['id', 'createdAt', 'updatedAt', 'ProductId']},

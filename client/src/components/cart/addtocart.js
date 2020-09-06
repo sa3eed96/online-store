@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
-import FormInput from '../common/formInput';
 import axios from 'axios';
 import ImageView from '../product/imageView';
 import ErrorBoundary from '../errorboundry';
@@ -67,7 +66,7 @@ const addToCart = (props)=>{
                             <div className="row">
                                 <div className="col-md-4 col-sm-10 offset-sm-1 mx-1">
                                     <ErrorBoundary>
-                                        <ImageView images={color} />
+                                        <ImageView images={color.images} />
                                     </ErrorBoundary>
                                 </div>
                                 <div className="col-md-4 col-sm-12 border-left">

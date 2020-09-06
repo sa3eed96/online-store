@@ -57,8 +57,14 @@ const adminBro = new AdminBro({
         {resource: models.Rate, options: {parent: productParent,},},
         {resource: models.Purchase      , options: { parent: purchaseParent}, },
         {resource: models.PurchaseDetail, options: { parent: purchaseParent}, },
-        {resource: models.Color, options: {parent: productParent,},},
-        {resource: models.Image, options: {parent: productParent,},},
+        {resource: models.Color, options: {
+            parent: productParent,
+            actions:{
+                show:{
+                    
+                },
+            },
+        },},
         {resource: models.Shipment, options: { parent: purchaseParent}, },
         {resource: models.Category, options: {parent: categoryParent}},
         {resource: models.Subcategory, options: {parent: categoryParent}},
