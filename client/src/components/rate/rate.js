@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import Pagination from '../common/pagination';
 import axios from 'axios';
 import { FaStar, FaStarHalfAlt, FaRegStar } from 'react-icons/fa'
+import RateView from './rateview';
 
 const Rate = (props)=> {
     const [rate, setRate] = useState(props.rate);
@@ -103,6 +104,12 @@ const Rate = (props)=> {
         setPage(page);
     };
 
+    const getRate = (rate)=>{
+        const rateArr = [0,0,0,0,0];
+        rateArr[rate]+=1;
+        return <RateView rate={rateArr} />
+    }
+
     return (
         <div>
             {props.user.state.isAuthenticated &&
@@ -138,7 +145,7 @@ const Rate = (props)=> {
                     {console.log(r)}
                     {r.comment && (!props.user.state.user || r.PurchaseDetails[0].Purchase.User.id !== props.user.state.user.id) &&
                         <div>
-                            <i>{r.PurchaseDetails[0].Purchase.User.fullName}</i> | <b>{r.rate+1} stars</b>
+                            <i>{r.PurchaseDetails[0].Purchase.User.fullName}</i> | <b>{getRate(r.rate)}</b>
                             <br />
                             <p>{r.comment}</p>
                             <hr />

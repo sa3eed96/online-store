@@ -22,7 +22,7 @@ const RateView = (props) => {
     useEffect(() => {
         const avg = (rate[0] + rate[1] * 2 + rate[2] * 3 + rate[3] * 4 + rate[4] * 5) / (rate[0] + rate[1] + rate[2] + rate[3] + rate[4]);
         if (avg !== 0) {
-            for (let index = 0; index < 4; index++) {
+            for (let index = 0; index <= 4; index++) {
                 if (index+ 1.3 <= avg && index + 1.8 > avg) {
                     setExpression(rates[index * 2 + 1]);
                     break;
