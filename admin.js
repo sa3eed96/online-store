@@ -41,20 +41,11 @@ const adminBro = new AdminBro({
             parent: userParent, } },
         { resource: models.Product, options: { 
             editProperties : ['name', 'description', 'price', 'discount', 'SubcategoryName'],
-            showProperties : ['id','name', 'description', 'price', 'discount', 'discountPrice','SubcategoryName'],
+            showProperties : ['id','name', 'description', 'price', 'discount', 'discountPrice','SubcategoryName','rate'],
             parent: productParent,
-            actions:  {
-                new:{
-                    after: async(res, req, context)=>{
-                        await models.Rate.create({ProductId: res.record.params.id, rate: [0,0,0,0,0]});
-                        return res;
-                    },
-                },
-            },
         } 
         },
         {resource: models.Address, options: { parent: userParent, }},
-        {resource: models.Rate, options: {parent: productParent,},},
         {resource: models.Purchase      , options: { parent: purchaseParent}, },
         {resource: models.PurchaseDetail, options: { parent: purchaseParent}, },
         {resource: models.Color, options: {

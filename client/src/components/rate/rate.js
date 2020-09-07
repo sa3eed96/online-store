@@ -4,14 +4,14 @@ import axios from 'axios';
 import { FaStar, FaStarHalfAlt, FaRegStar } from 'react-icons/fa'
 
 const Rate = (props)=> {
-    const [rate, setRate] = useState(props.rate.rate);
+    const [rate, setRate] = useState(props.rate);
     const [rates, setRates] = useState([]);
     const [myRate, setMyRate] = useState({
         comment: '',
         checkedRate: '4',
     });
     const [page, setPage] = useState(1);
-    const [count, setCount] = useState(0);
+    const [count, setCount] = useState(0);  
     const [rateView, setRateView] = useState([<FaRegStar />, <FaRegStar />, <FaRegStar />, <FaRegStar />, <FaRegStar />]);
     const [error, setError] = useState(null);
 
@@ -57,9 +57,15 @@ const Rate = (props)=> {
     const handleSubmit = async(e)=> {
         try{
             e.preventDefault();
-            const {data} = await axios.put(`/api/product/${props.productId}/rate/${props.rate.id}`,{rateArray: rate, rate: myRate.checkedRate, comment: myRate.comment});
+            let res = null
+            if('id' in myRate){
+                res = await axios.put(`/api/product/${props.productId}/userrate/${myRate.id}`,{rateArray: rate, rate: myRate.checkedRate, comment: myRate.comment});
+            }else{
+                res = await axios.post(`/api/product/${props.productId}/userrate`,{rateArray: rate, rate: myRate.checkedRate, comment: myRate.comment});
+            }
+            const {data} = res;
             setError(null);
-            setRate(data.rate.rate);
+            setRate(data.rate);
             setMyRate({
                 ...data.userRate,
                 checkedRate: data.userRate.rate,    
@@ -75,18 +81,6 @@ const Rate = (props)=> {
             [e.target.name]: e.target.value,
         })
     };
-
-    const incPage = (e) => {
-        e.preventDefault();
-        if (count > 5 * page)
-            setPage(page + 1);
-    }
-
-    const decPage = (e) => {
-        e.preventDefault();
-        if (page > 1)
-            setPage(page - 1);
-    }
 
     const changeRate = (val, e)=>{
         e.preventDefault();

@@ -1,5 +1,5 @@
 const axios =require('axios');
-const  {assert, expect} = require('chai');
+const  {expect} = require('chai');
 const boot = require('../bin/www').boot;
 const shutdown = require('../bin/www').shutdown;
 const app = require('../app');

@@ -34,7 +34,12 @@ module.exports = (sequelize, DataTypes) => {
       get: function(){
         return this.getDataValue('discount')/100 * this.getDataValue('price');
       },
-    }
+    },
+    rate: {
+      type: DataTypes.ARRAY(DataTypes.INTEGER),
+      allowNull: false,
+      default: [0, 0, 0, 0, 0],
+    },
   }, {
     indexes: [
       {
@@ -81,7 +86,6 @@ module.exports = (sequelize, DataTypes) => {
 
   Product.associate = function (models) {
     models.Product.hasMany(models.Color);
-    models.Product.hasOne(models.Rate);
     models.Product.hasMany(models.PurchaseDetail);
     models.Product.belongsTo(models.Subcategory);
     models.Product.hasOne(models.Specification);

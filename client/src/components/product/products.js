@@ -118,7 +118,7 @@ const Products = (props) => {
                                             </p>
                                         </div>
                                         <div className="pl-0 col-12">
-                                                <RateView rate={product.Rate.rate} />
+                                                <RateView rate={product.rate} />
                                         </div>
                                     </div>
                                     <div className="overlay" onClick={e=> redirectToProduct(product.id, e)}>

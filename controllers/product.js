@@ -1,5 +1,4 @@
 const Product = require('../models/index').Product;
-const Rate = require('../models/index').Rate;
 const Color = require('../models/index').Color;
 const Specification = require('../models/index').Specification;
 const createError = require('http-errors');
@@ -29,7 +28,7 @@ module.exports.index = async (req, res, next) => {
             attributes:{
                 exclude: ['createdAt', 'updatedAt']
             },
-            include: [Rate, Color],
+            include: [Color],
             order,
             distinct: true,
         });
@@ -47,9 +46,6 @@ module.exports.show = async (req, res, next) => {
         if(color)
             where['Color'] = color;
         const product = await Product.findByPk(id, { include: [{
-            model: Rate,
-            attributes:{exclude: ['createdAt', 'updatedAt', 'ProductId']},
-        }, {
             model: Color,
             where,
             attributes:{exclude: ['createdAt', 'updatedAt', 'ProductId']},

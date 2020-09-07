@@ -6,7 +6,6 @@ const app = require('../app');
 const User = require('../models/index').User;
 const UserRate = require('../models/index').UserRate;
 const productSeeder =require('../seeders/20200813003652-product');
-const RateSeeder =require('../seeders/20200813004822-rate');
 const ColorSeeder =require('../seeders/20200813005034-color');
 const SpecificationSeeder =require('../seeders/20200813004412-specification');
 const SubcategorySeeder =require('../seeders/20200812171956-subcategory');
@@ -37,7 +36,6 @@ describe.only('product rate',()=>{
         await UserSeeder.down();
         await ColorSeeder.down();
         await SpecificationSeeder.down();
-        await RateSeeder.down();
         await productSeeder.down();
         await SubcategorySeeder.down();
         await CategorySeeder.down();
@@ -47,7 +45,6 @@ describe.only('product rate',()=>{
         await CategorySeeder.up();
         await SubcategorySeeder.up();
         await productSeeder.up();
-        await RateSeeder.up();
         await SpecificationSeeder.up();
         await ColorSeeder.up();
         await UserRate.sync({force: true});
@@ -75,7 +72,7 @@ describe.only('product rate',()=>{
 
     describe('rate update', ()=> {
         it('should not rate a not purchased product', (done)=>{
-            axios.put(`http://localhost:3000/api/product/4/rate/4`,{
+            axios.post(`http://localhost:3000/api/product/4/userrate`,{
                 rateArray: [0, 0, 0, 0, 0], 
                 rate: 3, 
                 comment: 'great product',
@@ -87,7 +84,7 @@ describe.only('product rate',()=>{
 
         });
         it('should rate a purchased product', (done)=>{
-            axios.put(`http://localhost:3000/api/product/5/rate/5`,{
+            axios.post(`http://localhost:3000/api/product/5/userrate`,{
                 rateArray: [0, 0, 0, 0, 0], 
                 rate: 3, 
                 comment: 'great product',
@@ -96,13 +93,13 @@ describe.only('product rate',()=>{
                 expect(response.data).to.have.property('rate');
                 expect(response.data).to.have.property('userRate');
                 expect(response.data.userRate.rate).to.equal(3);
-                expect(response.data.rate.rate[3]).to.equal(1);
+                expect(response.data.rate[3]).to.equal(1);
                 done();
             }).catch(err=> console.log(err));
         });
 
         it('should not rate a not delivered product', (done)=>{
-            axios.put(`http://localhost:3000/api/product/1/rate/1`,{
+            axios.post(`http://localhost:3000/api/product/1/userrate`,{
                 rateArray: [0, 0, 0, 0, 0], 
                 rate: 4, 
                 comment: 'great product',

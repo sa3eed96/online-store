@@ -5,7 +5,6 @@ const shutdown = require('../bin/www').shutdown;
 const app = require('../app');
 const User = require('../models/index').User;
 const productSeeder =require('../seeders/20200813003652-product');
-const RateSeeder =require('../seeders/20200813004822-rate');
 const ColorSeeder =require('../seeders/20200813005034-color');
 const SpecificationSeeder =require('../seeders/20200813004412-specification');
 const SubcategorySeeder =require('../seeders/20200812171956-subcategory');
@@ -38,7 +37,6 @@ describe('purchase', ()=> {
         await UserSeeder.down();
         await ColorSeeder.down();
         await SpecificationSeeder.down();
-        await RateSeeder.down();
         await productSeeder.down();
         await SubcategorySeeder.down();
         await CategorySeeder.down();
@@ -48,7 +46,6 @@ describe('purchase', ()=> {
         await CategorySeeder.up();
         await SubcategorySeeder.up();
         await productSeeder.up();
-        await RateSeeder.up();
         await SpecificationSeeder.up();
         await ColorSeeder.up();
     });

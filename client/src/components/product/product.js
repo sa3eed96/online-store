@@ -70,7 +70,7 @@ const Product = (props)=>{
                                 <div className="col-sm-12 col-md-4">
                                     <h3>{product.name}</h3>
                                     <ErrorBoundry>
-                                        <RateView rate={product.Rate.rate} />
+                                        <RateView rate={product.rate} />
                                     </ErrorBoundry>
                                     <ErrorBoundry>
                                         <ImageView images={color.images} />
@@ -131,7 +131,7 @@ const Product = (props)=>{
                                             <div>
                                                 <ErrorBoundry>
                                                     <Suspense fallback={<Spinner loading={true}></Spinner>}>
-                                                        <Rate productId={product.id} rate={product.Rate} user={user} />
+                                                        <Rate productId={product.id} rate={product.rate} user={user} />
                                                     </Suspense>
                                                 </ErrorBoundry>
                                             </div>

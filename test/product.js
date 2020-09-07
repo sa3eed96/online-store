@@ -3,7 +3,6 @@ const  {assert, expect} = require('chai');
 const boot = require('../bin/www').boot;
 const shutdown = require('../bin/www').shutdown;
 const productSeeder =require('../seeders/20200813003652-product');
-const RateSeeder =require('../seeders/20200813004822-rate');
 const ColorSeeder =require('../seeders/20200813005034-color');
 const SpecificationSeeder =require('../seeders/20200813004412-specification');
 const SubcategorySeeder =require('../seeders/20200812171956-subcategory');
@@ -18,7 +17,6 @@ describe('product', ()=> {
         
         await ColorSeeder.down();
         await SpecificationSeeder.down();
-        await RateSeeder.down();
         await productSeeder.down();
         await SubcategorySeeder.down();
         await CategorySeeder.down();
@@ -26,7 +24,6 @@ describe('product', ()=> {
         await CategorySeeder.up();
         await SubcategorySeeder.up();
         await productSeeder.up();
-        await RateSeeder.up();
         await SpecificationSeeder.up();
         await ColorSeeder.up();
     });
@@ -38,7 +35,6 @@ describe('product', ()=> {
                 expect(response.status).to.equal(200);
                 assert(response.data.products.length > 0);
                 assert(response.data.count ==  response.data.products.length);
-                expect(response.data.products[0]).to.have.property('Rate'); 
                 expect(response.data.products[0]).to.have.property('Colors');
                 done();
             });
@@ -50,7 +46,6 @@ describe('product', ()=> {
                 assert(response.data.products.length == 1);
                 assert(response.data.count ==  response.data.products.length);
                 assert(response.data.products[0].SubcategoryName == 'Kitchen');
-                expect(response.data.products[0]).to.have.property('Rate'); 
                 expect(response.data.products[0]).to.have.property('Colors');
                 done();
 
@@ -63,7 +58,6 @@ describe('product', ()=> {
                 assert(response.data.products.length == 1);
                 assert(response.data.count ==  response.data.products.length);
                 assert(response.data.products[0].name.includes('Bottle'));
-                expect(response.data.products[0]).to.have.property('Rate'); 
                 expect(response.data.products[0]).to.have.property('Colors');
                 done();
             });
@@ -87,7 +81,6 @@ describe('product', ()=> {
             axios.get(`http://localhost:3000/api/product/1`).then((response)=>{
                 expect(response.status).to.equal(200);
                 assert(response.data.product.id == 1);
-                expect(response.data.product).to.have.property('Rate'); 
                 expect(response.data.product).to.have.property('Colors');
                 done();
             });
@@ -97,7 +90,6 @@ describe('product', ()=> {
             axios.get(`http://localhost:3000/api/product/1?color=red`).then((response)=>{
                 expect(response.status).to.equal(200);
                 assert(response.data.product.id == 1);
-                expect(response.data.product).to.have.property('Rate'); 
                 expect(response.data.product).to.have.property('Colors').with.lengthOf(1);
                 assert(response.data.product.Colors[0].Color == 'red');
                 done();
