@@ -1,6 +1,5 @@
 const Product = require('../models/index').Product;
 const Color = require('../models/index').Color;
-const Specification = require('../models/index').Specification;
 const createError = require('http-errors');
 const sequelize = require('sequelize');
 const { hmGetAsync } = require('../redis');
@@ -49,10 +48,7 @@ module.exports.show = async (req, res, next) => {
             model: Color,
             where,
             attributes:{exclude: ['createdAt', 'updatedAt', 'ProductId']},
-        }, {
-            model: Specification,
-            attributes:{exclude: ['id', 'createdAt', 'updatedAt', 'ProductId']},
-            }] 
+        },] 
         });
         let cart = null;
         if (req.session.user && color){

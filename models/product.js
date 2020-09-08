@@ -40,6 +40,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       default: [0, 0, 0, 0, 0],
     },
+    specifications: {
+      type: DataTypes.ARRAY(DataTypes.STRING),
+      default: [],
+    },
   }, {
     indexes: [
       {
@@ -88,7 +92,6 @@ module.exports = (sequelize, DataTypes) => {
     models.Product.hasMany(models.Color);
     models.Product.hasMany(models.PurchaseDetail);
     models.Product.belongsTo(models.Subcategory);
-    models.Product.hasOne(models.Specification);
   };
   return Product;
 };

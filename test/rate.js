@@ -7,7 +7,6 @@ const User = require('../models/index').User;
 const UserRate = require('../models/index').UserRate;
 const productSeeder =require('../seeders/20200813003652-product');
 const ColorSeeder =require('../seeders/20200813005034-color');
-const SpecificationSeeder =require('../seeders/20200813004412-specification');
 const SubcategorySeeder =require('../seeders/20200812171956-subcategory');
 const CategorySeeder =require('../seeders/20200812171946-category');
 const UserSeeder = require('../seeders/20200812003038-User');
@@ -35,7 +34,6 @@ describe.only('product rate',()=>{
         await AddressSeeder.down();
         await UserSeeder.down();
         await ColorSeeder.down();
-        await SpecificationSeeder.down();
         await productSeeder.down();
         await SubcategorySeeder.down();
         await CategorySeeder.down();
@@ -45,7 +43,6 @@ describe.only('product rate',()=>{
         await CategorySeeder.up();
         await SubcategorySeeder.up();
         await productSeeder.up();
-        await SpecificationSeeder.up();
         await ColorSeeder.up();
         await UserRate.sync({force: true});
         await PurchaseDetail.sync({force: true});
