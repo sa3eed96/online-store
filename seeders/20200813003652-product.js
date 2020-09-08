@@ -18,6 +18,14 @@ module.exports = {
         price: '4',
         rate: [0, 0, 0, 0, 0],
         SubcategoryName: 'Kitchen',
+        specifications:[
+        'weight:1608 gm',
+        'width:26 cm',
+        'height:32 cm',
+        'brand:RCR',
+        'Type:Water Bottle',
+        'Material:Glass',
+        ],
       },{
         id: 2,
         name: 'Indes Fuggerhaus Polyester Grey 140 x 245 cm Denton Single Panel Curtain',
@@ -25,6 +33,18 @@ module.exports = {
         price: '150',
         rate: [0, 0, 0, 0, 0],
         SubcategoryName: 'Decor',
+        specifications:[
+        'weight:1 kg',
+        'width:140 cm',
+        'height:245 cm',
+        'brand:Indes Fuggerhaus',
+        'Material:polyester',
+        'Type:Single Curtain Panels',
+        'Pattern:Solid',
+        'Country of Origin:Germany',
+        'Fabric Quality:Blackout',
+        'Suspension:Eyelets', 
+        ],
       },{
         id: 3,
         name: 'DIY Removable Wall Stickers For Living Room Home Decor, Bead curtain',
@@ -32,6 +52,14 @@ module.exports = {
         price: '184',
         rate: [0, 0, 0, 0, 0],
         SubcategoryName: 'Decor',
+        specifications:[
+        'width:70 cm',
+        'height:50 cm',
+        'brand:Other',
+        'Theme:Cartoon',
+        'Material:PVC',
+        'Installation Type:Self-Adhesive',
+        ]
       },{
         id: 4,
         name: 'Pro Hanson Dumbbell Bar Hand With Locks, 40 cm',
@@ -39,6 +67,14 @@ module.exports = {
         price: '105.50',
         rate: [0, 0, 0, 0, 0],
         SubcategoryName: 'Dumbells',
+        specifications:[
+          'weight:1594 gm',
+          'width:7.3 cm',
+          'height:6.1 cm',
+          'brand:Pro Hanson',
+          'diameter:2.8mm',
+          'Material:steel',
+        ]
       },{
         id: 5,
         name: 'Double Dumbbells Vinyl, 2 KG',
@@ -46,6 +82,15 @@ module.exports = {
         price: '220',
         rate: [0, 0, 0, 0, 0],
         SubcategoryName: 'Dumbells',
+        specifications:[
+          'weight:2 kg',
+          'width:5 cm',
+          'height:5 cm',
+          'brand:other',
+          'Targeted Group:unisex',
+          'Filling Material:steel',
+          'Coated Material:Rubber',
+        ],
       },{
         id: 6,
         name: 'Neoprene Weight Lifting Belts Gym Belt Fitness',
@@ -53,6 +98,12 @@ module.exports = {
         price: '120',
         rate: [0, 0, 0, 0, 0],
         SubcategoryName: 'Belts',
+        specifications:[
+          'weight:330 gm',
+          'brand: Wolon',
+          'MATERIAL: NYLON',
+          'WAIST(M):80-95',
+        ],
       }], { individualHooks: true });
   },
 

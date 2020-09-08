@@ -7,6 +7,7 @@ import RateView from '../rate/rateview';
 import ImageView from './imageView';
 import ErrorBoundry from '../errorboundry';
 import Spinner from '../common/spinner';
+import Specifications from './specifications';
 
 const Product = (props)=>{
     let { id } = useParams();
@@ -114,13 +115,7 @@ const Product = (props)=>{
                                             <a onClick={switchTab} className={`nav-link ${tabIndex == 1 ? 'active': ''}`} href="#">Description</a>
                                         </li>
                                     </ul>
-                                    {tabIndex == 0 && Object.keys(product.Specification).map((spec, index)=> (
-                                    <div key={index}>
-                                        {product.Specification[spec] &&
-                                            <p><b>{spec}</b>: {product.Specification[spec]}</p>
-                                        }
-                                    </div>
-                                    ))}
+                                    {tabIndex == 0 && <Specifications specs={product.specifications} />}
                                     {tabIndex == 1 && <p>
                                         {product.description}
                                     </p>}
