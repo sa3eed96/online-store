@@ -2,9 +2,9 @@ import React from 'react';
 import Input from '../common/formInput';
 import axios from 'axios';
 import Spinner from '../common/spinner';
-import validateForm from '../../helpers/validation';
+import validateForm from '../../utils/validation';
 import { UserContext } from '../../contexts/user';
-import eventBus from '../../helpers/eventbus';
+import eventBus from '../../utils/eventbus';
 
 class Register extends React.Component{
     constructor(props){

@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import axios from 'axios';
 import Input from '../common/formInput';
-import eventBus from '../../helpers/eventbus';
+import eventBus from '../../utils/eventbus';
 
 const ForgotPasswordLink = (props) => {
     const [showForm, setShowForm] = useState(false);

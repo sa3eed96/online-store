@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { useParams } from 'react-router-dom';
 import Input from '../common/formInput';
 import axios from 'axios';
-import eventBus from '../../helpers/eventbus';
+import eventBus from '../../utils/eventbus';
 
 const ForgotPassword  = (props)=>{
     const {id} = useParams();

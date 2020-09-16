@@ -2,7 +2,7 @@ import React,{useState} from 'react';
 import axios from 'axios';
 import $ from 'jquery';
 import Spinner from '../common/spinner';
-import eventBus from '../../helpers/eventbus';
+import eventBus from '../../utils/eventbus';
 
 const CancelOrder = (props)=> {
     const [loading, setLoading] = useState(false);

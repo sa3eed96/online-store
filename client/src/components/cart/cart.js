@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom'
 import Spinner from '../common/spinner';
 import axios from 'axios';
-import eventBus from '../../helpers/eventbus';
+import eventBus from '../../utils/eventbus';
 
 const Cart = (props)=> {
     const [cart, setCart] = useState([]);

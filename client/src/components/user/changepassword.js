@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import Input from '../common/formInput';
 import axios from 'axios';
-import eventBus from '../../helpers/eventbus';
+import eventBus from '../../utils/eventbus';
 
 const ChangePassword = (props)=> {
     const [password, setPassword] = useState({

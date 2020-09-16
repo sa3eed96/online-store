@@ -49,12 +49,12 @@ function App(props){
                                                 <Route path="/purchase" component={Purchase} />
                                                 <Route path="/purchases/:id" component={PurchaseDetails} />
                                                 <Route path="/purchases" component={Purchases} />
-                                                <Route path="/settings/addresses/add"   component={Address} />
+                                                <Route path="/settings/addresses/add" component={Address} />
                                                 <Route path="/settings/addresses/:addId"component={Address} />
-                                                <Route path="/settings/addresses"       component={Addresses} />
-                                                <Route path="/settings/userinfo"        component={UserInfo} />
-                                                <Route path="/settings/changepassword"  component={ChangePassword} />
-                                                <Route path="/settings/deleteaccount"  component={DeleteAccount} />
+                                                <Route path="/settings/addresses" component={Addresses} />
+                                                <Route path="/settings/userinfo" component={UserInfo} />
+                                                <Route path="/settings/changepassword" component={ChangePassword} />
+                                                <Route path="/settings/deleteaccount" component={DeleteAccount} />
                                                 <Route path="/settings"  component={Settings} />
                                                 <Route path="/emailverify/:id" component={EmailVerify} />
                                                 <Route component={PageNotFound} />

@@ -2,7 +2,7 @@ import React, {useState, useContext} from 'react';
 import Input from '../common/formInput';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
-import eventBus from '../../helpers/eventbus';
+import eventBus from '../../utils/eventbus';
 import { UserContext } from '../../contexts/user';
 
 const DeleteAccount = (props)=> {

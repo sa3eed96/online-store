@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Input from '../../common/formInput';
 import axios from 'axios';
-import validateForm from '../../../helpers/validation';
-import eventBus from '../../../helpers/eventbus';
+import validateForm from '../../../utils/validation';
+import eventBus from '../../../utils/eventbus';
 
 const Address = (props) => {
     const [address, setAddress] = useState(props.location.hasOwnProperty('state') ?

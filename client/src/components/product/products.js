@@ -4,7 +4,7 @@ import axios from 'axios';
 import RateView from '../rate/rateview';
 import {IKImage} from  "imagekitio-react";
 import Spinner from '../common/spinner';
-import eventBus from '../../helpers/eventbus';
+import eventBus from '../../utils/eventbus';
 
 const Products = (props) => {
 

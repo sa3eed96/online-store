@@ -2,9 +2,9 @@ import React, {useState, useContext} from 'react';
 import axios from 'axios';
 import Input from '../common/formInput';
 import Spinner from '../common/spinner';
-import validateForm from '../../helpers/validation';
+import validateForm from '../../utils/validation';
 import { UserContext } from '../../contexts/user';
-import eventBus from '../../helpers/eventbus';
+import eventBus from '../../utils/eventbus';
 
 const UserInfo = (props)=> {
     const userContext = useContext(UserContext);
