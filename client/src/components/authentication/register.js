@@ -3,6 +3,8 @@ import Input from '../common/formInput';
 import axios from 'axios';
 import Spinner from '../common/spinner';
 import validateForm from '../../helpers/validation';
+import { UserContext } from '../../contexts/user';
+import eventBus from '../../helpers/eventbus';
 
 class Register extends React.Component{
     constructor(props){
@@ -25,7 +27,6 @@ class Register extends React.Component{
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.showNotification = props.showNotification;
     }
 
     handleChange(e){
@@ -44,16 +45,16 @@ class Register extends React.Component{
                 return;
             }
             const user = await axios.post('/api/register', this.state);
-            this.props.user.dispatch({
+            this.context.dispatch({
                 type: 'register',
                 payload: user.data.user,
             });
-            if(this.props.history.length > 1){
-                this.props.history.goBack();
-            }else{
-                this.props.history.replace('/');
-            }
-            this.showNotification('confirmation link has been sent to your email','bg-success','Registered successfully');
+            this.props.history.replace('/');
+            eventBus.dispatch("showNotification", {
+                body: "confirmation link has been sent to your email",
+                background: 'bg-success',
+                header: 'Registered successfully',
+            });
         }catch(err){
             this.setState({loading: false});
             this.setState({serverError: err.response.data});
@@ -134,4 +135,5 @@ class Register extends React.Component{
     }
 }
 
+Register.contextType = UserContext;
 export default Register;

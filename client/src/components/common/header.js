@@ -1,18 +1,19 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { Link } from 'react-router-dom';
 import Categories from './categories';
 import SearchBar from './searchbar';
 import axios from 'axios';
 import $ from 'jquery';
+import { UserContext } from '../../contexts/user';
 
 const Header = (props) => {
-    const activeStyle = { color: "#F15B2A"};
+    const user = useContext(UserContext); 
 
     const logout = async(e)=>{
         try{
             e.preventDefault();
             await axios.get('/api/logout');
-            props.user.dispatch({
+            user.dispatch({
                 type: 'logout'
             });
         }catch(err){
@@ -37,32 +38,32 @@ const Header = (props) => {
                         <li className="nav-item">
                             <Link onClick={collapseBar} className="nav-link" to="/">Homepage</Link>
                         </li>
-                        {!props.user.state.isAuthenticated &&
+                        {!user.state.isAuthenticated &&
                             <li className="nav-item">
                                 <Link onClick={collapseBar} className="nav-link" to="/login" >Login</Link> 
                             </li>
                         }
-                        {!props.user.state.isAuthenticated &&
+                        {!user.state.isAuthenticated &&
                             <li className="nav-item">
                                 <Link onClick={collapseBar}  className="nav-link" to="/register" >Register</Link>
                             </li>
                         }
-                        {props.user.state.isAuthenticated &&
+                        {user.state.isAuthenticated &&
                             <li className="nav-item">
                                 <Link onClick={collapseBar} className="nav-link" to="/cart">Cart</Link> 
                             </li>
                         }
-                        {props.user.state.isAuthenticated &&
+                        {user.state.isAuthenticated &&
                             <li className="nav-item">
                                 <Link onClick={collapseBar} className="nav-link" to="/purchases">Purchases</Link> 
                             </li>
                         }
-                        {props.user.state.isAuthenticated &&
+                        {user.state.isAuthenticated &&
                             <li className="nav-item">
-                                <Link onClick={collapseBar} className="nav-link" to="/settings">{props.user.state.user.firstName}</Link> 
+                                <Link onClick={collapseBar} className="nav-link" to="/settings">{user.state.user.firstName}</Link> 
                             </li>
                         }
-                        {props.user.state.isAuthenticated &&
+                        {user.state.isAuthenticated &&
                             <li className="nav-item">
                                 <a className="nav-link" href="#" onClick={logout} >Logout</a>
                             </li>

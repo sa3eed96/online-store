@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import Input from '../common/formInput';
 import axios from 'axios';
+import eventBus from '../../helpers/eventbus';
 
 const ChangePassword = (props)=> {
     const [password, setPassword] = useState({
@@ -20,14 +21,21 @@ const ChangePassword = (props)=> {
                 return;
             }
             await axios.put('/api/changepassword', {newPassword: password.newPassword, oldPassword:password.oldPassword});
-            props.showNotification('Password Updated', 'bg-success', 'Success');
+            eventBus.dispatch("showNotification", {
+                body: 'Password Updated',
+                background: 'bg-success',
+                header: 'Success',
+            });
             props.history.replace('/settings');
         }catch(err){
-            console.log(err.response);
             if(err.response.status === 400){
                 return setError(err.response.data);
             }
-            props.showNotification('error changing password, try again later', 'bg-danger', 'Error');
+            eventBus.dispatch("showNotification", {
+                body: 'error changing password, try again later',
+                background: 'bg-danger',
+                header: 'Error',
+            });
         }
     };
 

@@ -2,6 +2,7 @@ import React,{useState} from 'react';
 import axios from 'axios';
 import $ from 'jquery';
 import Spinner from '../common/spinner';
+import eventBus from '../../helpers/eventbus';
 
 const CancelOrder = (props)=> {
     const [loading, setLoading] = useState(false);
@@ -10,12 +11,20 @@ const CancelOrder = (props)=> {
         try{
             setLoading(true);
             await axios.delete(`/api/purchase/${props.id}`);
-            props.showNotification('order has been canceled', 'bg-success', 'Success');
+            eventBus.dispatch("showNotification", {
+                body: 'order has been canceled',
+                background: 'bg-success',
+                header: 'Success',
+            });
             $('#cancelModal').modal('hide');
             props.history.replace('/purchases');
         }catch(err){
             setLoading(false);
-            props.showNotification('could not cancel order, try again later', 'bg-danger', 'Error');
+            eventBus.dispatch("showNotification", {
+                body: 'could not cancel order, try again later',
+                background: 'bg-danger',
+                header: 'Error',
+            });
         }
     };
 

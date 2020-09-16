@@ -70,7 +70,7 @@ const PurchaseDetails = (props)=> {
                                 {purchase.hasOwnProperty('PurchaseDetails') && 
                                     <div>
                                         {purchase.PurchaseDetails.map((p)=> (
-                                            <div className="row ml-2">
+                                            <div key={p.id} className="row ml-2">
                                                 <h6 className="col-sm-12 col-md-12"><Link to={{pathname: `/product/${p.ProductId}`}}>{p.Product.name}</Link></h6>
                                                 <p className="col-sm-12 col-md-6" className="col">quantity: {p.quantity}</p>
                                                 <p className="col-sm-12 col-md-6" className="col">color: {p.color}</p>

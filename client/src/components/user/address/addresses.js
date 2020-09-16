@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {Link, useRouteMatch} from 'react-router-dom';
 import Spinner from '../../common/spinner';
 import axios from 'axios';
+import eventBus from '../../../helpers/eventbus';
 
 const Addresses = (props)=> {
     const [addresses, setAddresses] = useState([]);
@@ -15,7 +16,11 @@ const Addresses = (props)=> {
                 setAddresses(addresses.data.addresses);
                 setLoading(false);
             }catch(err){
-                props.showNotification('failed to fetch Addresses','bg-danger', 'Error');
+                eventBus.dispatch("showNotification", {
+                    body: 'failed to fetch Addresses',
+                    background: 'bg-danger',
+                    header: 'Error',
+                });
             }
         };
         getAddresses();        
@@ -28,9 +33,17 @@ const Addresses = (props)=> {
             const tempAddresses = [...addresses];
             tempAddresses.splice(index, 1);
             setAddresses(tempAddresses);
-            props.showNotification('Address Deleted','bg-success', 'Success');
+            eventBus.dispatch("showNotification", {
+                body: 'Address Deleted',
+                background: 'bg-success',
+                header: 'Success',
+            });
         }catch(err){
-            props.showNotification('failed to delete Address','bg-danger', 'Error');
+            eventBus.dispatch("showNotification", {
+                body: 'failed to delete Address',
+                background: 'bg-danger',
+                header: 'Error',
+            });
         }
         
     }

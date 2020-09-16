@@ -4,6 +4,7 @@ import axios from 'axios';
 import RateView from '../rate/rateview';
 import {IKImage} from  "imagekitio-react";
 import Spinner from '../common/spinner';
+import eventBus from '../../helpers/eventbus';
 
 const Products = (props) => {
 
@@ -32,7 +33,11 @@ const Products = (props) => {
                 setCount(data.count);
                 setLoading(false);
             } catch (err) {
-                props.showNotification('could not fetch products, try again later','bg-danger','Error');
+                eventBus.dispatch("showNotification", {
+                    body: "could not fetch products, try again later",
+                    background: 'bg-danger',
+                    header: 'Error',
+                });
             }
         };
         getProducts();

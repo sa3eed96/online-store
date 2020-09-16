@@ -4,7 +4,6 @@ import $ from 'jquery';
 
 const ImageView = (props)=>{
     const [images, setImages] = useState(props.images);
-    console.log(images);
     const [currentImage, setCurrentImage] = useState(props.images[0]);
 
     const changeImage = (img, e)=> {

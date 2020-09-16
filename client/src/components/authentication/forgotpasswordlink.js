@@ -1,20 +1,28 @@
 import React, {useState} from 'react';
 import axios from 'axios';
 import Input from '../common/formInput';
+import eventBus from '../../helpers/eventbus';
 
 const ForgotPasswordLink = (props) => {
     const [showForm, setShowForm] = useState(false);
     const [email, setEmail] = useState('');
 
     const sendLink = async(e)=>{
-        console.log(props);
         e.preventDefault();
         try{
             await axios.post('/api/passwordreset', {email});
             setShowForm(false);
-            props.showNotification('email containing password reset link has been sent','bg-success', 'Success');
+            eventBus.dispatch("showNotification", {
+                body: "email containing password reset link has been sent",
+                background: 'bg-success',
+                header: 'Success',
+            });
         }catch(err){
-            props.showNotification('could not send password reset link, try again later','bg-danger', 'Error');
+            eventBus.dispatch("showNotification", {
+                body: "could not send password reset link, try again later",
+                background: 'bg-danger',
+                header: 'Error',
+            });
         }
     };
 

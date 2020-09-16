@@ -1,9 +1,12 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import Input from '../common/formInput';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
+import eventBus from '../../helpers/eventbus';
+import { UserContext } from '../../contexts/user';
 
 const DeleteAccount = (props)=> {
+    const user = useContext(UserContext);
     const [check, setCheck] = useState(false);
     const [password, setPassword] = useState(''); 
     const [error, setError] = useState('');
@@ -17,16 +20,24 @@ const DeleteAccount = (props)=> {
             e.preventDefault();
             setError('');
             await axios.delete('/api/user', { data:{password} });
-            props.user.dispatch({
+            user.dispatch({
                 type: 'logout'
             });
-            props.showNotification('Account Deleted', 'bg-success', 'Success');
+            eventBus.dispatch("showNotification", {
+                body: 'Account Deleted',
+                background: 'bg-success',
+                header: 'Success',
+            });
             props.history.replace('/login');
         }catch(err){
             if(err.response.status === 400){
                 return setError(err.response.data);
             }
-            props.showNotification('Could Not Delete Account, try again later', 'bg-danger', 'Error');
+            eventBus.dispatch("showNotification", {
+                body: 'Could Not Delete Account, try again later',
+                background: 'bg-danger',
+                header: 'Error',
+            });
         }
     };
 

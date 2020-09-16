@@ -1,8 +1,8 @@
-import React, {useState, useEffect, lazy, Suspense} from 'react';
+import React, {useState, useEffect, lazy, Suspense, useContext} from 'react';
 import { useParams, Link } from 'react-router-dom';
 const Rate = lazy(()=> import('../rate/rate'));
 import axios from 'axios';
-import {UserContext, UserContextProvider} from '../../contexts/user';
+import {UserContext} from '../../contexts/user';
 import RateView from '../rate/rateview';
 import ImageView from './imageView';
 import ErrorBoundry from '../errorboundry';
@@ -17,6 +17,7 @@ const Product = (props)=>{
     const [description, setDescription] = useState(null);
     const [tabIndex, setTabIndex] = useState(0);
     const [loading, setLoading] = useState(true);
+    const user = useContext(UserContext);
 
     let descriptionPart;
     useEffect(()=>{
@@ -94,17 +95,13 @@ const Product = (props)=>{
                                     {description}</p>
                                 </div>
                                 <div className="col-sm-12 col-md-4 mt-1">
-                                    <UserContext.Consumer>
-                                        {user=>(
-                                        <div>
-                                            {user.state.isAuthenticated &&
-                                                <Link className={`btn btn-primary form-control ${color.stockCount === 0 ? 'disabled': ''}`} 
-                                                    to={{pathname: '/addtocart', state: {product: {...product}, color}}}>add to cart
-                                                </Link>
-                                            }
-                                        </div>
-                                        )}
-                                    </UserContext.Consumer>
+                                    <div>
+                                        {user.state.isAuthenticated &&
+                                            <Link className={`btn btn-primary form-control ${color.stockCount === 0 ? 'disabled': ''}`} 
+                                                to={{pathname: '/addtocart', state: {product: {...product}, color}}}>add to cart
+                                            </Link>
+                                        }
+                                    </div>
                                 </div>
                                 <div id="description" style={{minHeight: (window.screen.height/2)}} className="col-12 mt-4">
                                     <ul className="nav nav-tabs">
@@ -121,17 +118,15 @@ const Product = (props)=>{
                                     </p>}
                                 </div>
                                 <div className=" border-top col-12">
-                                    <UserContext.Consumer>
-                                        {user=>(product.id && 
-                                            <div>
-                                                <ErrorBoundry>
-                                                    <Suspense fallback={<Spinner loading={true}></Spinner>}>
-                                                        <Rate productId={product.id} rate={product.rate} user={user} />
-                                                    </Suspense>
-                                                </ErrorBoundry>
-                                            </div>
-                                        )}
-                                    </UserContext.Consumer>
+                                    {product.id && 
+                                        <div>
+                                            <ErrorBoundry>
+                                                <Suspense fallback={<Spinner loading={true}></Spinner>}>
+                                                    <Rate productId={product.id} rate={product.rate} />
+                                                </Suspense>
+                                            </ErrorBoundry>
+                                        </div>
+                                    }
                                 </div>
                             </div>
                         }

@@ -1,16 +1,18 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import axios from 'axios';
 import Input from '../common/formInput';
 import Spinner from '../common/spinner';
 import validateForm from '../../helpers/validation';
+import { UserContext } from '../../contexts/user';
+import eventBus from '../../helpers/eventbus';
 
 const UserInfo = (props)=> {
-
+    const userContext = useContext(UserContext);
     const [user, setUser] = useState({
-            firstName: props.user.state.user.firstName,
-            lastName: props.user.state.user.lastName,
-            email: props.user.state.user.email,
-            phone: props.user.state.user.phone,
+            firstName: userContext.state.user.firstName,
+            lastName: userContext.state.user.lastName,
+            email: userContext.state.user.email,
+            phone: userContext.state.user.phone,
         });
 
         const [formValidation, setFormValidation] = useState({
@@ -43,10 +45,10 @@ const UserInfo = (props)=> {
             }
             const {data} = await axios.put('/api/user', user);
             if(data.hasOwnProperty('user')){
-                props.user.dispatch({
+                userContext.dispatch({
                     type: 'infoUpdate',
                     payload: {
-                        ...props.user.state.user,
+                        ...userContext.state.user,
                         firstName: data.user.firstName,
                         lastName: data.user.lastName,
                         phone: data.user.phone,
@@ -54,14 +56,22 @@ const UserInfo = (props)=> {
                     }
                 });
             }
-            props.showNotification('Info updated', 'bg-success', 'Success');
+            eventBus.dispatch("showNotification", {
+                body: 'Info updated',
+                background: 'bg-success',
+                header: 'Success',
+            });
             props.history.replace('/settings');
         } catch (err) {
             setLoading(false);
             if("response" in err && 'data' in err.response){
                 return setError(err.response.data);
             }
-            props.showNotification('Could Not Updated Info, try again later', 'bg-danger', 'Error');
+            eventBus.dispatch("showNotification", {
+                body: 'Could Not Updated Info, try again later',
+                background: 'bg-danger',
+                header: 'Error',
+            });
         }
     };
     return (

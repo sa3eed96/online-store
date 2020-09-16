@@ -28,17 +28,6 @@ const EmailVerify = lazy(()=> import('./emailverify'));
 import './App.css';
 
 function App(props){
-    const [notification, setNotification] = useState({});
-    const [show, setShow] = useState(false);
-
-    const showNotification = (body, background, header)=>{
-        setNotification({
-            body,
-            background,
-            header,
-        });
-        setShow(!show);
-    };
 
     return (
         <div style={{minHeight: window.innerHeight}} className="container-fluid position-relative">
@@ -47,31 +36,41 @@ function App(props){
                     {user=>(
                         <div>
                             <div className="pb-5">
-                                <Header user={user} />
-                                <Toast show={show} body={notification.body} background={notification.background} header={notification.header} />
+                                <Header />
+                                <Toast />
                                 <ErrorBoundry>
                                     <Suspense fallback={<Spinner loading={true}></Spinner>}>
-                                        <Switch>
-                                            <Route exact path="/" render={(props)=> <Products {...props} showNotification={showNotification} />} />
-                                            <Route path="/product/:id" component={Product} />
-                                            <Route path="/login" render={(props)=>!user.state.isAuthenticated ?<Login {...props} user={user} showNotification={showNotification} />: <Redirect to='/' />} />
-                                            <Route path="/register" render={(props)=>!user.state.isAuthenticated ?<Register showNotification={showNotification} {...props} user={user} />:<Redirect to='/' />} />
-                                            <Route path="/addtocart" render={(props) =>user.state.isAuthenticated ? <AddToCart {...props} /> : <Redirect to='/login' />} />
-                                            <Route path="/cart" render={(props) =>user.state.isAuthenticated ? <Cart {...props} showNotification={showNotification} /> : <Redirect to='/login' /> } />
-                                            <Route path="/purchase" render={(props) =>user.state.isAuthenticated ? <Purchase {...props} /> : <Redirect to='/login' /> } />
-                                            <Route path="/purchases/:id" render={(props) =>user.state.isAuthenticated ? <PurchaseDetails showNotification={showNotification} {...props} /> : <Redirect to='/login' /> } />
-                                            <Route path="/purchases" render={(props) =>user.state.isAuthenticated ? <Purchases {...props} /> : <Redirect to='/login' /> } />
-                                            <Route path={"/settings/addresses/add" } render={(props) =>user.state.isAuthenticated ? <Address {...props} showNotification={showNotification} />: <Redirect to='/login' /> } />
-                                            <Route path={`/settings/addresses/:addId`}  render={(props) =>user.state.isAuthenticated ? <Address {...props} showNotification={showNotification} />: <Redirect to='/login' /> } />
-                                            <Route path="/settings/addresses" render={(props) =>user.state.isAuthenticated ? <Addresses {...props} showNotification={showNotification} />: <Redirect to='/login' /> } />
-                                            <Route path="/settings/userinfo" render={(props) =>user.state.isAuthenticated ? <UserInfo {...props} user={user} showNotification={showNotification} />: <Redirect to='/login' /> } />
-                                            <Route path="/settings/changepassword" render={(props) =>user.state.isAuthenticated ? <ChangePassword {...props} showNotification={showNotification} /> : <Redirect to='/login' /> } />
-                                            <Route path="/settings/deleteaccount" render={(props) =>user.state.isAuthenticated ? <DeleteAccount user={user} {...props} showNotification={showNotification} /> : <Redirect to='/login' /> } />
-                                            <Route path="/settings" render={(props) =>user.state.isAuthenticated ? <Settings {...props} /> : <Redirect to='/login' /> } />
-                                            <Route path="/forgotpassword/:id" render={(props)=> <ForgotPassword {...props} showNotification={showNotification} />} />
-                                            <Route path="/emailverify/:id" component={EmailVerify} />
-                                            <Route component={PageNotFound} />
-                                        </Switch>
+                                        {user.state.isAuthenticated &&
+                                            <Switch>
+                                                <Route exact path="/" component={Products} />
+                                                <Route path="/product/:id" component={Product} />
+                                                <Route path="/addtocart" component={AddToCart} />
+                                                <Route path="/cart" component={Cart} />
+                                                <Route path="/purchase" component={Purchase} />
+                                                <Route path="/purchases/:id" component={PurchaseDetails} />
+                                                <Route path="/purchases" component={Purchases} />
+                                                <Route path="/settings/addresses/add"   component={Address} />
+                                                <Route path="/settings/addresses/:addId"component={Address} />
+                                                <Route path="/settings/addresses"       component={Addresses} />
+                                                <Route path="/settings/userinfo"        component={UserInfo} />
+                                                <Route path="/settings/changepassword"  component={ChangePassword} />
+                                                <Route path="/settings/deleteaccount"  component={DeleteAccount} />
+                                                <Route path="/settings"  component={Settings} />
+                                                <Route path="/emailverify/:id" component={EmailVerify} />
+                                                <Route component={PageNotFound} />
+                                            </Switch>
+                                        }
+                                        {!user.state.isAuthenticated &&
+                                            <Switch>
+                                                <Route exact path="/" component={Products} />
+                                                <Route path="/product/:id" component={Product} />
+                                                <Route path="/login" component={Login} />
+                                                <Route path="/register" component={Register} />
+                                                <Route path="/emailverify/:id" component={EmailVerify} />
+                                                <Route path="/forgotpassword/:id" component = {ForgotPassword} />
+                                                <Route component={PageNotFound} />
+                                            </Switch>
+                                        }
                                     </Suspense>
                                 </ErrorBoundry>
                             </div>

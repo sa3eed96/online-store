@@ -1,10 +1,12 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import Pagination from '../common/pagination';
 import axios from 'axios';
 import { FaStar, FaStarHalfAlt, FaRegStar } from 'react-icons/fa'
 import RateView from './rateview';
+import {UserContext} from '../../contexts/user';
 
 const Rate = (props)=> {
+    const user = useContext(UserContext);
     const [rate, setRate] = useState(props.rate);
     const [rates, setRates] = useState([]);
     const [myRate, setMyRate] = useState({
@@ -16,10 +18,9 @@ const Rate = (props)=> {
     const [rateView, setRateView] = useState([<FaRegStar />, <FaRegStar />, <FaRegStar />, <FaRegStar />, <FaRegStar />]);
     const [error, setError] = useState(null);
 
-
     useEffect(()=>{
         const getMyRate = async()=>{
-            if(props.user.state.isAuthenticated){
+            if(user.state.isAuthenticated){
                 const {data} = await axios.get(`/api/product/${props.productId}/userrate/myrate`);
                 if(data.hasOwnProperty('myRate')){
                     setMyRate({
@@ -112,7 +113,7 @@ const Rate = (props)=> {
 
     return (
         <div>
-            {props.user.state.isAuthenticated &&
+            {user.state.isAuthenticated &&
                 <div>
                     <h3>Rate Product:</h3>
                     <form onSubmit={handleSubmit}>
@@ -142,8 +143,7 @@ const Rate = (props)=> {
             }
             {rates.map(r=>(
                 <div key={r.id}>
-                    {console.log(r)}
-                    {r.comment && (!props.user.state.user || r.PurchaseDetails[0].Purchase.User.id !== props.user.state.user.id) &&
+                    {r.comment && (!user.state.user || r.PurchaseDetails[0].Purchase.User.id !== user.state.user.id) &&
                         <div>
                             <i>{r.PurchaseDetails[0].Purchase.User.fullName}</i> | <b>{getRate(r.rate)}</b>
                             <br />

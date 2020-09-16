@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom'
 import Spinner from '../common/spinner';
 import axios from 'axios';
+import eventBus from '../../helpers/eventbus';
 
 const Cart = (props)=> {
     const [cart, setCart] = useState([]);
@@ -20,7 +21,11 @@ const Cart = (props)=> {
                 setCartTotal(total);
                 setLoading(false);
             }catch(err){
-                props.showNotification(err, 'bg-danger','Error');
+                eventBus.dispatch("showNotification", {
+                    body: err,
+                    background: 'bg-danger',
+                    header: 'Error',
+                });
             }
         };
         getCart();
@@ -32,7 +37,11 @@ const Cart = (props)=> {
             setCart([]);
             setCartTotal(0);
         }catch(err){
-            props.showNotification(err, 'bg-danger','Error');
+            eventBus.dispatch("showNotification", {
+                body: err,
+                background: 'bg-danger',
+                header: 'Error',
+            });
         }
     };
 
@@ -49,7 +58,11 @@ const Cart = (props)=> {
             });
             setCartTotal(total);
         }catch(err){
-            props.showNotification(err, 'bg-danger','Error');
+            eventBus.dispatch("showNotification", {
+                body: err,
+                background: 'bg-danger',
+                header: 'Error',
+            });
         }
     };
 

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Input from '../../common/formInput';
 import axios from 'axios';
 import validateForm from '../../../helpers/validation';
+import eventBus from '../../../helpers/eventbus';
 
 const Address = (props) => {
     const [address, setAddress] = useState(props.location.hasOwnProperty('state') ?
@@ -42,7 +43,11 @@ const Address = (props) => {
             }
             props.history.goBack();
         } catch (err) {
-            props.showNotification('failed to add Addess','bg-danger', 'Error');
+            eventBus.dispatch("showNotification", {
+                body: 'failed to add Addess',
+                background: 'bg-danger',
+                header: 'Error',
+            });
         }
     };
     return (

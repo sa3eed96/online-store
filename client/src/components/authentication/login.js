@@ -3,6 +3,7 @@ import Input from '../common/formInput';
 import ForgotPasswordLink from './forgotpasswordlink';
 import axios from 'axios';
 import Spinner from '../common/spinner';
+import { UserContext } from '../../contexts/user';
 
 class Login extends React.Component{
     constructor(props){
@@ -14,7 +15,6 @@ class Login extends React.Component{
             error: '',
             loading: false,
         };
-        this.showNotification = props.showNotification;
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -32,16 +32,11 @@ class Login extends React.Component{
             this.setState({error: ''});
             this.setState({loading: true});
             const user = await axios.post('/api/login', {email: this.state.email, password: this.state.password, rememberMe: this.state.rememberMe});
-            this.props.user.dispatch({
+            this.context.dispatch({
                 type: 'login',
                 payload: user.data.user,
             });
-            if(this.props.history.length > 1){
-                this.props.history.goBack();
-            }else{
-                this.props.history.replace('/');
-            }
-            
+            this.props.history.replace('/');
         }catch(err){
             this.setState({loading: false});
             this.setState({error: err.response.data});
@@ -89,7 +84,7 @@ class Login extends React.Component{
                                 />
                                 <label className="form-check-label" htmlFor="rememberme">remember me for a week</label>
                             </div>
-                            <ForgotPasswordLink showNotification={this.showNotification} />
+                            <ForgotPasswordLink />
                             <Spinner loading={this.state.loading}></Spinner>
                             <p><small className="text-danger">{this.state.error}</small></p>
                             <button form="loginForm" className="btn btn-primary form-control">login</button>
@@ -100,4 +95,5 @@ class Login extends React.Component{
     }
 }
 
+Login.contextType = UserContext;
 export default Login;

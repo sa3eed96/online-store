@@ -1,8 +1,9 @@
 import React, {useState, useEffect} from 'react';
 import { useParams } from 'react-router-dom';
 import Input from '../common/formInput';
-const axios = require('axios');
-//
+import axios from 'axios';
+import eventBus from '../../helpers/eventbus';
+
 const ForgotPassword  = (props)=>{
     const {id} = useParams();
     const [password, setPassword] = useState('');
@@ -27,9 +28,17 @@ const ForgotPassword  = (props)=>{
             e.preventDefault();
             await axios.post('/api/reset',{password, id});
             props.history.push('/login');
-            props.showNotification('Password Reset Success','bg-success', 'Success');
+            eventBus.dispatch("showNotification", {
+                body: "Password Reset Success",
+                background: 'bg-success',
+                header: 'Success',
+            });
         }catch(err){
-            props.showNotification('Failed to Reset Password','bg-danger', 'Error');
+            eventBus.dispatch("showNotification", {
+                body: "Failed to Reset Password",
+                background: 'bg-danger',
+                header: 'Error',
+            });
         }
     };
 
