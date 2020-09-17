@@ -69,7 +69,7 @@ const Cart = (props)=> {
     return (
         <div>
             <Spinner loading={loading}>
-                <div style={{minHeight: window.screen.height/3}} className="row mt-4">
+                <div className="row mt-4 thirdWindowHeight">
                     <div className="col-md-9 mx-auto bg-white pt-2">
                         <div className="row">
                             <div className="col">

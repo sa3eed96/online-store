@@ -19,7 +19,7 @@ const ImageView = (props)=>{
 
     return (
         <div className="row">
-            <div style={{height: (window.screen.height / 3)}} id="carouselExampleIndicators" className="carousel slide col-12" data-ride="carousel">
+            <div id="carouselExampleIndicators" className="carousel slide col-12 thirdWindowHeight" data-ride="carousel">
                 <div className="carousel-inner h-100">
                     {images.map((image, index)=>(
                         <div key={index} className={`carousel-item h-100 ${index===0? 'active':''}`}>

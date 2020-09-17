@@ -8,6 +8,7 @@ const logger = require('morgan');
 const session = require('express-session');
 const createError = require('http-errors');
 const adminBro = require('./admin');
+const helmet = require("helmet");
 const fs = require('fs');
 const csurf = require('csurf')
 
@@ -20,7 +21,23 @@ const adminRouter = require('./routes/admin');
 const setupRouter = require('./routes/index');
 
 const app = express();
+app.disable("x-powered-by");
 
+app.use((req, res, next)=>{
+    if(/\/admin.*/.test(req.url)){
+        return next();
+    }
+    const middleware = helmet.contentSecurityPolicy({
+            directives: {
+                defaultSrc: ["'self'"],
+                imgSrc: ["'self'","ik.imagekit.io"],
+                scriptSrc: ["'self'", "paypal.com"]
+            },
+    });
+    middleware(req, res, next);
+});
+app.use(helmet.noSniff());
+app.use(helmet.xssFilter());
 app.use(adminBro.options.rootPath, adminRouter);
 app.use(logger('dev'));
 app.set('sessionMiddleware', session({

@@ -103,7 +103,7 @@ const Product = (props)=>{
                                         }
                                     </div>
                                 </div>
-                                <div id="description" style={{minHeight: (window.screen.height/2)}} className="col-12 mt-4">
+                                <div id="description" className="col-12 mt-4 halfWindowHeight">
                                     <ul className="nav nav-tabs">
                                         <li className="nav-item">
                                             <a onClick={switchTab} className={`nav-link ${tabIndex == 0 ? 'active': ''}`} href="#">Specifications</a>

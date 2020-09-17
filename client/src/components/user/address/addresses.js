@@ -51,7 +51,7 @@ const Addresses = (props)=> {
     return (
         <div>
             <Spinner loading={loading}>
-                <div style={{minHeight: window.screen.height /3 }} className="row mt-2">
+                <div className="row mt-2 thirdWindowHeight">
                     <div className="col-md-9 mx-auto bg-white pt-2">
                         <div className="row">
                             <div className="col-12">

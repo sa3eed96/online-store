@@ -46,7 +46,7 @@ const Purchases = (props) => {
     };
 
     return(
-        <div style={{minHeight: window.screen.height/3}} className="row mt-4">
+        <div className="row mt-4 thirdWindowHeight">
             <div className="col-8 mx-auto bg-white">
                 <Spinner loading={loading}>
                     <div className="row">

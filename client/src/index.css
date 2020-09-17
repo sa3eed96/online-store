@@ -56,3 +56,20 @@
     z-index: 1;
   }
 
+  .thirdWindowHeight{
+    min-height: 30vh;
+  }
+
+  .halfWindowHeight{
+    min-height: 50vh;
+  }
+
+  .windowHeight{
+    min-height: 100vh;
+  }
+
+  .errorBoundry{
+    white-space: 'pre-wrap'
+  }
+
+

@@ -18,7 +18,7 @@ class ErrorBoundary extends React.Component {
         return (
           <div>
             <h2>Something went wrong.</h2>
-            <details style={{ whiteSpace: 'pre-wrap' }}>
+            <details className="errorBoundry">
               <p>error loading page component, try refreshing the page</p>
             </details>
           </div>

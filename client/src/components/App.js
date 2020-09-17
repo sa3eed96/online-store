@@ -30,7 +30,7 @@ import './App.css';
 function App(props){
 
     return (
-        <div style={{minHeight: window.innerHeight}} className="container-fluid position-relative">
+        <div className="container-fluid position-relative windowHeight">
             <UserContextProvider>
                 <UserContext.Consumer>
                     {user=>(

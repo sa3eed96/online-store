@@ -17,7 +17,7 @@ const Purchase = (props)=> {
     };
 
     return (
-        <div style={{minHeight: screen.height/3}} className="row mt-4">
+        <div className="row mt-4 halfWindowHeight">
             <div className="col-md-8 mx-auto bg-white">
                 {!addressId &&
                     <ErrorBoundry>
