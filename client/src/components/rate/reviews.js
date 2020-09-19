@@ -40,15 +40,14 @@ const Reviews = (props)=> {
             {error &&
                 <p className="text-danger"><small>{error}</small></p>
             }
-            <h6>{rates.length} reviews</h6>
+            <h6>{rates.length} total reviews</h6>
             {rates.map(r=>(
-                <div key={r.id}>
+                <div className="border border-dark rounded-right col-8 p-2 mb-2" key={r.id}>
                     {r.comment && (!user.state.user || r.PurchaseDetails[0].Purchase.User.id !== user.state.user.id) &&
                         <div>
                             <i>{r.PurchaseDetails[0].Purchase.User.fullName}</i> | <b>{getRate(r.rate)}</b>
                             <br />
                             <p>{r.comment}</p>
-                            <hr />
                         </div>
                     }
                 </div>

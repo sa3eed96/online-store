@@ -1,37 +1,23 @@
-import React, {useState, useEffect, useContext} from 'react';
+import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import { FaStar, FaStarHalfAlt, FaRegStar } from 'react-icons/fa'
 
-const MyRate = (props)=> {
-    const [myRate, setMyRate] = useState({
-        comment: '',
-        checkedRate: '4',
-    });
-    const [rateView, setRateView] = useState([<FaRegStar />, <FaRegStar />, <FaRegStar />, <FaRegStar />, <FaRegStar />]);
+const SubmitMyRate = (props)=>{
+    const [myRate, setMyRate] = useState(props.myRate);
     const [error, setError] = useState(null);
-
+    const [rateView, setRateView] = useState([<FaRegStar />, <FaRegStar />, <FaRegStar />, <FaRegStar />, <FaRegStar />]);
 
     useEffect(()=>{
-        const getMyRate = async()=>{
-            const {data} = await axios.get(`/api/product/${props.productId}/userrate/myrate`);
-            if(data.hasOwnProperty('myRate')){
-                setMyRate({
-                    ...data.myRate,
-                    checkedRate: data.myRate.rate.toString(),
-                });
-                const temp = [...rateView];
-                for (let index = 0; index < 5; index++) {
-                    if(index <= data.myRate.rate){
-                        temp[index] = <FaStar />;
-                    }else{
-                        temp[index] = <FaRegStar />
-                    }
-                }
-                setRateView(temp);
+        const temp = [...rateView];
+        for (let index = 0; index < 5; index++) {
+            if(index < myRate.checkedRate+1){
+                temp[index] = <FaStar />
+            }else{
+                temp[index] = <FaRegStar />
             }
-        };
-        getMyRate();
-    }, []);
+        }
+        setRateView(temp);
+    },[]);
 
     const handleSubmit = async(e)=> {
         try{
@@ -43,12 +29,11 @@ const MyRate = (props)=> {
                 res = await axios.post(`/api/product/${props.productId}/userrate`,{rateArray: props.rate, rate: myRate.checkedRate, comment: myRate.comment});
             }
             const {data} = res;
-            setError(null);
-            props.updateRate(data.rate);
-            setMyRate({
+            props.updateRate({
                 ...data.userRate,
-                checkedRate: data.userRate.rate,    
+                checkedRate: data.userRate.rate, 
             });
+            
         }catch(err){
             setError(err.response.data);
         }
@@ -77,10 +62,9 @@ const MyRate = (props)=> {
             [e.target.name]: e.target.value,
         })
     };
-
-    return (
-        <div>
-            <h3>Rate Product:</h3>
+    
+    return(
+        <div className="mb-4">
             <form onSubmit={handleSubmit}>
                 <label className="text-warning clickable" onClick={e => changeRate(1, e)} htmlFor="r1">{rateView[0]}</label>
                 <input className="d-none" type="radio" name="checkedRate" value="0" label="1" id="r1" checked={myRate.checkedRate === '0'} onChange={handleChange}/>
@@ -93,13 +77,17 @@ const MyRate = (props)=> {
                 <label className="text-warning clickable" onClick={e => changeRate(5,e)} htmlFor="r5">{rateView[4]}</label>
                 <input className="d-none" type="radio" name="checkedRate" value="4" label="5" id="r5" checked={myRate.checkedRate === '4'} onChange={handleChange}/>
                 <textarea className="form-control w-50" name="comment" placeholder="optional rate review" value={myRate.comment} onChange={handleChange}></textarea>
-                <button className="btn btn-outline-success mt-1">{myRate.id ? 'update rate' : 'rate'}</button>
+                <button className="btn btn-success mt-1">rate</button>
+                {'id' in myRate &&
+                    <button onClick={props.edit} className="btn btn-secondary ml-1 mt-1">cancel</button>
+                }
             </form>
             {error &&
                 <p className="text-danger"><small>{error}</small></p>
             }
         </div>
     );
-}
 
-export default MyRate;
+};
+
+export default SubmitMyRate;

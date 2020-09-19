@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useContext} from 'react';
 import {UserContext} from '../../contexts/user';
-import MyRate from './myrate';
+import MyRate from './myrate/myrate';
 import Reviews from './reviews';
 
 const Rate = (props)=> {
@@ -13,6 +13,7 @@ const Rate = (props)=> {
 
     return (
         <div>
+            <h3>Product Reviews</h3>
             {user.state.isAuthenticated &&
                 <MyRate productId={props.productId} updateRate={updateRate} rate={rate} />  
             }
