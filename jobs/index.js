@@ -12,6 +12,6 @@ discountQueue.process(path.join('jobs','discount.js'));
 
 discountQueue.add({},{
     repeat:{
-        cron: '00***',
+        cron: '0 0 0/24 * * *',
     },
 });
