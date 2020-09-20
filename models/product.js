@@ -20,21 +20,6 @@ module.exports = (sequelize, DataTypes) => {
         isFloat: true,
       },
     },
-    discount: {
-      type: DataTypes.INTEGER,
-      default: 0,
-      validate: {
-        min: 0,
-        max: 100,
-        isInt: true,
-      },
-    },
-    discountPrice: {
-      type: DataTypes.VIRTUAL,
-      get: function(){
-        return this.getDataValue('discount')/100 * this.getDataValue('price');
-      },
-    },
     rate: {
       type: DataTypes.ARRAY(DataTypes.INTEGER),
       allowNull: false,
@@ -92,6 +77,8 @@ module.exports = (sequelize, DataTypes) => {
     models.Product.hasMany(models.Color);
     models.Product.hasMany(models.PurchaseDetail);
     models.Product.belongsTo(models.Subcategory);
+    models.Product.belongsTo(models.Discount);
+
   };
   return Product;
 };

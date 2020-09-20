@@ -9,7 +9,7 @@ const CategoryRouter = require('./category');
 const emailConfirmRouter = require('./emailconfirm');
 const passwordResetRouter = require('./passwordreset');
 const currencyRouter = require('./currency');
-
+const discountRouter = require('./discount');
 
 const setupRouter = (app)=>{
     
@@ -24,6 +24,7 @@ const setupRouter = (app)=>{
     app.use('/api/verify', emailConfirmRouter);
     app.use('/api/passwordreset', passwordResetRouter);
     app.use('/api/currency', currencyRouter);
+    app.use('/api/discount', discountRouter);
     app.use('/api/*', (req, res, next)=>{
         next(createError(404, 'Not Found'));
     });

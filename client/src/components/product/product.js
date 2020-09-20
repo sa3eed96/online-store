@@ -56,8 +56,8 @@ const Product = (props)=>{
     };
 
     const productPrice = (product)=> {
-        if(product.discount > 0){
-            return product.discountPrice;
+        if(product.Discount){
+            return product.price - product.Discount.discount/100 * product.price;
         }
         return product.price;
     };
@@ -80,7 +80,7 @@ const Product = (props)=>{
                                 </div>
                                 <div className="col-sm-12 col-md-4">
                                     <h3 className="card-subtitle mb-2 text-primary"><b>{productPrice(product)} <small>EGP</small></b></h3> 
-                                    {product.discount> 0 && <h6><small className="text-secondary"><s>{product.price} EGP </s></small> - {product.discount}% off</h6>}
+                                    {product.Discount && <h6><small className="text-secondary"><s>{product.price} EGP </s></small> - {product.Discount.discount}% off</h6>}
                                     <p><small><b>FREE Shipping</b></small></p>
                                     <hr />
                                     <p><b>Color:</b><br />

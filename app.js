@@ -19,6 +19,7 @@ getChannel();
 const { redisClient } = require('./redis');
 const adminRouter = require('./routes/admin');
 const setupRouter = require('./routes/index');
+require('./jobs/index');
 
 const app = express();
 app.disable("x-powered-by");

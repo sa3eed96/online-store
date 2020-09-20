@@ -33,7 +33,9 @@ const addToCart = (props)=>{
                 productName: product.name,
                 color: color.Color,
                 quantity,
-                price: product.discount> 0 ? product.discountPrice : product.price,
+                price: product.Discount ?  
+                product.price - product.Discount.discount/100 * product.price
+                : product.price,
                 op: 1
             };
             await axios.put('/api/cart', cartProduct);
@@ -48,8 +50,8 @@ const addToCart = (props)=>{
     };
 
     const productPrice = (product)=> {
-        if(product.discount > 0){
-            return product.discountPrice;
+        if(product.Discount){
+            return product.price - product.Discount.discount/100 * product.price;
         }
         return product.price;
     };

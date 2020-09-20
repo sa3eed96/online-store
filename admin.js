@@ -40,11 +40,12 @@ const adminBro = new AdminBro({
             editProperties: ['firstName', 'lastName', 'email', 'phone', 'lockUntil', 'verified'], 
             parent: userParent, } },
         { resource: models.Product, options: { 
-            editProperties : ['name', 'description', 'price', 'discount', 'SubcategoryName'],
-            showProperties : ['id','name', 'description', 'price', 'discount', 'discountPrice','SubcategoryName','rate'],
+            editProperties : ['name', 'description', 'price', 'discount', 'DiscountId', 'SubcategoryName'],
+            showProperties : ['id','name', 'description', 'price', 'discount','SubcategoryName','rate'],
             parent: productParent,
         } 
         },
+        {resource: models.Discount, options: { parent: productParent, } },
         {resource: models.Address, options: { parent: userParent, }},
         {resource: models.Purchase      , options: { parent: purchaseParent}, },
         {resource: models.PurchaseDetail, options: { parent: purchaseParent}, },

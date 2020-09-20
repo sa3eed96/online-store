@@ -5,6 +5,7 @@ import RateView from '../rate/rateview';
 import {IKImage} from  "imagekitio-react";
 import Spinner from '../common/spinner';
 import eventBus from '../../utils/eventbus';
+import DiscountBanner from '../product/discountbanner';
 
 const Products = (props) => {
 
@@ -53,8 +54,8 @@ const Products = (props) => {
     };
 
     const productPrice = (product)=> {
-        if(product.discount > 0){
-            return product.discountPrice;
+        if(product.Discount){
+            return product.price - product.Discount.discount/100 * product.price;
         }
         return product.price;
     };
@@ -73,6 +74,7 @@ const Products = (props) => {
 
     return (
         <div>
+            <DiscountBanner />
             <div className="row">
                 <div className="col-12">
                     <p><b>{category}</b><small> ({count} items found)</small></p>
@@ -98,9 +100,9 @@ const Products = (props) => {
                         {products.map(product =>
                             (
                                 <div className= "col-md-2 card ml-3 mr-3 mt-3 clickable" key={product.id}>
-                                    {product.discount> 0 &&
+                                    {product.Discount &&
                                         <div className="position-absolute bg-warning">
-                                            <small className="p-1 text-white">{product.discount}%</small>
+                                            <small className="p-1 text-white">{product.Discount.discount}%</small>
                                         </div>
                                     }
                                     <IKImage 
@@ -119,7 +121,7 @@ const Products = (props) => {
                                         <h6 className="card-title pl-0 col-12">{product.name.length > 25 ? product.name.substring(0,23)+"..." :product.name}</h6>
                                         <div className="card-subtitle pl-0 text-primary col-12">
                                             <p className="mb-0"><b>{productPrice(product)} EGP</b>
-                                            {product.discount> 0 && <small className="text-muted ml-1"><s>was: {product.price} EGP </s></small>}
+                                            {product.Discount && <small className="text-muted ml-1"><s>was: {product.price} EGP </s></small>}
                                             </p>
                                         </div>
                                         <div className="pl-0 col-12">

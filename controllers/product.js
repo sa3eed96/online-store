@@ -1,6 +1,6 @@
 const Product = require('../models/index').Product;
 const Color = require('../models/index').Color;
-const createError = require('http-errors');
+const Discount = require('../models/index').Discount;
 const sequelize = require('sequelize');
 const { hmGetAsync } = require('../redis');
 
@@ -20,19 +20,21 @@ module.exports.index = async (req, res, next) => {
         }else{
             order = null;
         }
-        const { count, rows: products } = await Product.findAndCountAll({
+        const { count, rows } = await Product.findAndCountAll({
             where,
             limit,
             offset,
             attributes:{
                 exclude: ['createdAt', 'updatedAt']
             },
-            include: [Color],
+            include: [Color, Discount],
             order,
             distinct: true,
         });
+        const products = rows.map(row => row.toJSON());
         return res.json({ products, count });
     } catch (err) {
+        console.log(err);
         next(err);
     }
 };
@@ -48,7 +50,7 @@ module.exports.show = async (req, res, next) => {
             model: Color,
             where,
             attributes:{exclude: ['createdAt', 'updatedAt', 'ProductId']},
-        },] 
+        }, Discount] 
         });
         let cart = null;
         if (req.session.user && color){
