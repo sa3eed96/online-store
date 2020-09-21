@@ -13,13 +13,10 @@ const fs = require('fs');
 const csurf = require('csurf')
 
 let RedisStore = require('connect-redis')(session);
-const { getChannel }= require('./email/addToQueue');
-getChannel();
-
 const { redisClient } = require('./redis');
 const adminRouter = require('./routes/admin');
 const setupRouter = require('./routes/index');
-require('./jobs/index');
+require('./jobs');
 
 const app = express();
 app.disable("x-powered-by");
