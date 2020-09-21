@@ -21,19 +21,6 @@ require('./jobs');
 const app = express();
 app.disable("x-powered-by");
 
-app.use((req, res, next)=>{
-    if(/\/admin.*/.test(req.url)){
-        return next();
-    }
-    const middleware = helmet.contentSecurityPolicy({
-            directives: {
-                defaultSrc: ["'self'"],
-                imgSrc: ["'self'","ik.imagekit.io"],
-                scriptSrc: ["'self'", "paypal.com"]
-            },
-    });
-    middleware(req, res, next);
-});
 app.use(helmet.noSniff());
 app.use(helmet.xssFilter());
 app.use(adminBro.options.rootPath, adminRouter);
