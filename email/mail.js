@@ -2,14 +2,13 @@ const nodemailer = require('nodemailer');
 
 //STARTTLS
 const transporter = nodemailer.createTransport({
-  host: process.env.EMAIL_HOST,
-  port: process.env.EMAIL_HOST,
+  service: process.env.EMAIL_SERVICE,
   auth: {
       user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASSW0RD,
   }
 },{
-  from: process.env.EMAIL_FROM,
+  from: 'donotreply@onlinestore.com',
 });
 
 

@@ -15,7 +15,7 @@ const csurf = require('csurf')
 let RedisStore = require('connect-redis')(session);
 const { redisClient } = require('./redis');
 const adminRouter = require('./routes/admin');
-const setupRouter = require('./routes/index');
+const setupRouter = require('./routes');
 require('./jobs');
 
 const app = express();
