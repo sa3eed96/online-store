@@ -1,24 +1,6 @@
-const open = require('amqplib/callback_api');
-
-let ch = null;
-const getChannel = ()=>{
-    open.connect(process.env.RABBIT_URL,(err0,connection)=>{
-        if (err0) {
-            return process.exit(1);
-        }
-        connection.createChannel(function(err1, channel){
-            if (err1) {
-                return process.exit(1);
-            }
-            ch = channel;
-        });
-    });
-};
+const { mailQueue } = require('../jobs/index');
 
 const addToQueue = (type, to, link) => {
-    if(!ch){
-        return;
-    }
     let data;
     if(type === "email"){
         data = {
@@ -33,16 +15,13 @@ const addToQueue = (type, to, link) => {
             html: `<p><b>Hello</b>click here to reset password!</p> <p><a href="${process.env.HOST}/forgotpassword/${link}">click here</a></p>`,
         };
     }
-    ch.assertQueue('email', {
-        durable: true
-    });
-    ch.sendToQueue('email', Buffer.from(JSON.stringify(data)), {
-        persistent: true
-    });
+    const options = {
+        attempts: 2,
+    }
 
+    mailQueue.add(data, options);
 };
 
 module.exports = {
     addToQueue,
-    getChannel,
 };

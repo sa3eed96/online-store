@@ -1,7 +1,8 @@
 const Discount = require('../models/index').Discount;
 const sequelize = require('../models/index').sequelize;
 
-const handler = async(job)=>{
+
+module.exports = async(job)=>{
     await Discount.destroy({where: {
         until: {
             [sequelize.gt]: Date(),
@@ -9,5 +10,3 @@ const handler = async(job)=>{
     }});
     return Promise.resolve();
 };
-
-module.exports = { handler };
