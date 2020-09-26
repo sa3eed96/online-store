@@ -2,24 +2,12 @@ import React, {useContext} from 'react';
 import { Link } from 'react-router-dom';
 import Categories from './categories';
 import SearchBar from './searchbar';
-import axios from 'axios';
+import Logout from './logout'; 
 import $ from 'jquery';
 import { UserContext } from '../../contexts/user';
 
 const Header = (props) => {
     const user = useContext(UserContext); 
-
-    const logout = async(e)=>{
-        try{
-            e.preventDefault();
-            await axios.get('/api/logout');
-            user.dispatch({
-                type: 'logout'
-            });
-        }catch(err){
-            alert(err);
-        }
-    }
 
     const collapseBar = (e)=>{
         $('#navbarSupportedContent').collapse('hide');
@@ -64,9 +52,10 @@ const Header = (props) => {
                             </li>
                         }
                         {user.state.isAuthenticated &&
-                            <li className="nav-item">
-                                <a className="nav-link" href="#" onClick={logout} >Logout</a>
+                            <li className="nav-item">                    
+                                <Logout />
                             </li>
+
                         }
                     </ul>
                 </div>
