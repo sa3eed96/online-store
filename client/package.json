@@ -4,7 +4,7 @@
   "description": "react client",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --config webpack.config.dev.js --port 3001",
+    "start": "webpack-dev-server --config webpack.config.dev.js --port 3001 --host localhost",
     "build": "webpack --config webpack.config.prod.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

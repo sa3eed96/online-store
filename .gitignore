@@ -64,6 +64,3 @@ typings/
 
 
 .vscode/*
-
-#dev db files
-/config
