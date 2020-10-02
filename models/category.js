@@ -1,4 +1,17 @@
 'use strict';
+
+/**
+ * Category Model
+ * @module models/category
+ */
+
+
+/**
+ * Category model definition
+ * @param {object} sequelize - Sequelize object 
+ * @param {object} DataTypes - Sequelize Datatypes object
+ * @return {object} Category Model
+ */
 module.exports = (sequelize, DataTypes) => {
   const Category = sequelize.define('Category', {
     name: {

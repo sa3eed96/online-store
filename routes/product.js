@@ -13,8 +13,8 @@ const router = express.Router();
  * attach handlers for get request to get a list of products.
  * @name get/products
  * @param {string} path - path to map to this route.
- * @param validation - function to validate the request parameters.
- * @param controller_function - function that handles the request.
+ * @param {Function} validation - function to validate the request parameters.
+ * @param {Function} controller_function - function that handles the request.
  * @see module:controllers/product
  * @see module:validations/product
  */
@@ -24,8 +24,8 @@ router.get('/', validation('index'), productController.index);
  * attach handlers for get request to get a product by id.
  * @name get/product
  * @param {string} path - path to map to this route.
- * @param validation - function to validate the request parameters.
- * @param controller_function - function that handles the request.
+ * @param {Function} validation - function to validate the request parameters.
+ * @param {Function} controller_function - function that handles the request.
  * @see module:controllers/product
  * @see module:validations/product
  */

@@ -1,4 +1,17 @@
 'use strict';
+
+/**
+ * Refund Model
+ * @module models/refund
+ */
+
+
+/**
+ * Refund model definition
+ * @param {object} sequelize - Sequelize object 
+ * @param {object} DataTypes - Sequelize Datatypes object
+ * @return {object} Refund Model
+ */
 module.exports = (sequelize, DataTypes) => {
   const Refund = sequelize.define('Refund', {
     amount: {

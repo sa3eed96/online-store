@@ -1,4 +1,16 @@
 'use strict';
+
+/**
+ * Discount Model
+ * @module models/discount
+ */
+
+/**
+ * Discount model definition
+ * @param {object} sequelize - Sequelize object 
+ * @param {object} DataTypes - Sequelize Datatypes object
+ * @return {object} Discount Model
+ */
 module.exports = (sequelize, DataTypes) => {
   const Discount = sequelize.define('Discount', {
     name: {

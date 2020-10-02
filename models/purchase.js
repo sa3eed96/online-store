@@ -1,4 +1,17 @@
 'use strict';
+
+/**
+ * Purchase Model
+ * @module models/purchase
+ */
+
+
+/**
+ * Purchase model definition
+ * @param {object} sequelize - Sequelize object 
+ * @param {object} DataTypes - Sequelize Datatypes object
+ * @return {object} Purchase Model
+ */
 module.exports = (sequelize, DataTypes) => {
   const Purchase = sequelize.define('Purchase', {
     total: {
@@ -21,6 +34,11 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {});
 
+  /**
+   * this function parses the cart
+   * @param {object} cart - cart object
+   * @returns {object} -json object containing total:number and purchaseDetails:PurchaseDetail[]
+   */
   Purchase.parseCart = function(cart){
     const purchaseDetails = [];
     let total = 0;

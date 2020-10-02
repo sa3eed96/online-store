@@ -1,4 +1,16 @@
 'use strict';
+
+/**
+ * Color Model
+ * @module models/color
+ */
+
+/**
+ * Color model definition
+ * @param {object} sequelize - Sequelize object 
+ * @param {object} DataTypes - Sequelize Datatypes object
+ * @return {object} Color Model
+ */
 module.exports = (sequelize, DataTypes) => {
   const Color = sequelize.define('Color', {
     Color: {

@@ -1,4 +1,16 @@
 'use strict';
+
+/**
+ * UserRate Model
+ * @module models/userrate
+ */
+
+/**
+ * UserRate model definition
+ * @param {object} sequelize - Sequelize object 
+ * @param {object} DataTypes - Sequelize Datatypes object
+ * @return {object} UserRate Model
+ */
 module.exports = (sequelize, DataTypes) => {
   const UserRate = sequelize.define('UserRate', {
     rate: {

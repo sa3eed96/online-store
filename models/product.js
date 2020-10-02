@@ -1,4 +1,16 @@
 'use strict';
+
+/**
+ * Product Model
+ * @module models/product
+ */
+
+/**
+ * Product model definition
+ * @param {object} sequelize - Sequelize object 
+ * @param {object} DataTypes - Sequelize Datatypes object
+ * @return {object} Product Model
+ */
 module.exports = (sequelize, DataTypes) => {
   const Product = sequelize.define('Product', {
     name: {
@@ -38,7 +50,11 @@ module.exports = (sequelize, DataTypes) => {
     ]
   });
   
-
+  /**
+   * function will produce an update query that decreases the product quanitiy in storage by the number of items purchased.
+   * @param {Array} purchaseDetails - array of purchased items
+   * @returns {String} - update product query.
+   */
   Product.getUpdateQuery = function(purchaseDetails){
     let query = 'update "Colors" set "stockCount" = ';
     let ids = '';
@@ -56,6 +72,11 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
 
+  /**
+   * function will produce an update query that increases the product quanitiy in storage by the number of returned purchased items.
+   * @param {Array} purchaseDetails - array of returned purchased items
+   * @returns {String} - update product query.
+   */
   Product.getDeleteQuery = function(purchaseDetails){
     let query = 'update "Colors" set "stockCount" = ';
     let ids = '';

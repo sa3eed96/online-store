@@ -1,4 +1,17 @@
 'use strict';
+
+/**
+ * Shipment Model
+ * @module models/shipment
+ */
+
+
+/**
+ * Shipment model definition
+ * @param {object} sequelize - Sequelize object 
+ * @param {object} DataTypes - Sequelize Datatypes object
+ * @return {object} Shipment Model
+ */
 module.exports = (sequelize, DataTypes) => {
   const Shipment = sequelize.define('Shipment', {
     delivery: {
@@ -13,6 +26,9 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {});
 
+  /**
+   * calculate shipment delivery time by getting the earliest date where DELIVERYCAPACITY env variable is not reached.
+   */
   Shipment.beforeSave(async (shipment, options) => {
     if (!shipment.delivery) {
       const maxDate = await Shipment.max('delivery');

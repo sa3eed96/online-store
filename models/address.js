@@ -1,4 +1,15 @@
 'use strict';
+/**
+ * Address Model
+ * @module models/address
+ */
+
+/**
+ * Address model definition
+ * @param {object} sequelize - Sequelize object 
+ * @param {object} DataTypes - Sequelize Datatypes object
+ * @return {object} Address Model
+ */
 module.exports = (sequelize, DataTypes) => {
   const Address = sequelize.define('Address', {
     country: {

@@ -1,7 +1,17 @@
 'use strict';
+/**
+ * User Model
+ * @module models/user
+ */
 
 const bcrypt = require('bcrypt');
 
+/**
+ * User model definition
+ * @param {object} sequelize - Sequelize object 
+ * @param {object} DataTypes - Sequelize Datatypes object
+ * @return {object} User Model
+ */
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     firstName: {
@@ -91,6 +101,9 @@ module.exports = (sequelize, DataTypes) => {
     return values;
   }
 
+  /**
+   * function to lock account if 5 consecutive failed login attempts reached, if not increase loginCount by 1
+   */
   User.prototype.incLoginCountAndLock = function(){
     const loginCount = this.getDataValue('loginCount');
     if (loginCount === 5) {
@@ -104,11 +117,17 @@ module.exports = (sequelize, DataTypes) => {
     return this.save();
   };
 
+  /**
+   * reset loginCount counter to 0 on successful login.
+   */
   User.prototype.successfulLogin = function(){
     this.setDataValue('loginCount', 0);
     return this.save();
   };
 
+  /**
+   * before save hook to hash password if changed and assign the hashed password to the model instance.
+   */
   User.beforeSave((user, options) => {
     if (user.changed('password')) {
       return bcrypt.hash(user.password, 10).then((hash) =>

@@ -1,4 +1,17 @@
 'use strict';
+
+/**
+ * PurchaseDetail Model
+ * @module models/purchasedetail
+ */
+
+
+ /**
+ * PurchaseDetail model definition
+ * @param {object} sequelize - Sequelize object 
+ * @param {object} DataTypes - Sequelize Datatypes object
+ * @return {object} PurchaseDetail Model
+ */
 module.exports = (sequelize, DataTypes) => {
   const PurchaseDetail = sequelize.define('PurchaseDetail', {
     quantity: {

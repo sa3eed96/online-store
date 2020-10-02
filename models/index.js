@@ -1,5 +1,10 @@
 'use strict';
 
+/**
+ * sequelize configuration file
+ * @module models/index
+ */
+
 const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');

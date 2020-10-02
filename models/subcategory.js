@@ -1,4 +1,16 @@
 'use strict';
+
+/**
+ * Subcategory Model
+ * @module models/subcategory
+ */
+
+/**
+ * Subcategory model definition
+ * @param {object} sequelize - Sequelize object 
+ * @param {object} DataTypes - Sequelize Datatypes object
+ * @return {object} Subcategory Model
+ */
 module.exports = (sequelize, DataTypes) => {
   const Subcategory = sequelize.define('Subcategory', {
     name: {

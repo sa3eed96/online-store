@@ -12,8 +12,8 @@ const AutoCompleteController = require('../controllers/autocomplete');
  * attach handlers for get request to get auto complete items.
  * @name get/autocomplete
  * @param {string} path - path to map to this route.
- * @param validation - function to validate the request parameters.
- * @param controller_function - function that handles the request.
+ * @param {Function} validation - function to validate the request parameters.
+ * @param {Function} controller_function - function that handles the request.
  * @see module:controllers/cart
  * @see module:validations/autocomplete
  */

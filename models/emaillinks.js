@@ -1,4 +1,16 @@
 'use strict';
+
+/**
+ * EmailLink Model
+ * @module models/emaillink
+ */
+
+/**
+ * EmailLink model definition
+ * @param {object} sequelize - Sequelize object 
+ * @param {object} DataTypes - Sequelize Datatypes object
+ * @return {object} EmailLink Model
+ */
 module.exports = (sequelize, DataTypes) => {
   const EmailLink = sequelize.define('EmailLink', {
     link: {

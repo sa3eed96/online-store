@@ -11,7 +11,7 @@ const router = express.Router();
  * attach handlers for get request to return all disconts
  * @name get/discount
  * @param {string} path - path to map to this route.
- * @param controller_function - function that handles the request.
+ * @param {Function} controller_function - function that handles the request.
  * @see module:controllers/discount
  */
 router.get('', discountController.index);

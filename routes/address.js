@@ -24,8 +24,8 @@ router.get('',checkAuthentication, addressController.index);
  * attach handlers for post request to create address.
  * @name post/address
  * @param {string} path - path to map to this route.
- * @param check_authentication - function to authorize the user.
- * @param controller_function - function that handles the request.
+ * @param {Function} check_authentication - function to authorize the user.
+ * @param {Function} controller_function - function that handles the request.
  * @see module:controllers/address
  * @see module:middleware/checkauth
  */
@@ -35,9 +35,9 @@ router.post('',checkAuthentication, addressController.create);
  * attach handlers for put request to update address.
  * @name put/address
  * @param {string} path - path to map to this route.
- * @param validation - function to validate the request parameters.
- * @param check_authentication - function to authorize the user.
- * @param controller_function - function that handles the request.
+ * @param {Function} validation - function to validate the request parameters.
+ * @param {Function} check_authentication - function to authorize the user.
+ * @param {Function} controller_function - function that handles the request.
  * @see module:validations/address
  * @see module:middleware/checkauth
  * @see module:controllers/address
@@ -48,9 +48,9 @@ router.put('/:id', validation('update'), checkAuthentication, addressController.
  * attach handlers for delete request to delete address.
  * @name delete/address
  * @param {string} path - path to map to this route.
- * @param validation - function to validate the request parameters.
- * @param check_authentication - function to authorize the user.
- * @param controller_function - function that handles the request.
+ * @param {Function} validation - function to validate the request parameters.
+ * @param {Function} check_authentication - function to authorize the user.
+ * @param {Function} controller_function - function that handles the request.
  * @see module:validations/address
  * @see module:middleware/checkauth
  * @see module:controllers/address
