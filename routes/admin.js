@@ -1,8 +1,16 @@
+/**
+ * adminbro router
+ * @module routes/admin
+ */
 const AdminBroExpressjs = require('admin-bro-expressjs');
 const  adminBro  = require('../admin');
 const bcrypt = require('bcrypt');
 const Admin = require('../models/index').Admin;
 
+/**
+ * admin bro router
+ * @requires modules:admin
+ */
 const router = AdminBroExpressjs.buildAuthenticatedRouter(adminBro,{
     authenticate: async (email, password) => {
         const admin = await Admin.findOne({ where: {email} })

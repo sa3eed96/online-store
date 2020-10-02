@@ -1,3 +1,7 @@
+/**
+ * @module admin
+ * admin bro configuration
+ */
 const AdminBro = require('admin-bro');
 const models = require('./models/index');
 
