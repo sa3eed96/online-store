@@ -1,3 +1,5 @@
+code documentation is in progress.
+
 # Technologies Used  
 
   - Demo is hosted on: fierce-river-56667.herokuapp.com (note: email services for verification and password reset is not working in this demo due to absence of mail account).  
