@@ -1,5 +1,18 @@
+/**
+ * insert email jobs to given queue
+ * @module email/addToQueue
+ */
+
+
 const { mailQueue } = require('../jobs/index');
 
+/**
+ * add email to be sent to jobs queue with template based on the type of email
+ * @param {string} type - the type of created email whether reset-password we email-confirm
+ * @param {number} userId - the id of the user whose the link is created for
+ * @param {string} userEmail - the user email
+ * @requires module:jobs/index
+ */
 const addToQueue = (type, to, link) => {
     let data;
     if(type === "email"){

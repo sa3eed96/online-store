@@ -1,3 +1,10 @@
+/**
+ * Main Router Module.
+ * @module routes/index
+ */
+
+
+
 const authRouter = require('./authentication');
 const productRouter = require('./product');
 const addressRouter = require('./address');
@@ -11,8 +18,11 @@ const passwordResetRouter = require('./passwordreset');
 const currencyRouter = require('./currency');
 const discountRouter = require('./discount');
 
-const setupRouter = (app)=>{
-    
+/**
+ * attach the route paths with /api prefix to Express app object.
+ * @param {object} app - the Express object 
+ */
+module.exports = (app)=>{
     app.use('/api', authRouter);
     app.use('/api/product', productRouter);
     app.use('/api/address', addressRouter);
@@ -27,8 +37,5 @@ const setupRouter = (app)=>{
     app.use('/api/discount', discountRouter);
     app.use('/api/*', (req, res, next)=>{
         next(createError(404, 'Not Found'));
-    });
-    
-}
-
-module.exports = setupRouter;
+    });   
+};

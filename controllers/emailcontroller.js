@@ -1,9 +1,23 @@
+/**
+ * EmailLink Model controller to handle requests.
+ * @module controllers/emailcontroller
+ */
+
 const EmailLink = require('../models/index').EmailLink;
 const createError = require('http-errors');
 const User = require('../models/index').User;
 const sequelize = require('../models/index').sequelize; 
 const createEmail = require('../helper-modules/createemail');
 
+
+/**
+ * deletes an email link from db and set verefied state of the user to true
+ * @param {object} req  - Express request object
+ * @param {object} res  - Express response object
+ * @param {Function} next - Express next middleware function
+ * @param {number} req.params.id - email link
+ * @returns {object} - empty json object
+ */
 module.exports.destroy = async(req, res, next)=> {
     try{
         const { id } = req.params;
@@ -24,7 +38,15 @@ module.exports.destroy = async(req, res, next)=> {
     }
 };
 
-
+/**
+ * creates an email link for the user and deletes any previous created links for the same user
+ * @param {object} req  - Express request object
+ * @param {object} res  - Express response object
+ * @param {Function} next - Express next middleware function
+ * @param {number} req.params.id - email link
+ * @requires module:helper-modules/createemail
+ * @returns {object} - empty json object
+ */
 module.exports.create = async(req, res, next)=> {
     try{
         if(req.session.user.verified === 1)
