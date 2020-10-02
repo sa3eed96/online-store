@@ -1,3 +1,8 @@
+/**
+ * Authentication controller
+ * @module controllers/authentication
+ */
+
 const User = require('../models/index').User;
 const EmailLink = require('../models/index').EmailLink;
 const createError = require('http-errors');
@@ -52,6 +57,13 @@ module.exports.createSession = (req, res, next) => {
     });
 };
 
+/**
+ * destroys user session
+ * @param {object} req  - Express request object
+ * @param {object} res  - Express response object
+ * @param {Function} next - Express next middleware function
+ * @returns {Object} empty json object
+ */
 module.exports.logout = async (req, res, next) => {
     req.session.destroy(async (err) => {
         if (err)

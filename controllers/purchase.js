@@ -1,3 +1,8 @@
+/**
+ * Purchase Model controller to handle requests.
+ * @module controllers/purchase
+ */
+
 const Purchase = require('../models/index').Purchase;
 const Product = require('../models/index').Product;
 const PurchaseDetail = require('../models/index').PurchaseDetail;
@@ -8,6 +13,14 @@ const sequelize = require('../models/index').sequelize;
 const createError = require('http-errors');
 const { hmGetAllAsync, delAsync } = require('../redis');
 
+/**
+ * get a list of purchases.
+ * @param {object} req  - Express request object
+ * @param {object} res  - Express response object
+ * @param {Function} next - Express next middleware function
+ * @param {number} req.query.page - current pagination page
+ * @returns {object} -json object containing count: integer and purchases:Purchase[]
+ */
 module.exports.index = async (req, res, next) => {
     try {
         const { page } = req.query;
@@ -22,6 +35,14 @@ module.exports.index = async (req, res, next) => {
     }
 };
 
+/**
+ * get a purchase by id.
+ * @param {object} req  - Express request object
+ * @param {object} res  - Express response object
+ * @param {Function} next - Express next middleware function
+ * @param {number} req.params.purchaseId - purchase id
+ * @returns {object} -json object containing purchase:Purchase
+ */
 module.exports.show = async (req, res, next) => {
     try {
         const { purchaseId } = req.params;
@@ -37,6 +58,17 @@ module.exports.show = async (req, res, next) => {
     }
 };
 
+/**
+ * creates a purchase by getting cart items, parsing them, create purchase and delete cart items
+ * @param {object} req  - Express request object
+ * @param {object} res  - Express response object
+ * @param {Function} next - Express next middleware function
+ * @param {number} req.body.addressId - address id
+ * @param {boolean} req.body.isPaid - whether purchase was paid online or not
+ * @param {string} req.body.paymentType - paypal or ondoor
+ * @returns {object} -json object containing purchase:Purchase the newly created purchase
+ * @requires module:redis
+ */
 module.exports.create = async (req, res, next) => {
     try {
         const {addressId, isPaid, paymentType} = req.body;
@@ -62,6 +94,14 @@ module.exports.create = async (req, res, next) => {
     }
 };
 
+/**
+ * deletes purchase by getting items, creating refund order if paid online,  preparing delete query to add items to storage then deleteing shipment details and purchase
+ * @param {object} req  - Express request object
+ * @param {object} res  - Express response object
+ * @param {Function} next - Express next middleware function
+ * @param {number} req.params.id - purchase id
+ * @returns {object} - empty json object
+ */
 module.exports.destroy = async(req, res, next)=> {
     try{
         const { id } = req.params;

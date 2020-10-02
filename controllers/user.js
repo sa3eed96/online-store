@@ -1,3 +1,8 @@
+/**
+ * User Model controller to handle requests.
+ * @module controllers/address
+ */
+
 const User = require('../models/index').User;
 const createError = require('http-errors');
 const passwordCompare = require('../helper-modules/passwordcompare');
@@ -5,6 +10,17 @@ const fieldsToUpdate = require('../helper-modules/fieldstoupdate');
 
 const updateFieldsRegex = /(firstName|lastName|email|phone)/;
 
+/**
+ * update user information
+ * @param {object} req  - Express request object
+ * @param {object} res  - Express response object
+ * @param {Function} next - Express next middleware function
+ * @param {string} [req.body.firstname] - user fristname
+ * @param {string} [req.body.lastname] - user lastname
+ * @param {string} [req.body.email] - user email
+ * @param {string} [req.body.phone] - user phone
+ * @returns {object} - json object containing user:User representing the updated user
+ */
 module.exports.update = async (req, res, next) => {
     try{
         const newFields = fieldsToUpdate(req.body, updateFieldsRegex);
@@ -16,6 +32,13 @@ module.exports.update = async (req, res, next) => {
     }
 };
 
+/**
+ * delete user
+ * @param {object} req  - Express request object
+ * @param {object} res  - Express response object
+ * @param {Function} next - Express next middleware function
+ * @requires module:helper-modules/passwordcompare
+ */
 module.exports.destroy = async(req, res, next)=> {
     try{
         const {password} = req.body;
