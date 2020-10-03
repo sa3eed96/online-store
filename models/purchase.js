@@ -34,28 +34,6 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {});
 
-  /**
-   * this function parses the cart
-   * @param {object} cart - cart object
-   * @returns {object} -json object containing total:number and purchaseDetails:PurchaseDetail[]
-   */
-  Purchase.parseCart = function(cart){
-    const purchaseDetails = [];
-    let total = 0;
-    for (const key in cart) {
-      const ProductId = key.split('-')[0];
-      const color = key.split('-')[2];
-      const quantityPrice = cart[key].split('-');
-      const quantity = quantityPrice[0];
-      total += quantity * quantityPrice[1];
-      purchaseDetails.push({ProductId, quantity, color});
-    }
-    if(purchaseDetails.length === 0){
-      throw new Error('cart is empty');
-    }
-    return {purchaseDetails, total};
-  };
-
   Purchase.associate = function (models) {
     models.Purchase.belongsTo(models.User, { onDelete: 'SET NULL' });
     models.Purchase.belongsTo(models.Shipment);

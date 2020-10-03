@@ -11,6 +11,7 @@ const Address = require('../models/index').Address;
 const Refund = require('../models/index').Refund;
 const sequelize = require('../models/index').sequelize; 
 const createError = require('http-errors');
+const Cart = require('../classes/cart');
 const { hmGetAllAsync, delAsync } = require('../redis');
 
 /**
@@ -68,15 +69,20 @@ module.exports.show = async (req, res, next) => {
  * @param {string} req.body.paymentType - paypal or ondoor
  * @returns {object} -json object containing purchase:Purchase the newly created purchase
  * @requires module:redis
+ * @requires module:classes/cart
  */
 module.exports.create = async (req, res, next) => {
     try {
         const {addressId, isPaid, paymentType} = req.body;
         const result = await sequelize.transaction(async(transaction)=>{
-            const cart = await hmGetAllAsync(`cart-${req.session.user.id}`);
-            const {purchaseDetails, total} = Purchase.parseCart(cart);
+            
+            const cartItems = await hmGetAllAsync(`cart-${req.session.user.id}`);
+            const cart = new Cart(cartItems)
+            const {purchaseDetails, total} = cart.purchaseDetails;
+            
             const productUpdateQuery = Product.getUpdateQuery(purchaseDetails);
             await sequelize.query(productUpdateQuery, {transaction});
+            
             const purchase = await Purchase.create({
                 UserId: req.session.user.id,
                 total,
@@ -85,6 +91,7 @@ module.exports.create = async (req, res, next) => {
                 PurchaseDetails: purchaseDetails,
                 Shipment: { AddressId: addressId },
             }, {include: [PurchaseDetail, Shipment], transaction});
+            
             await delAsync(`cart-${req.session.user.id}`);
             return purchase;
         });

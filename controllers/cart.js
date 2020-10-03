@@ -4,6 +4,7 @@
  */
 
 const { hmSetAsync, hmGetAllAsync, hDelAsync, delAsync } = require('../redis'); 
+const Cart = require('../classes/cart');
 
 /**
  * gets all cart items
@@ -12,17 +13,13 @@ const { hmSetAsync, hmGetAllAsync, hDelAsync, delAsync } = require('../redis');
  * @param {Function} next - Express next middleware function
  * @returns {object} - json object containing cart items
  * @requires module:redis
+ * @requires module:classes/cart
  */
 module.exports.index = async (req, res, next)=>{
     try{
-        const cartObject = await hmGetAllAsync(`cart-${req.session.user.id}`);
-        const cart = [];
-        for (const key in cartObject) {
-            const [productId, productName, color] = key.split('-');
-            const [quantity, price] = cartObject[key].split('-');
-            cart.push({productId, productName, color, quantity, price});
-        }
-        return res.json({ cart });
+        const cartItems = await hmGetAllAsync(`cart-${req.session.user.id}`);
+        const cart = new Cart(cartItems);
+        return res.json({ cart: cart.items });
     }catch(err){
         next(err);
     }
