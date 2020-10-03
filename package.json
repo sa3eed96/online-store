@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node -r dotenv/config ./bin/www",
+    "start": "node -r ./bin/www",
     "dev": "nodemon -r dotenv/config ./bin/www",
-    "test": "mocha",
+    "test": "mocha -r dotenv/config",
     "lint": "eslint app.js"
   },
   "dependencies": {

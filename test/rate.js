@@ -15,7 +15,7 @@ const Purchase = require('../models/index').Purchase;
 const PurchaseDetail = require('../models/index').PurchaseDetail; 
 const Shipment = require('../models/index').Shipment; 
 
-describe.only('product rate',()=>{
+describe('product rate',()=>{
 
     before(async()=> {
         boot();

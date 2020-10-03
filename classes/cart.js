@@ -2,9 +2,18 @@
  * @module classes/cart
  */
 
+
+/**
+ * class representing a cart
+ */
 class Cart {
     total = 0;
     items = [];
+
+    /**
+     * create a cart.
+     * @param {Array} items - cart items
+     */
     constructor(items) {
         for (const key in items) {
             const [productId, productName, color] = key.split('-');
@@ -14,18 +23,22 @@ class Cart {
         }
     }
 
+    /**
+     * Get cart items.
+     * @returns {Array} - the cart items.
+     */
     get items() {
         return this.items;
     }
-    
-    set items(productId, productName, color, quantity, price){
-        this.items.push({productId, productName, color, quantity, price});
-    }
 
+    /**
+     * Get cart purchase details.
+     * @returns {object} - total:integer representing cart total and purchaseDetails:object[] representing each product deatils.
+     */
     get purchaseDetails() {
         const purchaseDetails = this.items.map(item => {
             return {
-                productId: item.productId,
+                ProductId: item.productId,
                 quantity: item.quantity,
                 color: item.color
             };

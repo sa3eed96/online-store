@@ -6,7 +6,7 @@ const app = require('../app');
 const User = require('../models/index').User;
 const { hmSetAsync, hmGetAllAsync, hDelAsync, delAsync } = require('../redis');
 
-describe('cart', ()=>{
+describe.only('cart', ()=>{
     before(async ()=>{
         boot();
         const user = await User.findOne({where:{id: 1}});

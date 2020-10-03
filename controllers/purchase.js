@@ -81,6 +81,7 @@ module.exports.create = async (req, res, next) => {
             const {purchaseDetails, total} = cart.purchaseDetails;
             
             const productUpdateQuery = Product.getUpdateQuery(purchaseDetails);
+            console.log(productUpdateQuery);
             await sequelize.query(productUpdateQuery, {transaction});
             
             const purchase = await Purchase.create({
