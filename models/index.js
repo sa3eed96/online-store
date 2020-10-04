@@ -44,9 +44,4 @@ Object.keys(db).forEach((modelName) => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-const syncDB = async()=>{
- await db.sequelize.sync();
-};
-syncDB();
-
 module.exports = db;

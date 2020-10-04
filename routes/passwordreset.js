@@ -35,4 +35,17 @@ router.get('/:id',validation('show'), passwordReset.show);
  */
 router.post('', validation('create'), passwordReset.create);
 
+
+/**
+ * attach handlers for post request to reset password.
+ * @name post/reset
+ * @param {string} path - path to map to this route.
+ * @param {Function} validation - function to validate the request parameters.
+ * @param {Function} controller_function - function that handles request.
+ * @see module:controllers/passwordreset
+ * @see module:validations/authentication
+ */
+router.delete('/:id', validation('destroy'), passwordReset.destroy);
+
+
 module.exports = router;

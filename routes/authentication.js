@@ -66,15 +66,4 @@ router.get('/logout', checkAuthentication, authController.logout);
  */
 router.get('/getloggedin', checkAuthentication, authController.returnLoggedInUser);
 
-/**
- * attach handlers for post request to reset password.
- * @name post/reset
- * @param {string} path - path to map to this route.
- * @param {Function} validation - function to validate the request parameters.
- * @param {Function} controller_function - function that handles request.
- * @see module:controllers/authentication
- * @see module:validations/authentication
- */
-router.post('/reset', validate('reset'), authController.passwordReset);
-
 module.exports = router;

@@ -4,7 +4,7 @@ const User = require('../models/index').User;
 const EmailLink = require('../models/index').EmailLink; 
 const boot = require('../bin/www').boot;
 const shutdown = require('../bin/www').shutdown;
-const UserSeeder = require('../seeders/20200812003038-User');
+const seed = require('../seeders/seed');
 const app = require('../app');
 
 describe('authentication',()=> {
@@ -15,8 +15,7 @@ describe('authentication',()=> {
 
         before(async function() {
             this.timeout(0);
-            await UserSeeder.down();
-            await UserSeeder.up();
+            seed();
         });
 
         it('should login with correct credentials',(done)=>{
@@ -47,8 +46,7 @@ describe('authentication',()=> {
         
         beforeEach(async function() {
             this.timeout(0);
-            await UserSeeder.down();
-            await UserSeeder.up();
+            seed();
         });
 
         it('should register user with valid fields',(done)=>{
@@ -90,8 +88,7 @@ describe('authentication',()=> {
 
         beforeEach(async function() {
             this.timeout(0);
-            await UserSeeder.down();
-            await UserSeeder.up();
+            seed();
         });
     
         it('should change password',(done)=>{
@@ -113,8 +110,7 @@ describe('authentication',()=> {
     describe('forgot password',()=>{
         before(async function(){
             this.timeout(0);
-            await UserSeeder.down();
-            await UserSeeder.up();
+            seed();
             const user = await User.findOne({where:{id: 1}});
             app.set('sessionMiddleware', (req, res, next) => {
                 req.session = {

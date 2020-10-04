@@ -29,7 +29,9 @@ const ForgotPassword  = (props)=>{
     const handleSubmit = async(e)=>{
         try{
             e.preventDefault();
-            await axios.post('/api/reset',{password, id});
+            await axios.delete(`/api/passwordreset/${id}`,{
+                data: { password }
+            });
             props.history.push('/login');
             eventBus.dispatch("showNotification", {
                 body: "Password Reset Success, you can now login",

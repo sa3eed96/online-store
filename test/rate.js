@@ -5,12 +5,7 @@ const shutdown = require('../bin/www').shutdown;
 const app = require('../app');
 const User = require('../models/index').User;
 const UserRate = require('../models/index').UserRate;
-const productSeeder =require('../seeders/20200813003652-product');
-const ColorSeeder =require('../seeders/20200813005034-color');
-const SubcategorySeeder =require('../seeders/20200812171956-subcategory');
-const CategorySeeder =require('../seeders/20200812171946-category');
-const UserSeeder = require('../seeders/20200812003038-User');
-const AddressSeeder = require('../seeders/20200812170734-address');
+const seed = require('../seeders/seed');
 const Purchase = require('../models/index').Purchase; 
 const PurchaseDetail = require('../models/index').PurchaseDetail; 
 const Shipment = require('../models/index').Shipment; 
@@ -30,20 +25,8 @@ describe('product rate',()=>{
 
     beforeEach(async function(){
         this.timeout(0);
-        
-        await AddressSeeder.down();
-        await UserSeeder.down();
-        await ColorSeeder.down();
-        await productSeeder.down();
-        await SubcategorySeeder.down();
-        await CategorySeeder.down();
+        seed();
 
-        await UserSeeder.up();
-        await AddressSeeder.up();
-        await CategorySeeder.up();
-        await SubcategorySeeder.up();
-        await productSeeder.up();
-        await ColorSeeder.up();
         await UserRate.sync({force: true});
         await PurchaseDetail.sync({force: true});
         await Purchase.sync({force: true});

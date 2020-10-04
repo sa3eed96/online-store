@@ -28,7 +28,6 @@ module.exports = {
       Return a promise to correctly handle asynchronicity.
 
       Example:*/
-      await sequelize.sync();
       return User.sync({ force: true });
   }
 };

@@ -1,6 +1,6 @@
 /**
  * emailconfirm request paramaters validation
- * @module validations/emailconfirm
+ * @module validations/emailverify
  */
 
 const { param } = require('express-validator');

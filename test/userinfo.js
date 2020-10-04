@@ -4,13 +4,12 @@ const boot = require('../bin/www').boot;
 const shutdown = require('../bin/www').shutdown;
 const app = require('../app');
 const User = require('../models/index').User;
-const UserSeeder = require('../seeders/20200812003038-User');
+const seed = require('../seeders/seed');
 
-describe('user info',()=>{
+describe.only('user info',async ()=>{
     before(async()=> {
         boot();
-        await UserSeeder.down();
-        await UserSeeder.up();
+        await seed();
         const user = await User.findOne({where:{id: 1}});
         app.set('sessionMiddleware', (req, res, next) => {
             req.session = {
@@ -25,8 +24,7 @@ describe('user info',()=>{
 
     beforeEach(async function(){
         this.timeout(0);
-        await UserSeeder.down();
-        await UserSeeder.up();
+        await seed();
     });
     
     describe('update user info',()=>{

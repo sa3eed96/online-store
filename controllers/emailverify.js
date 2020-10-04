@@ -1,13 +1,13 @@
 /**
  * EmailLink Model controller to handle requests.
- * @module controllers/emailcontroller
+ * @module controllers/emailverify
  */
 
-const EmailLink = require('../models/index').EmailLink;
+const EmailVerify = require('../models/index').EmailVerify;
 const createError = require('http-errors');
 const User = require('../models/index').User;
 const sequelize = require('../models/index').sequelize; 
-const createEmail = require('../helper-modules/createemail');
+const { createVerifyEmail } = require('../helper-modules/email');
 
 
 /**
@@ -22,7 +22,7 @@ module.exports.destroy = async(req, res, next)=> {
     try{
         const { id } = req.params;
         await sequelize.transaction(async(transaction)=>{
-            const link = await EmailLink.findOne({where: {link: id, type: 'email'}, transaction});
+            const link = await EmailVerify.findOne({where: {link: id}, transaction});
             if(!link)
                 throw createError(404, 'not found');
             const user = await User.findByPk(link.UserId, { transaction });
@@ -52,11 +52,11 @@ module.exports.create = async(req, res, next)=> {
         if(req.session.user.verified === 1)
             throw createError(400, 'email already confirmed');
         await sequelize.transaction(async(transaction)=>{
-            let link = await EmailLink.findOne({where: {UserId: req.session.user.id, type: 'email'}, transaction});
+            let link = await EmailVerify.findOne({where: {UserId: req.session.user.id}, transaction});
             if(link){
                 await link.destory({ transaction });
             }
-            createEmail('email', req.session.user.id, req.session.user.email);
+            await createVerifyEmail(req.session.user.id, req.session.user.email);
             return;
         });
         return res.json({});

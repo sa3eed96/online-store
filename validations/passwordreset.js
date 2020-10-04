@@ -21,5 +21,11 @@ module.exports = (method) => {
                 body('email').exists().isEmail(),
             ];
         } 
+        case 'destroy':{
+            return [
+                body('password').exists(),
+                param('id').exists(),
+            ];
+        }
     }
 }

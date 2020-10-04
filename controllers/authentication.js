@@ -4,9 +4,8 @@
  */
 
 const User = require('../models/index').User;
-const EmailLink = require('../models/index').EmailLink;
 const createError = require('http-errors');
-const createEmail = require('../helper-modules/createemail');
+const { createVerifyEmail } = require('../helper-modules/email');
 const sequelize = require('../models/index').sequelize;
 const passwordCompare = require('../helper-modules/passwordcompare');
 
@@ -57,7 +56,7 @@ module.exports.register = async (req, res, next) => {
     try{
         const {firstName, lastName, email, password, phone } = req.body;
         const user = await User.create({firstName, lastName, email, password, phone, verified: false});
-        createEmail('email', user.id, email);
+        await createVerifyEmail(user.id, email);
         req.user = user.toJSON();
         next();
     }catch(err){
@@ -137,35 +136,3 @@ module.exports.changePassword = async(req, res, next)=> {
         next(err);
     }
 };
-
-/**
- * reset user password by checking the validity of the link and then saving the new password hashed in db
- * @param {object} req  - Express request object
- * @param {object} res  - Express response object
- * @param {Function} next - Express next middleware function
- * @param {string} req.body.password - user new password
- * @param {string} req.body.id - password reset link
- * @returns {object} -empty json object
- */
-module.exports.passwordReset = async(req, res, next)=> {
-    try{
-        const { password, id } = req.body;
-        await sequelize.transaction(async(transaction)=>{
-            const link = await EmailLink.findOne({where: {type: 'password', link: id}, transaction});
-            if(!link){
-                throw createError(404, 'invalid link, go to forget password form again to resend a new link');
-            }
-            const user = await User.findByPk(link.UserId, {transaction});
-            if(!user){
-                throw createError(404, 'invalid link, go to forget password form again to resend a new link');
-            }
-            user.password = password;
-            await user.save({transaction});
-            await link.destroy({transaction});
-            return;
-        });
-        return res.json({});
-    }catch(err){
-        next(err);
-    }
-}

@@ -1,12 +1,13 @@
 /**
- * password EmailLink Model controller to handle requests.
+ * PasswordReset Model controller to handle requests.
  * @module controllers/emailcontroller
  */
 
-const EmailLink = require('../models/index').EmailLink;
+const PasswordReset = require('../models/index').PasswordReset;
 const createError = require('http-errors');
 const User = require('../models/index').User;
-const createEmail = require('../helper-modules/createemail');
+const { createPasswordResetEmail } = require('../helper-modules/email');
+const sequelize = require('../models/index').sequelize;
 
 /**
  * finds a password reset link and returns it
@@ -19,7 +20,7 @@ const createEmail = require('../helper-modules/createemail');
 module.exports.show = async(req, res, next)=> {
     const {id} = req.params;
     try{
-        const link = await EmailLink.findOne({where: {link: id, type: 'password'}});
+        const link = await PasswordReset.findOne({where: {link: id}});
         if(!link){
             throw createError(404, 'not found, please get a new link');
         }
@@ -36,7 +37,7 @@ module.exports.show = async(req, res, next)=> {
  * @param {object} res  - Express response object
  * @param {Function} next - Express next middleware function
  * @param {string} req.body.email - user email
- * @requires module:helper-modules/createemail
+ * @requires module:helper-modules/email
  * @returns {object} - empty json object
  */
 module.exports.create = async(req, res, next)=> {
@@ -46,9 +47,42 @@ module.exports.create = async(req, res, next)=> {
         if(!user){
            throw createError(400, 'email is not registered');
         }
-        createEmail('password', user.id, email);
+        await createPasswordResetEmail(user.id, email);
         return res.status(201).json({});
     }catch(err){
         next(err);
     }
 };
+
+/**
+ * reset user password by checking the validity of the link and then saving the new password hashed in db
+ * @param {object} req  - Express request object
+ * @param {object} res  - Express response object
+ * @param {Function} next - Express next middleware function
+ * @param {string} req.body.password - user new password
+ * @param {string} req.body.id - password reset link
+ * @returns {object} -empty json object
+ */
+module.exports.destroy = async(req, res, next)=> {
+    try{
+        const { id } = req.params;
+        const { password } = req.body;
+        await sequelize.transaction(async(transaction)=>{
+            const link = await PasswordReset.findOne({where: { link: id}, transaction});
+            if(!link){
+                throw createError(404, 'invalid link, go to forget password form again to resend a new link');
+            }
+            const user = await User.findByPk(link.UserId, {transaction});
+            if(!user){
+                throw createError(404, 'invalid link, go to forget password form again to resend a new link');
+            }
+            user.password = password;
+            await user.save({transaction});
+            await link.destroy({transaction});
+            return;
+        });
+        return res.json({});
+    }catch(err){
+        next(err);
+    }
+}
