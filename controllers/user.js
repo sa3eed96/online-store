@@ -8,7 +8,7 @@ const createError = require('http-errors');
 const passwordCompare = require('../helper-modules/passwordcompare');
 const fieldsToUpdate = require('../helper-modules/fieldstoupdate');
 
-const updateFieldsRegex = /(firstName|lastName|email|phone)/;
+const updateFieldsRegex = /(firstName|lastName|email|phone|password)/;
 
 /**
  * update user information
@@ -24,7 +24,7 @@ const updateFieldsRegex = /(firstName|lastName|email|phone)/;
 module.exports.update = async (req, res, next) => {
     try{
         const newFields = fieldsToUpdate(req.body, updateFieldsRegex);
-        const [count, user] = await User.update(newFields, {where: {id: req.session.user.id }, returning: true});
+        const [count, user] = await User.update(newFields, {where: {id: req.session.user.id }, returning: true, individualHooks: true});
         req.session.user = user[0].toJSON();
         return res.json({ user: user[0].toJSON() });
     }catch(err){

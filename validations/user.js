@@ -16,5 +16,11 @@ module.exports = (method) => {
                 body('password').exists(),
             ];
         }
+        case 'changepassword':{
+            return [
+                body('password').exists(),
+                body('newPassword').exists(),
+            ];
+        }
     }
 }

@@ -6,7 +6,6 @@
 const User = require('../models/index').User;
 const createError = require('http-errors');
 const { createVerifyEmail } = require('../helper-modules/email');
-const sequelize = require('../models/index').sequelize;
 const passwordCompare = require('../helper-modules/passwordcompare');
 
 /**
@@ -109,30 +108,4 @@ module.exports.logout = async (req, res, next) => {
  */
 module.exports.returnLoggedInUser = (req, res, next)=> {
     return res.json({user: req.session.user});
-};
-
-/**
- * change user password by comparing old password with the hashed password in db and then saving the new password.
- * @param {object} req  - Express request object
- * @param {object} res  - Express response object
- * @param {Function} next - Express next middleware function
- * @param {string} req.body.oldPassword - user old password
- * @param {string} req.body.newPassword - user new password
- * @returns {object} -empty json object
- * @requires module:helper-modules/passwordcompare
- */
-module.exports.changePassword = async(req, res, next)=> {
-    try{
-        const {oldPassword, newPassword} = req.body;
-        const user = await User.findByPk(req.session.user.id);
-        const passwordCheck = await passwordCompare(oldPassword, user.password);
-        if(!passwordCheck){
-            throw createError(400, 'incorrect password');
-        }
-        user.password = newPassword;
-        await user.save();
-        return res.json({});
-    }catch(err){
-        next(err);
-    }
 };

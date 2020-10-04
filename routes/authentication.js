@@ -34,17 +34,6 @@ router.post('/login', validate('login'), authController.login, authController.cr
 router.post('/register', validate('register'), authController.register, authController.createSession);
 
 /**
- * attach handlers for put request to change password.
- * @name put/change_password
- * @param {string} path - path to map to this route.
- * @param {Function} validation - function to validate the request parameters.
- * @param {Function} controller_function - function that handles chane password request.
- * @see module:validations/authentication
- * @see module:controllers/authentication
- */
-router.put('/changepassword', validate('changepassword'), authController.changePassword);
-
-/**
  * attach handlers for get request to logout user.
  * @name get/logout
  * @param {string} path - path to map to this route.

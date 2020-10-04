@@ -20,7 +20,7 @@ const ChangePassword = (props)=> {
                 setError('new password does not match confirm password');
                 return;
             }
-            await axios.put('/api/changepassword', {newPassword: password.newPassword, oldPassword:password.oldPassword});
+            await axios.put('/api/user/changepassword', {newPassword: password.newPassword, password: password.oldPassword});
             eventBus.dispatch("showNotification", {
                 body: 'Password Updated',
                 background: 'bg-success',
