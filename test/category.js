@@ -1,14 +1,15 @@
 const axios =require('axios');
-const  {assert, expect} = require('chai');
+const  {expect} = require('chai');
 const boot = require('../bin/www').boot;
 const shutdown = require('../bin/www').shutdown;
 const seed = require('../seeders/seed');
 
 describe('category', ()=>{
 
-    before(async()=> {
+    before(async function(){
+        this.timeout(0)
         boot();
-        seed();
+        await seed();
     });
 
     describe('category list', ()=>{
@@ -17,6 +18,7 @@ describe('category', ()=>{
                 expect(response.status).to.equal(200);
                 expect(response.data).to.have.property('categories');
                 expect(response.data.categories).to.not.equal(null);
+                expect(response.data.categories.length).to.equal(2);
                 done();
             });
         });

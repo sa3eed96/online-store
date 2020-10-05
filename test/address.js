@@ -1,5 +1,5 @@
 const axios =require('axios');
-const  {assert, expect} = require('chai');
+const  {expect} = require('chai');
 const boot = require('../bin/www').boot;
 const shutdown = require('../bin/www').shutdown;
 const app = require('../app');
@@ -7,10 +7,11 @@ const User = require('../models/index').User;
 const Address = require('../models/index').Address;
 const seed = require('../seeders/seed');
 
-describe('address',()=>{
+describe.only('address',()=>{
     before(async function(){
         boot();
         this.timeout(0);
+        await seed();
         
         const user = await User.findOne({where:{id: 1}});
         app.set('sessionMiddleware', (req, res, next) => {
@@ -23,7 +24,7 @@ describe('address',()=>{
 
     beforeEach(async function(){
         this.timeout(0);
-        seed();
+        await seed();
     });
 
     describe('getting addresses',()=>{
@@ -58,7 +59,7 @@ describe('address',()=>{
             axios.put('http://localhost:3000/api/address/1',{address:"345 heliopolis"}).then((res)=>{
                 expect(res.status).to.equal(200);
                 expect(res.data).to.have.property('address');
-                assert(res.data.address.address == "345 heliopolis")
+                expect(res.data.address.address).to.equal("345 heliopolis");
                 done();
             });
         });
@@ -83,7 +84,7 @@ describe('address',()=>{
             axios.delete('http://localhost:3000/api/address/1').then(async(res)=>{
                 expect(res.status).to.equal(200);
                 const address = await Address.findOne({where:{id: 1}});
-                assert(address == null);
+                expect(address).to.equal(null);
                 done();
             });
         });

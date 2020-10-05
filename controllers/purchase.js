@@ -79,11 +79,10 @@ module.exports.create = async (req, res, next) => {
             const cartItems = await hmGetAllAsync(`cart-${req.session.user.id}`);
             const cart = new Cart(cartItems)
             const {purchaseDetails, total} = cart.purchaseDetails;
-            
+
             const productUpdateQuery = Product.getUpdateQuery(purchaseDetails);
-            console.log(productUpdateQuery);
             await sequelize.query(productUpdateQuery, {transaction});
-            
+
             const purchase = await Purchase.create({
                 UserId: req.session.user.id,
                 total,
@@ -92,12 +91,13 @@ module.exports.create = async (req, res, next) => {
                 PurchaseDetails: purchaseDetails,
                 Shipment: { AddressId: addressId },
             }, {include: [PurchaseDetail, Shipment], transaction});
-            
+
             await delAsync(`cart-${req.session.user.id}`);
             return purchase;
         });
         return res.status(201).json({ purchase: result });
     } catch (err) {
+        console.log(err);
         next(err);
     }
 };

@@ -80,7 +80,7 @@ module.exports = {
         name: 'Double Dumbbells Vinyl, 2 KG',
         description: 'Exercising the main muscles, Suitable for women or kids, Great for home or gym workouts, Great for physiotherapy exercises',
         price: '220',
-        rate: [0, 0, 0, 0, 0],
+        rate: [0, 0, 0, 0, 1],
         SubcategoryName: 'Dumbells',
         specifications:[
           'weight:2 kg',

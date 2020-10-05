@@ -1,5 +1,5 @@
 const axios =require('axios');
-const  {assert, expect} = require('chai');
+const  {expect} = require('chai');
 const boot = require('../bin/www').boot;
 const shutdown = require('../bin/www').shutdown;
 const app = require('../app');
@@ -7,7 +7,8 @@ const User = require('../models/index').User;
 const { hmSetAsync, hmGetAllAsync, hDelAsync, delAsync } = require('../redis');
 
 describe('cart', ()=>{
-    before(async ()=>{
+    before(async function(){
+        this.timeout(0);
         boot();
         const user = await User.findOne({where:{id: 1}});
         app.set('sessionMiddleware', (req, res, next) => {
@@ -28,7 +29,7 @@ describe('cart', ()=>{
             axios.get('http://localhost:3000/api/cart').then((response)=>{
                 expect(response.status).to.equal(200);
                 expect(response.data).to.have.property('cart');
-                assert(response.data.cart.length == 1);
+                expect(response.data.cart.length).to.equal(1);
                 done();
             });
         });
@@ -60,7 +61,7 @@ describe('cart', ()=>{
                 .then(async (response)=>{
                     expect(response.status).to.equal(200);
                     const cartObject = await hmGetAllAsync(`cart-1`);
-                    assert(cartObject == null);
+                    expect(cartObject).to.equal(null);
                     done();
                 }
             );
@@ -72,7 +73,7 @@ describe('cart', ()=>{
             axios.delete('http://localhost:3000/api/cart').then(async (response)=>{
                 expect(response.status).to.equal(200);
                 const cartObject = await hmGetAllAsync(`cart-1`);
-                assert( cartObject == null);
+                expect(cartObject).to.equal(null);
                 done();
             });
         });

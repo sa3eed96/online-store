@@ -23,9 +23,6 @@ const checkPassword = async (req, res,next)=>{
         if(!passwordCheck){
             throw createError(400, 'invalid password');
         }
-        req.body = {
-            password: req.body.newPassword
-        };
         next();
     }catch(err){
         next(err);

@@ -51,6 +51,6 @@ router.put('/changepassword', checkAuthentication, validation('changepassword'),
  * @see module:controllers/user
  * @see module:controllers/authentication
  */
-router.delete('', validation('destroy'), checkAuthentication, userController.destroy, authController.logout);
+router.delete('', validation('destroy'), checkAuthentication, checkPassword, userController.destroy, authController.logout);
 
 module.exports = router;

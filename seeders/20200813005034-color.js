@@ -35,7 +35,7 @@ module.exports = {
           'https://ik.imagekit.io/rvfdomceug/cur1_aH7fuMOWc5X.jpg',
           'https://ik.imagekit.io/rvfdomceug/cur2_nIKc8Ce3MJh.jpg',
         ],
-        stockCount: '50'
+        stockCount: '49'
       },{
         id: 4,
         ProductId: '3',

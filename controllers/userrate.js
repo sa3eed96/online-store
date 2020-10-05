@@ -73,11 +73,7 @@ module.exports.show = async(req, res, next)=> {
                 model: UserRate
             }],
         });
-        if(purchaseDetail){
-            const myRate = purchaseDetail.UserRate;
-            return res.json({ myRate });
-        }
-        return res.json({});
+        return res.json({ myRate: purchaseDetail.UserRate });
     }catch(err){
         next(err);
     }

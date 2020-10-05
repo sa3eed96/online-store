@@ -7,9 +7,9 @@ const seed = require('../seeders/seed');
 
 describe('autocomplete for search', ()=>{
     before(async function (){
-        boot();
         this.timeout(0);
-        seed();
+        boot();
+        await seed();
     });
 
     describe('getting results', ()=>{
@@ -19,7 +19,7 @@ describe('autocomplete for search', ()=>{
                 expect(response.data).to.have.property('results');
                 expect(response.data.results.length).to.equal(1);
                 done();
-            }).catch(err=> console.log(err));
+            });
         });
     });
 

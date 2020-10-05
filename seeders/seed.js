@@ -4,6 +4,10 @@ const SubcategorySeeder =require('../seeders/20200812171956-subcategory');
 const CategorySeeder =require('../seeders/20200812171946-category');
 const UserSeeder = require('../seeders/20200812003038-User');
 const AddressSeeder = require('../seeders/20200812170734-address');
+const PurchaseSeeder = require('../seeders/20201005005549-purchase');
+const ShipmentSeeder = require('../seeders/20201005010321-shipment');
+const PurchaseDetailSeeder = require('../seeders/20201005011112-purchasedetails');
+const UserRateSeeder = require('../seeders/20201005011636-userrate');
 const sequelize =require('../models/index').sequelize;
 
 const seed = async ()=>{
@@ -15,6 +19,10 @@ const seed = async ()=>{
     await SubcategorySeeder.up();
     await productSeeder.up();
     await ColorSeeder.up();
+    await ShipmentSeeder.up();
+    await PurchaseSeeder.up();
+    await UserRateSeeder.up();
+    await PurchaseDetailSeeder.up();
 };
 
 module.exports = seed;

@@ -72,40 +72,6 @@ describe('authentication',()=> {
             });
         });
     });
-    describe('changePassword',()=>{
-        
-        before(async()=>{
-            
-        
-            const user = await User.findOne({where:{id: 1}});
-            app.set('sessionMiddleware', (req, res, next) => {
-                req.session = {
-                    user: user.toJSON(),
-                };
-                next()
-            });
-        });
-
-        beforeEach(async function() {
-            this.timeout(0);
-            seed();
-        });
-    
-        it('should change password',(done)=>{
-            axios.put('http://localhost:3000/api/changepassword',{newPassword:'password2345', oldPassword: 'password1234'}).then((res)=>{
-                expect(res.status).to.equal(200);
-                done();
-            });
-        });
-
-        it('should not change password with wrong password',(done)=>{
-            axios.put('http://localhost:3000/api/changepassword',{newPassword:'password2345', oldPassword: 'password12345'}).then((res)=>{
-            }).catch((err)=>{
-                expect(err.response.status).to.equal(400);
-                done();
-            });
-        });
-    });
     
     describe('forgot password',()=>{
         before(async function(){
