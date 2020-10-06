@@ -7,7 +7,7 @@ const User = require('../models/index').User;
 const Address = require('../models/index').Address;
 const seed = require('../seeders/seed');
 
-describe.only('address',()=>{
+describe('address',()=>{
     before(async function(){
         boot();
         this.timeout(0);

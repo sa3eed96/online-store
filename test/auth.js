@@ -1,11 +1,9 @@
 const axios =require('axios');
-const  {assert, expect} = require('chai');
+const  {expect} = require('chai');
 const User = require('../models/index').User;
-const EmailLink = require('../models/index').EmailLink; 
 const boot = require('../bin/www').boot;
 const shutdown = require('../bin/www').shutdown;
 const seed = require('../seeders/seed');
-const app = require('../app');
 
 describe('authentication',()=> {
 
@@ -15,14 +13,14 @@ describe('authentication',()=> {
 
         before(async function() {
             this.timeout(0);
-            seed();
+            await seed();
         });
 
         it('should login with correct credentials',(done)=>{
             axios.post('http://localhost:3000/api/login',{email: 'john@site.com', password: 'password1234'}).then((response)=>{
                 expect(response.status).to.equal(200);
                 expect(response.data).to.have.property('user');
-                assert(response.data.user.id == 1);
+                expect(response.data.user.id).to.equal(1);
                 done();
             });
         });
@@ -46,7 +44,7 @@ describe('authentication',()=> {
         
         beforeEach(async function() {
             this.timeout(0);
-            seed();
+            await seed();
         });
 
         it('should register user with valid fields',(done)=>{
@@ -54,6 +52,8 @@ describe('authentication',()=> {
             axios.post('http://localhost:3000/api/register', body).then(async (response)=> {
                 expect(response.status).to.equal(200);
                 expect(response.data).to.have.property('user');
+                const user = await User.findOne({where:{email: 'jane@site.com'}});
+                expect(user).to.not.equal(null);
                 done();
             });
         });
@@ -66,38 +66,10 @@ describe('authentication',()=> {
         });
         it('should not register with invalid fields',(done)=>{
             const body = {firstName: null, lastName: 'doe', email: 'jane@site.com', password: 'password1234', phone: '01112223334'};
-            axios.post('http://localhost:3000/api/register', body).then((response)=> {}).catch(err=>{
+            axios.post('http://localhost:3000/api/register', body).then((response)=> {}).catch(async (err)=>{
                 expect(err.response.status).to.equal(500);
-                done();
-            });
-        });
-    });
-    
-    describe('forgot password',()=>{
-        before(async function(){
-            this.timeout(0);
-            seed();
-            const user = await User.findOne({where:{id: 1}});
-            app.set('sessionMiddleware', (req, res, next) => {
-                req.session = {
-                    user: user.toJSON(),
-                };
-                next()
-            });
-            await EmailLink.create({link:'123', type: 'password', UserId: 1});
-        });
-        
-        it('should reset password and set new one',(done)=>{
-            axios.post('http://localhost:3000/api/reset', {id:'123', password: 'password3456'}).then((res)=>{
-                expect(res.status).to.equal(200);
-                done();
-            });
-        });
-
-        it('should not reset password with invalid link',(done)=>{
-            axios.post('http://localhost:3000/api/reset', {id:'1234', password: 'password3456'}).then((res)=>{
-            }).catch((err)=>{
-                expect(err.response.status).to.equal(404);
+                const user = await User.findOne({where:{email: 'jane@site.com'}});
+                expect(user).to.equal(null);
                 done();
             });
         });
