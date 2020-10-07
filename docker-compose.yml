@@ -13,23 +13,31 @@ services:
     ports:
       - "5432:5432"
     environment: 
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: ecom_dev
-      POSTGRES_USER: root
+      POSTGRES_PASSWORD: ${DB_LOCAL_PASSWORD}
+      POSTGRES_DB: ${DB_LOCAL_NAME}
+      POSTGRES_USER: ${DB_LOCAL_USER}
     volumes: 
       - postgres-data:/var/lib/postgresql/data
 
   app:
     depends_on: 
      - redis
-    build: .
+    build:
+       context: .
+       target: development
+    volumes:
+      - ./:/app
+      - /app/node_modules
     ports: 
       - "3000:3000"
-    
+      
   client:
     build: ./client
     ports:
       - "3001:3001"
+    volumes:
+      - ./client:/app/client
+      - /app/client/node_modules
 
 volumes: 
   postgres-data:
