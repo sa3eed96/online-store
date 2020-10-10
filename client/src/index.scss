@@ -12,3 +12,14 @@ body{
     background: white;
     font-size: 18px;
 }
+
+.appBody{
+    position: relative;
+    padding-bottom: 6rem;
+}
+
+.lineBreak{
+    height: 1px;
+    background: $lineBreak;
+    opacity: 0.5;
+}

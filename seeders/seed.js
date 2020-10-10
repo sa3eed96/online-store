@@ -10,6 +10,7 @@ const PurchaseDetailSeeder = require('../seeders/20201005011112-purchasedetails'
 const UserRateSeeder = require('../seeders/20201005011636-userrate');
 const PasswordResetSeeder = require('../seeders/20201005130419-passwordreset');
 const DiscountSeeder = require('../seeders/20201009170822-discount');
+const NewsSeeder = require('../seeders/20201010164614-news');
 const sequelize =require('../models/index').sequelize;
 
 const seed = async ()=>{
@@ -27,7 +28,7 @@ const seed = async ()=>{
     await UserRateSeeder.up();
     await PurchaseDetailSeeder.up();
     await PasswordResetSeeder.up();
-    console.log('finish');
+    await NewsSeeder.up();
 };
 
 module.exports = seed;

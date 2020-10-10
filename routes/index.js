@@ -13,6 +13,7 @@ const purchaseRouter = require('./purchase');
 const userRouter = require('./users');
 const autoCompleteRouter = require('./autocomplete');
 const CategoryRouter = require('./category');
+const NewsRouter = require('./news');
 const emailVerifyRouter = require('./emailverify');
 const passwordResetRouter = require('./passwordreset');
 const currencyRouter = require('./currency');
@@ -31,6 +32,7 @@ module.exports = (app)=>{
     app.use('/api/user', userRouter);
     app.use('/api/autocomplete', autoCompleteRouter);
     app.use('/api/category', CategoryRouter);
+    app.use('/api/news', NewsRouter);
     app.use('/api/verify', emailVerifyRouter);
     app.use('/api/passwordreset', passwordResetRouter);
     app.use('/api/currency', currencyRouter);
