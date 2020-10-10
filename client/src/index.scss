@@ -1,0 +1,14 @@
+$primary: white;
+$secondary: black;
+$secondaryLight:lighten($secondary, 50%);
+$lineBreak: #5dabaa;
+
+$sm: 576px;
+$md: 768px;
+$lg: 992px;
+$xl: 1200px;
+
+body{
+    background: white;
+    font-size: 18px;
+}

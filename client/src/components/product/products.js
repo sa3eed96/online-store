@@ -5,7 +5,6 @@ import RateView from '../rate/rateview';
 import {IKImage} from  "imagekitio-react";
 import Spinner from '../common/spinner';
 import eventBus from '../../utils/eventbus';
-import DiscountBanner from '../product/discountbanner';
 
 const Products = (props) => {
 
@@ -74,7 +73,6 @@ const Products = (props) => {
 
     return (
         <div>
-            <DiscountBanner />
             <div className="row">
                 <div className="col-12">
                     <p><b>{category}</b><small> ({count} items found)</small></p>

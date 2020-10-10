@@ -1,0 +1,12 @@
+@use '../../../../index.scss';
+.discountBanner{
+    background: index.$secondary;
+    
+    p{
+        color: index.$primary;
+        text-align: center;
+        padding: 1em 0px;
+        margin:0;
+        font-size:14px;
+    }
+}

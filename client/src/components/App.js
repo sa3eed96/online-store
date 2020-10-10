@@ -2,7 +2,7 @@ import React, {useState, lazy, Suspense} from 'react';
 import { Route, Switch, Redirect} from 'react-router-dom';
 import {UserContext, UserContextProvider} from '../contexts/user';
 //import needed component
-import Header from './common/header';
+import Header from './common/header/header';
 import Products from './product/products';
 import Product from './product/product';
 import Login from './authentication/login';
@@ -30,7 +30,7 @@ import './App.css';
 function App(props){
 
     return (
-        <div className="container-fluid position-relative windowHeight">
+        <div className="position-relative windowHeight">
             <UserContextProvider>
                 <UserContext.Consumer>
                     {user=>(

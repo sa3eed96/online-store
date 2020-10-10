@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {Link, useHistory} from 'react-router-dom';
 import { FaSearch } from 'react-icons/fa'
 import axios from 'axios';
+import './searchbar.scss';
 
 const searchBar = (props)=> {
     const [search, setSearch] = useState('');
@@ -33,25 +34,25 @@ const searchBar = (props)=> {
         setSearch('');
     };
 
+    const showInput = ()=>{
+        document.querySelector('input').style.display = 'inline-block';
+        document.querySelector('input').focus();
+    };
+
     return (
-        <div className="w-50 position-relative">
+        <div className="position-relative">
             <form className="form-inline " onSubmit={handleSubmit}>
-                <div className="input-group w-100">
-                    <label className="sr-only" htmlFor="search">search products</label>
-                    <div className="input-group-prepend">
-                        <span className="input-group-text" id="basic-addon1"><FaSearch /></span>
-                    </div>
-                    <input
-                        id="search"
-                        type="search"
-                        name="search"
-                        value={search}
-                        onChange={handleChange}
-                        placeholder="search products"
-                        className="form-control mr-0"
-                        autoComplete="off"
-                        />
-                </div>
+                <label className="sr-only" htmlFor="search">search products</label>
+                <input
+                    id="search"
+                    type="search"
+                    name="search"
+                    value={search}
+                    onChange={handleChange}
+                    placeholder="search products"
+                    autoComplete="off"
+                    />
+                <span onClick={showInput} className="searchIcon"><FaSearch /></span>
             </form>
             {search.length > 0 && (
                 <ul className="list-group list-group-flush w-75 searchList" >

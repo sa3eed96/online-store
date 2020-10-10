@@ -1,8 +1,7 @@
 import React, {useContext} from 'react';
 import { Link } from 'react-router-dom';
 import Categories from './categories';
-import SearchBar from './searchbar';
-import Logout from './logout'; 
+import SearchBar from './header/navigation/searchbar';
 import $ from 'jquery';
 import { UserContext } from '../../contexts/user';
 
@@ -53,7 +52,6 @@ const Header = (props) => {
                         }
                         {user.state.isAuthenticated &&
                             <li className="nav-item">                    
-                                <Logout />
                             </li>
 
                         }

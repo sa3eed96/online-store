@@ -1,0 +1,23 @@
+@use '../../../../../index.scss';
+
+.searchIcon{
+    cursor: pointer;
+    font-size: 15px;
+    &:hover{
+        color: index.$secondaryLight;
+    }
+}
+
+input{
+    background: white;
+    border:none;
+    border-bottom: 1px solid index.$secondary;
+    outline: none;
+    width: 400px;
+    display: none;
+    font-size: 15px;
+    @media(max-width: index.$md){
+        width:94%;
+        display:inline;
+    }  
+}

@@ -1,0 +1,59 @@
+@use '../../../../index.scss';
+
+.navigation{
+
+    .nav{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1em 1.5em;
+
+        &.lowerNav{
+            @media(max-width: index.$md){
+                display:flex;
+                flex-direction: column;
+                align-items: flex-start;
+                div{
+                    width:100%;
+                    &.logoCategories{
+                        display:flex;
+                        flex-direction: row;
+                        justify-content: space-between;
+                        margin-bottom:0.75em;  
+                    }
+                }
+            }   
+        }
+    }
+}
+
+.nav-link{
+    display: inline-block;
+    font-size:15px;
+    color: index.$secondary;
+    padding:0.5em;
+    &:hover{
+        color: index.$secondaryLight;
+    }
+}
+
+.lineBreak{
+    height: 1px;
+    background: index.$lineBreak;
+    opacity: 0.5;
+}
+
+.logo{
+    margin:0;
+    span{
+        color: index.$lineBreak;
+    }
+}
+
+.navbar-toggler{
+    display:none;
+    @media(max-width:index.$md){
+        display: inline;
+    }
+}

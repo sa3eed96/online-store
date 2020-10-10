@@ -18,6 +18,7 @@ module.exports = {
         price: '4',
         rate: [0, 0, 0, 0, 0],
         SubcategoryName: 'Kitchen',
+        DiscountId: '20',
         specifications:[
         'weight:1608 gm',
         'width:26 cm',

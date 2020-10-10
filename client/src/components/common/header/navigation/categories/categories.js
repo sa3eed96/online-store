@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {Link} from 'react-router-dom';
 import axios from 'axios';
 import $ from 'jquery';
+import './categories.scss';
 
 const Categories = (props)=>{
     const [categories, setCategories] = useState([]);
@@ -19,7 +20,8 @@ const Categories = (props)=>{
     };
 
     return (
-            <ul className="navbar-nav mr-auto">            {categories.map((cat=> (
+            <ul className="navbar-nav categoriesNav"> 
+            {categories.map((cat=> (
                 <li key={cat.name} className="nav-item dropdown">
                     <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         {cat.name}
