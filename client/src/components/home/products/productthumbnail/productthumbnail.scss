@@ -1,0 +1,52 @@
+@use '../../../../index.scss';
+
+.thumbnail{
+    position: relative;
+    height:400px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    border:1px solid black;
+    border-radius: 15px;
+    margin:0 10px 25px 10px;
+    cursor: pointer;
+    @media(max-width: index.$lg){
+        height: 300px;
+    }
+
+    .thumbnailDiscount{
+        position: absolute;
+        background-color: yellow;
+        color:black;
+        padding: 3px;
+        top: 0;
+        left: 15%;
+    }
+
+    .thumbnailContent{
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba($color: index.$secondary, $alpha: 0.5);
+        color: index.$primary;
+        display:flex;
+        flex-direction: column;
+        border-radius: 15px;
+        padding:15px;
+        transition: all 0.5s ease;
+        p{
+            margin:0;
+            display: inline-block;
+        }
+        @media(max-width:index.$sm){
+            background: rgba($color: index.$secondary, $alpha: 0.8);
+            font-size:16px;
+        }
+    }
+
+    &:hover{
+        .thumbnailContent{
+            background: rgba($color: index.$secondary, $alpha: 1);
+        }
+    }
+}

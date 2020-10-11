@@ -2,6 +2,7 @@
 
 #newsBannerCourousel{
     height: 400px;
+    margin-bottom: 1em;
     @media(max-width: index.$lg){
         height:300px;
     }

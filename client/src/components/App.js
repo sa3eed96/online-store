@@ -3,7 +3,6 @@ import { Route, Switch, Redirect} from 'react-router-dom';
 import {UserContext, UserContextProvider} from '../contexts/user';
 //import needed component
 import Header from './common/header/header';
-import Products from './product/products';
 import Home from './home/home';
 import Product from './product/product';
 import Login from './authentication/login';

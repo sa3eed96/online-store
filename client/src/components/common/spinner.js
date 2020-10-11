@@ -5,7 +5,7 @@ const Spinner = (props)=> {
         <div>
             {props.loading &&
                 <div className="d-flex justify-content-center">
-                    <div className="spinner-border text-primary mt-4" role="status">
+                    <div className="spinner-border text-black mt-4" role="status">
                         <span className="sr-only">Loading...</span>
                     </div>
                 </div>

@@ -1,0 +1,13 @@
+@use '../../../index.scss';
+
+.productsHeader{
+    justify-content: space-between;
+    @media(max-width: index.$md){
+        font-size:14px;
+    }
+    .sort{
+        display: flex;
+        justify-content: flex-end;
+    }
+    
+}

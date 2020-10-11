@@ -1,0 +1,11 @@
+@use '../../../index.scss';
+
+.pagination{
+    .page-item.active{
+        .page-link{
+            color:index.$primary ;
+            background-color: index.$secondary ;
+            border-color: index.$secondary;
+        }
+    }
+}

@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import './pagination.scss';
 
 const Pagination = (props)=> {
 
@@ -49,22 +50,24 @@ const Pagination = (props)=> {
     }
 
     return (
-        <div className="col-12 mt-4">
-            <nav aria-label="Pagination bar">
-                <ul className="pagination justify-content-center">
-                <li className={`page-item ${page==1 ? 'disabled': ''}`}>
-                    <a className="page-link" href="#" onClick={decPage}>Previous</a>
-                </li>
-                {pages.map((p, index)=>(
-                    <li key={index} className={`page-item ${page == p ? 'active': ''}`}>
-                        <a className="page-link" href="#" onClick={e=> setPagetoNumber(p, e)}>{p}</a>
-                    </li>
-                ))}
-                <li className={`page-item ${page == numberOfPages ? 'disabled': ''}`}>
-                    <a className="page-link" href="#" onClick={incPage}>Next</a>
-                </li>
-                </ul>
-            </nav>
+        <div>
+            <div className="col-12 mt-4">
+                <nav aria-label="Pagination bar">
+                    <ul className="pagination justify-content-center">
+                        <li className={`page-item ${page==1 ? 'disabled': ''}`}>
+                            <a className="page-link" href="#" onClick={decPage}>Previous</a>
+                        </li>
+                        {pages.map((p, index)=>(
+                            <li key={index} className={`page-item ${page == p ? 'active': ''}`}>
+                                <a className="page-link" href="#" onClick={e=> setPagetoNumber(p, e)}>{p}</a>
+                            </li>
+                        ))}
+                        <li className={`page-item ${page == numberOfPages ? 'disabled': ''}`}>
+                            <a className="page-link" href="#" onClick={incPage}>Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
         </div>
     );
 };

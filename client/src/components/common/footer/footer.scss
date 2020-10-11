@@ -7,7 +7,7 @@
     left:0;
     right:0;
     width: 100%;
-    height: 5.5rem;
+    height: 5rem;
 
     .footerLinks{
         padding-top:15px;
@@ -35,6 +35,24 @@
                 color: index.$secondaryLight;
             }
         } 
+    }
+
+
+    .footerLinks{
+        margin-bottom: 1em;
+        .nav-link{
+            font-size:14px;
+            color: index.$secondaryLight;
+        }
+
+        .firstRow{
+            display: flex;
+            justify-content: space-around;
+        }
+        .secondRow{
+            display: flex;
+            justify-content: space-between;
+        }
     }
   
 }

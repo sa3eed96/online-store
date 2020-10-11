@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useContext} from 'react';
 import axios from 'axios';
-import Pagination from '../common/pagination';
+import Pagination from '../common/pagination/pagination';
 import RateView from './rateview';
 import {UserContext} from '../../contexts/user';
 

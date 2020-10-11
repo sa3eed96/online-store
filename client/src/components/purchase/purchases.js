@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import  {Link, useRouteMatch} from 'react-router-dom';
 import axios from 'axios';
 import moment from 'moment';
-import Pagination from '../common/pagination';
+import Pagination from '../common/pagination/pagination';
 import Spinner from '../common/spinner';
 
 const Purchases = (props) => {
