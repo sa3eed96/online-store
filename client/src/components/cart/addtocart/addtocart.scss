@@ -1,0 +1,32 @@
+@use '../../../index.scss';
+
+#productAddToCart{
+    margin-top: 2rem;
+    p:first-child{
+        font-weight: 700;
+        color:black;
+        font-size: 15px;
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+    .button{
+        margin-top: 1rem;
+        padding: 0.5rem;
+        &:hover{
+            background-color: index.$secondaryLight;
+        }
+    }
+}
+
+#quantityAdjust{
+    margin-top:0.5rem;
+    .icons{
+        color: index.$secondaryLight;
+        cursor: pointer;
+    }
+
+    span{
+        margin: 0 1rem;
+        font-size:18px;
+    }
+}

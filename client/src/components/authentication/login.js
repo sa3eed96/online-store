@@ -46,7 +46,7 @@ class Login extends React.Component{
     render(){
         return(
             <div className="row">
-                <div className="card mx-auto col-sm-10 col-md-3 border border-radius p-4 mt-4">
+                <div className="card mx-auto col-sm-10 col-md-4 border border-radius p-4 mt-4">
                     <form id="loginForm" onSubmit={this.handleSubmit}></form>
                     <div className="card-body">
                             <h5 className="card-title pb-1 text-center text-secondary">Login</h5>
@@ -57,7 +57,7 @@ class Login extends React.Component{
                                 value={this.state.email}
                                 onChange={this.handleChange}
                                 id="email"
-                                label="email"
+                                placeholder="Email"
                                 required='required'
                             />
                             <Input
@@ -67,7 +67,7 @@ class Login extends React.Component{
                                 value={this.state.password}
                                 onChange={this.handleChange}
                                 id="password"
-                                label="password"
+                                placeholder="Password"
                                 required='required'
                                 minLength='8'
                                 maxLength='30'
@@ -87,7 +87,7 @@ class Login extends React.Component{
                             <ForgotPasswordLink />
                             <Spinner loading={this.state.loading}></Spinner>
                             <p><small className="text-danger">{this.state.error}</small></p>
-                            <button form="loginForm" className="btn btn-primary form-control">login</button>
+                            <button form="loginForm" className="btn btn-dark form-control">login</button>
                     </div>
                 </div>
             </div>

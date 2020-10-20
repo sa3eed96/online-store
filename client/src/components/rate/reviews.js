@@ -3,6 +3,7 @@ import axios from 'axios';
 import Pagination from '../common/pagination/pagination';
 import RateView from './rateview';
 import {UserContext} from '../../contexts/user';
+import moment from 'moment';
 
 const Reviews = (props)=> {
     const user = useContext(UserContext);    
@@ -35,19 +36,28 @@ const Reviews = (props)=> {
         return <RateView rate={rateArr} />
     }
 
+    const getDate = (d)=>{
+        return moment(d).format('YYYY-MM-DD');
+    };
+
     return(
         <div>
             {error &&
                 <p className="text-danger"><small>{error}</small></p>
             }
-            <h6>{rates.length} total reviews</h6>
+            <h6 id="reviewsTitle">{rates.length} total reviews</h6>
             {rates.map(r=>(
-                <div className="border border-dark rounded-right col-8 p-2 mb-2" key={r.id}>
-                    {r.comment && (!user.state.user || r.PurchaseDetails[0].Purchase.User.id !== user.state.user.id) &&
+                <div className="reviewItem p-2 mb-2" key={r.id}>
+                    {(!user.state.user || r.PurchaseDetails[0].Purchase.User.id !== user.state.user.id) &&
                         <div>
-                            <i>{r.PurchaseDetails[0].Purchase.User.fullName}</i> | <b>{getRate(r.rate)}</b>
+                            <b>{getRate(r.rate)}</b>
                             <br />
-                            <p>{r.comment}</p>
+                    <i>by <b>{r.PurchaseDetails[0].Purchase.User.fullName}</b></i>  {<small>on {getDate(r.createdAt)}</small>}
+                            <br />
+                            {r.comment.length > 0 &&
+                                <p>"{r.comment}"</p>
+                            }
+                            <div class="lineBreak"></div>
                         </div>
                     }
                 </div>

@@ -63,7 +63,7 @@ class Register extends React.Component{
     
     render(){
         return(
-            <div className="card mx-auto col-sm-10 col-md-3 border border-radius mt-4">
+            <div className="card mx-auto col-sm-10 col-md-4 border border-radius p-4 mt-4">
                 <form  className="card-body" onSubmit={this.handleSubmit} noValidate>
                 <h5 className="card-title pb-1 text-center text-secondary">Register</h5>
                         <Input
@@ -72,7 +72,7 @@ class Register extends React.Component{
                             value={this.state.firstName}
                             onChange={this.handleChange}
                             id="firstName"
-                            label="First name"
+                            placeholder="First name"
                             required='required'
                             pattern="[a-zA-Z]{1,250}"
                             error={(!this.state.formValidation["firstName"]).toString()}
@@ -84,7 +84,7 @@ class Register extends React.Component{
                             value={this.state.lastName}
                             onChange={this.handleChange}
                             id="lastName"
-                            label="Last name"
+                            placeholder="Last name"
                             required='required'
                             pattern="[a-zA-Z]{1,250}"
                             error={(!this.state.formValidation["lastName"]).toString()}
@@ -96,7 +96,7 @@ class Register extends React.Component{
                             value={this.state.email}
                             onChange={this.handleChange}
                             id="email"
-                            label="Email"
+                            placeholder="Email"
                             required='required'
                             error={(!this.state.formValidation["email"]).toString()}
                             errormsg="invalid email"
@@ -107,7 +107,7 @@ class Register extends React.Component{
                             value={this.state.password}
                             onChange={this.handleChange}
                             id="password"
-                            label="Password"
+                            placeholder="Password"
                             required='required'
                             minLength="8"
                             maxLength="30"
@@ -120,7 +120,7 @@ class Register extends React.Component{
                             value={this.state.phone}
                             onChange={this.handleChange}
                             id="phone"
-                            label="Mobile Number"
+                            placeholder="Mobile Number"
                             pattern="01[0-9]{9}"
                             required='required'
                             error={(!this.state.formValidation["phone"]).toString()}
@@ -128,7 +128,7 @@ class Register extends React.Component{
                         />
                         <Spinner loading={this.state.loading}></Spinner>
                         <p><small className="text-danger">{this.state.serverError}</small></p>
-                        <button className="btn btn-primary form-control">register</button>
+                        <button className="btn btn-dark form-control">register</button>
                 </form>
             </div>
         );

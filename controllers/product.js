@@ -80,9 +80,17 @@ module.exports.show = async (req, res, next) => {
             attributes:{exclude: ['createdAt', 'updatedAt', 'ProductId']},
         }, Discount] 
         });
-        let cart = null;
+        let cart = {};
         if (req.session.user && color){
             cart = await hmGetAsync(`cart-${req.session.user.id}`, `${product.id}-${product.name}-${color}`);
+        }else if(req.session.user){
+            await product.Colors.forEach(async (color) => {
+                cart[color.Color] = await hmGetAsync(`cart-${req.session.user.id}`, `${product.id}-${product.name}-${color.Color}`);
+            });
+
+            await Promise.all(product.Colors.map(async (color) => {
+                cart[color.Color] = await hmGetAsync(`cart-${req.session.user.id}`, `${product.id}-${product.name}-${color.Color}`);
+            }))
         }
         return res.json({ product, cart });
     } catch (err) {

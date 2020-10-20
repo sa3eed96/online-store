@@ -8,7 +8,6 @@ import Product from './product/product';
 import Login from './authentication/login';
 import PageNotFound from './PageNotFound';
 import Toast from './common/toast';
-import AddToCart from './cart/addtocart';
 import ErrorBoundry from './errorboundry';
 import Spinner from './common/spinner';
 import Footer from './common/footer/footer';
@@ -43,7 +42,6 @@ function App(props){
                                         <Switch>
                                             <Route exact path="/" component={Home} />
                                             <Route path="/product/:id" component={Product} />
-                                            <Route path="/addtocart" component={AddToCart} />
                                             <Route path="/cart" component={Cart} />
                                             <Route path="/purchase" component={Purchase} />
                                             <Route path="/purchases/:id" component={PurchaseDetails} />

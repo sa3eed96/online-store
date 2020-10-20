@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import axios from 'axios';
-import { FaStar, FaStarHalfAlt, FaRegStar } from 'react-icons/fa'
+import { FaStar, FaRegStar } from 'react-icons/fa'
+import './myrate.scss';
 
 const SubmitMyRate = (props)=>{
     const [myRate, setMyRate] = useState(props.myRate);
@@ -64,7 +65,8 @@ const SubmitMyRate = (props)=>{
     };
     
     return(
-        <div className="mb-4">
+        <div className="mt-4">
+            <h6>Rate Product:</h6>
             <form onSubmit={handleSubmit}>
                 <label className="text-warning clickable" onClick={e => changeRate(1, e)} htmlFor="r1">{rateView[0]}</label>
                 <input className="d-none" type="radio" name="checkedRate" value="0" label="1" id="r1" checked={myRate.checkedRate === '0'} onChange={handleChange}/>
@@ -76,10 +78,10 @@ const SubmitMyRate = (props)=>{
                 <input className="d-none" type="radio" name="checkedRate" value="3" label="4" id="r4" checked={myRate.checkedRate === '3'} onChange={handleChange}/>
                 <label className="text-warning clickable" onClick={e => changeRate(5,e)} htmlFor="r5">{rateView[4]}</label>
                 <input className="d-none" type="radio" name="checkedRate" value="4" label="5" id="r5" checked={myRate.checkedRate === '4'} onChange={handleChange}/>
-                <textarea className="form-control w-50" name="comment" placeholder="optional rate review" value={myRate.comment} onChange={handleChange}></textarea>
-                <button className="btn btn-success mt-1">rate</button>
+                <textarea id="myreview" className="form-control" name="comment" placeholder="optional rate review" value={myRate.comment} onChange={handleChange}></textarea>
+                <button className="btn btn-outline-dark mt-1">rate</button>
                 {'id' in myRate &&
-                    <button onClick={props.edit} className="btn btn-secondary ml-1 mt-1">cancel</button>
+                    <button onClick={props.edit} className="btn btn-outline-dark ml-1 mt-1">cancel</button>
                 }
             </form>
             {error &&

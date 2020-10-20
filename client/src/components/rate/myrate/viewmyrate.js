@@ -11,13 +11,13 @@ const ViewMyRate = (props)=>{
     }, [props.myRate.checkedRate])
     
     return(
-        <div>
+        <div className="mt-4">
             <div>
+                <h6>Your Rate:</h6>
                 <b>{rateView}</b>
-                <br />
-                <h6>{props.myRate.comment}</h6>
+                <p id="myrate">"{props.myRate.comment}"</p>
             </div>
-            <button className="btn btn-secondary" onClick={props.edit}>Edit</button>
+            <button className="btn btn-outline-dark" onClick={props.edit}>Edit</button>
             <hr />
         </div>
     );

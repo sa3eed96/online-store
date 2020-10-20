@@ -48,12 +48,12 @@ const MyRate = (props)=> {
 
     return (
         <Spinner loading={loading}>
-            {editFlag === 'edit' && 
-                <SubmitMyRate myRate={myRate} edit={edit} updateRate={updateRate} productId={props.productId} rate={props.rate}/>
-            }
-            {editFlag === 'view' &&
-                <ViewMyRate myRate={myRate} edit={edit} />
-            }
+                {editFlag === 'edit' && 
+                    <SubmitMyRate myRate={myRate} edit={edit} updateRate={updateRate} productId={props.productId} rate={props.rate}/>
+                }
+                {editFlag === 'view' &&
+                    <ViewMyRate myRate={myRate} edit={edit} />
+                }
         </Spinner>
     );
 }

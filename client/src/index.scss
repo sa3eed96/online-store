@@ -11,6 +11,7 @@ $xl: 1200px;
 body{
     background: white;
     font-size: 18px;
+    min-height: 100vh;
 }
 
 .appBody{
@@ -22,4 +23,11 @@ body{
     height: 1px;
     background: $lineBreak;
     opacity: 0.5;
+}
+
+.button{
+    background-color: $primary;
+    color: $secondary;
+    border: 1px solid $secondary;
+    border-radius: 5px;
 }

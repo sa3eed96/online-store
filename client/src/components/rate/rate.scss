@@ -1,0 +1,32 @@
+@use '../../index.scss';
+
+#rateOverview{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top:2rem;
+    p{
+        border-radius: 50%;
+        border: 1px solid index.$secondaryLight;
+        padding:15px;
+        font-weight: 700;
+        font-size: 20px;
+    }    
+}
+
+#reviewsSection{
+    margin-top: 2rem;
+}
+
+#reviewsTitle{
+    background-color: lightsteelblue;
+    padding: 10px;
+}
+
+#rateSubmitSection{
+    border-left: 1px solid index.$secondaryLight;
+    @media(max-width: index.$md){
+        border-left: 0;
+    }
+}

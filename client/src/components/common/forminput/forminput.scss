@@ -1,0 +1,10 @@
+@use '../../../index.scss';
+
+.formInput{
+    width:100%;
+    background: white;
+    border:none;
+    border-bottom: 1px solid index.$secondary;
+    outline: none;
+    margin: 1.5rem 0;
+}

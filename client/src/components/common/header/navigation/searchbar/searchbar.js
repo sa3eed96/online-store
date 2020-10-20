@@ -51,6 +51,7 @@ const searchBar = (props)=> {
                     onChange={handleChange}
                     placeholder="search products"
                     autoComplete="off"
+                    className="searchInput"
                     />
                 <span onClick={showInput} className="searchIcon"><FaSearch /></span>
             </form>

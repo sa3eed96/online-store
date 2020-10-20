@@ -1,18 +1,21 @@
 import React from 'react';
+import './Specification.scss';
 
 const Specifications = (props)=>{
 
     const getSpec = (spec)=>{
         const s = spec.split(':');
-        return <p><b>{s[0]}</b>: {s[1]}</p>;
+        return <p><span>{s[0]}</span>: {s[1]}</p>;
     }
 
     return(
-        props.specs.map((spec, index)=> (
-            <div key={index}>
+        <div id="specsContainer">
+        {props.specs.map((spec, index)=> (
+            <div className="specs" key={index}>
                 {getSpec(spec)}                
             </div>
-        ))
+        ))}
+        </div>
     );
 };
 

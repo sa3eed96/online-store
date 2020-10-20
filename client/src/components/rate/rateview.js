@@ -1,21 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { FaStar, FaStarHalfAlt, FaRegStar } from 'react-icons/fa'
 
-const noStar = <span className="text-warning"><FaRegStar /><FaRegStar /><FaRegStar /><FaRegStar /><FaRegStar /></span>
-const rates = [
-    <span className="text-warning"><FaStar /><FaRegStar /><FaRegStar /><FaRegStar /><FaRegStar /></span>
-    , <span className="text-warning"><FaStar /><FaStarHalfAlt /><FaRegStar /><FaRegStar /><FaRegStar /></span>
-    , <span className="text-warning"><FaStar /><FaStar /><FaRegStar /><FaRegStar /><FaRegStar /></span>
-    , <span className="text-warning"><FaStar /><FaStar /><FaStarHalfAlt /><FaRegStar /><FaRegStar /></span>
-    , <span className="text-warning"><FaStar /><FaStar /><FaStar /><FaRegStar /><FaRegStar /></span>
-    , <span className="text-warning"><FaStar /><FaStar /><FaStar /><FaStarHalfAlt /><FaRegStar /></span>
-    , <span className="text-warning"><FaStar /><FaStar /><FaStar /><FaStar /><FaRegStar /></span>
-    , <span className="text-warning"><FaStar /><FaStar /><FaStar /><FaStar /><FaStarHalfAlt /></span>
-    , <span className="text-warning"><FaStar /><FaStar /><FaStar /><FaStar /><FaStar /></span>
-]
-
 
 const RateView = (props) => {
+    const [size, setSize] = useState(props.size ? props.size : 16);
+
+    const noStar = <span className="text-warning"><FaRegStar size={size} /><FaRegStar size={size}/><FaRegStar size={size}/><FaRegStar size={size}/><FaRegStar size={size}/></span>
+    const rates = [
+    <span className="text-warning"><FaStar   size={size} /><FaRegStar size={size} /><FaRegStar size={size}/><FaRegStar size={size}/><FaRegStar size={size}/></span>
+    , <span className="text-warning"><FaStar size={size} /><FaStarHalfAlt size={size} size={size} /><FaRegStar size={size}/><FaRegStar /><FaRegStar /></span>
+    , <span className="text-warning"><FaStar size={size} /><FaStar size={size} /><FaRegStar size={size} size={size}/><FaRegStar size={size}/><FaRegStar size={size}/></span>
+    , <span className="text-warning"><FaStar size={size} /><FaStar size={size} /><FaStarHalfAlt size={size} size={size}/><FaRegStar size={size}/><FaRegStar /></span>
+    , <span className="text-warning"><FaStar size={size} /><FaStar size={size} /><FaStar size={size}/><FaRegStar size={size}/><FaRegStar size={size}/></span>
+    , <span className="text-warning"><FaStar size={size} /><FaStar size={size} /><FaStar size={size}/><FaStarHalfAlt size={size}/><FaRegStar size={size}/></span>
+    , <span className="text-warning"><FaStar size={size} /><FaStar size={size} /><FaStar size={size}/><FaStar size={size}/><FaRegStar size={size}/></span>
+    , <span className="text-warning"><FaStar size={size} /><FaStar size={size} /><FaStar size={size}/><FaStar size={size}/><FaStarHalfAlt size={size}/></span>
+    , <span className="text-warning"><FaStar size={size} /><FaStar size={size} /><FaStar size={size}/><FaStar size={size}/><FaStar size={size}/></span>
+    ];
+
     const [rate, setRate] = useState(props.rate);
     const [expression, setExpression] = useState(noStar);
 

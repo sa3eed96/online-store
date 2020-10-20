@@ -1,0 +1,9 @@
+@use '../../../index.scss';
+
+#myreview{
+    border: 1px solid index.$secondaryLight;
+}
+
+#myrate{
+    font-size: 15px;
+}

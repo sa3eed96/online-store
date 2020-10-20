@@ -1,0 +1,23 @@
+@use '../../../index.scss';
+#imageViewCourousel{
+    width: 100%;
+    height: 400px;
+    @media(max-width: index.$lg){
+        width: 90%;
+    }
+    @media(max-width: index.$lg){
+        width: 90%;
+        height: 300px;
+    }
+    img{
+        width: 100%;
+        height: 400px;
+        @media(max-width: index.$lg){
+            width: 90%;
+        }
+        @media(max-width: index.$lg){
+            width: 90%;
+            height: 300px;
+        }
+    }
+}
