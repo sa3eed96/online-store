@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link, useRouteMatch} from 'react-router-dom';
 
 const Settings = (props)=> {
@@ -12,6 +12,7 @@ const Settings = (props)=> {
                 <hr />
                 <div className="row">
                     <div className="col-12 list-group list-group-flush">
+                        <Link className="list-group-item list-group-item-action" to={`/purchases`}>Purchases</Link>
                         <Link className="list-group-item list-group-item-action" to={`${url}/addresses`}>Addresses</Link>
                         <Link className="list-group-item list-group-item-action" to={`${url}/userinfo`}>Edit Personal Information</Link>
                         <Link className="list-group-item list-group-item-action" to={`${url}/changepassword`}>Change Password</Link>

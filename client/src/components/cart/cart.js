@@ -76,7 +76,7 @@ const Cart = (props)=> {
                                 <h5 >Shopping Cart ({cart.length})</h5>
                             </div>
                             <div className="col">
-                                <h5 className="text-right">total: {cartTotal}<small> EGP</small></h5>
+                                <h5 className="text-right">TOTAL: {cartTotal}<small> EGP</small></h5>
                             </div>
                         </div>
                         {cart.length > 0 &&
@@ -101,8 +101,8 @@ const Cart = (props)=> {
                                         <h6>quantity: {product.quantity}</h6>
                                         <h6>total: {product.price * product.quantity}<small> EGP</small></h6>
                                         <h6>color: {product.color}</h6>
-                                        <button className="btn btn-secondary mr-2" onClick={(e) => handleRemoveProduct(product, index, e)}>Delete</button>
-                                        <Link className="btn btn-primary mr-2" to={{pathname:"/addtocart", state:{
+                                        <button className="btn btn-dark mr-2" onClick={(e) => handleRemoveProduct(product, index, e)}>Delete</button>
+                                        <Link className="btn btn-dark mr-2" to={{pathname:"/addtocart", state:{
                                             product:{
                                                 id: product.productId,
                                                 name: product.productName,

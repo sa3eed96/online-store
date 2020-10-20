@@ -47,7 +47,7 @@ const Navigation = (props) => {
             
             <div className="nav lowerNav">
                 <div className="logoCategories">
-                    <h3 className="logo"><span>O</span>nline <span>S</span>tore</h3>
+                <Link onClick={collapseBar} to="/"> <h3 className="logo"><span>O</span>nline <span>S</span>tore</h3></Link>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedCategories" aria-controls="navbarSupportedCategories" aria-expanded="false" aria-label="Toggle navigation">
                         <FaBars />
                     </button>
