@@ -54,7 +54,7 @@ const Address = (props) => {
         <div className="row">
             <div className="card offset-sm-1 col-sm-10 offset-md-4 col-md-4 border border-radius p-4 mt-4">
                 <form className="card-body" onSubmit={handleSubmit} noValidate>
-                    <h5 className="card-title pb-1 text-center">Edit Address</h5>
+                    <h5 className="card-title pb-1 text-center">Address</h5>
                     <div className="form-group">
                         <label htmlFor="country">Country</label>
                         <select name="country" className="form-control" id="country" onChange={handleChange}  required>
@@ -76,7 +76,7 @@ const Address = (props) => {
                     </div>
                     <Input
                         id="address"
-                        label="address"
+                        placeholder="address"
                         value={address.address}
                         name="address"
                         onChange={handleChange}
@@ -88,7 +88,7 @@ const Address = (props) => {
                     />
                     <Input
                         id="zipcode"
-                        label="zipcode"
+                        placeholder="zipcode"
                         value={address.zipCode}
                         name="zipCode"
                         onChange={handleChange}
@@ -98,7 +98,7 @@ const Address = (props) => {
                         error={(!formValidation['zipCode']).toString()}
                         errormsg="invalid zipcode, must be only digits and 6 characters maximum"
                     />
-                    <button className="btn btn-primary">save</button>
+                    <button className="btn btn-dark">save</button>
                 </form>
             </div>
         </div>

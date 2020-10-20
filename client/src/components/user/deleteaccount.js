@@ -53,7 +53,7 @@ const DeleteAccount = (props)=> {
                     <div className="card-body">
                         <h5>Note: you cannot recover your account after deletion</h5>
                         <a className="btn btn-danger my-4 mr-2" href="#" onClick={handleClick}>Proceed and Delete</a>
-                        <Link className="btn btn-success" to="/settings">Cancel</Link>
+                        <Link className="btn btn-dark" to="/settings">Cancel</Link>
                     </div>
                 </div>
             }
@@ -63,7 +63,7 @@ const DeleteAccount = (props)=> {
                     <h5 className="card-title pb-1 text-center">Enter Password to Delete</h5>
                     <Input 
                         id="password"
-                        label="password"
+                        placeholder="password"
                         value={password}
                         onChange={handleChange}
                         name="password"

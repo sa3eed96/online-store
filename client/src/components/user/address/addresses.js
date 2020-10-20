@@ -3,6 +3,7 @@ import {Link, useRouteMatch} from 'react-router-dom';
 import Spinner from '../../common/spinner';
 import axios from 'axios';
 import eventBus from '../../../utils/eventbus';
+import './addresses.scss';
 
 const Addresses = (props)=> {
     const [addresses, setAddresses] = useState([]);
@@ -74,12 +75,12 @@ const Addresses = (props)=> {
                         {addresses.length > 0 &&
                             <div className="row border bg-light mx-4 mb-4">
                                 {addresses.map((add, index)=>
-                                    <div className="col-10" key={add.id}>
-                                        <p>{add.city}, {add.country}</p>
-                                        <p>Address: {add.address}</p>
-                                        <p>Zip Code: {add.zipCode}</p>
-                                        <Link className="btn btn-primary mr-2" to={{pathname: `${url}/${add.id}`, state:add}}>Edit</Link>
-                                        <button className="btn btn-secondary mr-2" onClick={(e)=> handleDeleteClick(add.id, index, e)}>Delete</button>
+                                    <div className="col-10 addressInfo" key={add.id}>
+                                        <p><i>{add.city}, {add.country}</i></p>
+                                        <p><b>Address:</b> <i>{add.address}</i></p>
+                                        <p><b>Zip Code:</b> <i>{add.zipCode}</i></p>
+                                        <Link className="btn btn-dark mr-2" to={{pathname: `${url}/${add.id}`, state:add}}>Edit</Link>
+                                        <button className="btn btn-dark mr-2" onClick={(e)=> handleDeleteClick(add.id, index, e)}>Delete</button>
                                         <hr />
                                     </div>
                                 )}

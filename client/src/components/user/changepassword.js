@@ -53,7 +53,7 @@ const ChangePassword = (props)=> {
                     <h5 className="card-title pb-1 text-center">change password</h5>
                     <Input 
                             id="old"
-                            label="old password"
+                            placeholder="old password"
                             value={password.oldPassword}
                             onChange={handleChange}
                             name="oldPassword"
@@ -64,7 +64,7 @@ const ChangePassword = (props)=> {
                         />
                     <Input 
                         id="newPassword"
-                        label="enter new password"
+                        placeholder="enter new password"
                         value={password.newPassword}
                         onChange={handleChange}
                         name="newPassword"
@@ -75,7 +75,7 @@ const ChangePassword = (props)=> {
                     />
                     <Input 
                         id="confirmPassword"
-                        label="confirm new password"
+                        placeholder="confirm new password"
                         value={password.confirmPassword}
                         onChange={handleChange}
                         name="confirmPassword"
@@ -85,7 +85,7 @@ const ChangePassword = (props)=> {
                         maxLength="30"
                     />
                     <p className="text-danger"><small>{error}</small></p>
-                    <button className="btn btn-success">Update</button>
+                    <button className="btn btn-dark">Update</button>
                 </form>
                 </div>
             </div>

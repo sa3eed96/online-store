@@ -81,7 +81,7 @@ const UserInfo = (props)=> {
                     <h5 className="card-title pb-1 text-center">Edit Personal Information</h5>
                     <Input
                         id="firstName"
-                        label="firstName"
+                        placeholder="firstName"
                         value={user.firstName}
                         name='firstName'
                         onChange={handleChange}
@@ -93,7 +93,7 @@ const UserInfo = (props)=> {
                     />
                     <Input
                         id="lastName"
-                        label="lastName"
+                        placeholder="lastName"
                         value={user.lastName}
                         name='lastName'
                         onChange={handleChange}
@@ -105,7 +105,7 @@ const UserInfo = (props)=> {
                     />
                     <Input
                         id="email"
-                        label="email"
+                        placeholder="email"
                         value={user.email}
                         name="email"
                         onChange={handleChange}
@@ -116,7 +116,7 @@ const UserInfo = (props)=> {
                     />
                     <Input
                         id="phone"
-                        label="mobile number"
+                        placeholder="mobile number"
                         value={user.phone}
                         name="phone"
                         onChange={handleChange}
@@ -128,7 +128,7 @@ const UserInfo = (props)=> {
                     />
                     <p className="text-danger"><small>{error}</small></p>
                     <Spinner loading={loading}></Spinner>
-                    <button  className="btn btn-primary">update</button>
+                    <button  className="btn btn-dark">update</button>
                 </form>
             </div>
         </div>
