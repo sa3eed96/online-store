@@ -105,6 +105,35 @@ module.exports = {
           'MATERIAL: NYLON',
           'WAIST(M):80-95',
         ],
+      },{
+        id: 7,
+        name: 'Racing car game Vehicles , Unisex',
+        description: 'fast small cars to experience the  joy of racing everyday, self walk for more than a meter with remarkable speed.',
+        price: '49',
+        rate: [0, 0, 0, 0, 0],
+        SubcategoryName: 'Action',
+        specifications:[
+          'Toy Category:Vehicles',
+          'Package weight in KGs: 574 grams',
+          'brand: other',
+          'MATERIAL: Plastic',
+          'Manufacturer Recommended Age: 3 Years & Above',
+        ],
+      },{
+        id: 8,
+        name: 'UNO Board Games and Cards',
+        description: 'the classic and all fun uno game now with hight quality cards for the fun to ever last.',
+        price: '25',
+        rate: [0, 0, 0, 0, 0],
+        SubcategoryName: 'Board',
+        specifications:[
+          'weight:220 gm',
+          'Brand : ONO',
+          'MATERIAL: PLASTIC',
+          'Toy Category:Brain Teasers',
+          'Targeted Group : Unisex',
+          'Age : All Ages'
+        ],
       }], { individualHooks: true });
   },
 

@@ -86,14 +86,18 @@ const Product = (props)=>{
                                     <p>{color.stockCount} IN STOCK</p>
                                     <p id="pid">PRODUCT ID: {product.id}</p>
                                 </div>
-                                <div id="saleBanner">
-                                    {product.Discount.discount}%
-                                </div>
+                                {product.Discount && 
+                                    <div id="saleBanner">
+                                        {product.Discount.discount}%
+                                    </div>
+                                }
                             </div>
                             <h1 id="productName">{product.name}</h1>
                             <h4 id="productPrice">
                                 EGP{productPrice(product)} 
+                                {product.Discount &&
                                 <small className="text-muted pl-1"><del>EGP{product.price}</del></small>
+                                }
                             </h4>
                             <div id="productDescription">
                                 <p>Description</p>

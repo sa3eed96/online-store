@@ -3,11 +3,13 @@ import { Link } from 'react-router-dom'
 import Spinner from '../common/spinner';
 import axios from 'axios';
 import eventBus from '../../utils/eventbus';
+import EditCartItem from './editcartitem/editcartitem';
 
 const Cart = (props)=> {
     const [cart, setCart] = useState([]);
     const [cartTotal, setCartTotal] = useState(0);
     const [loading, setLoading] = useState(true);
+    const [edit, setEdit] = useState(null);
 
     useEffect(()=>{
         const getCart = async()=>{
@@ -66,6 +68,28 @@ const Cart = (props)=> {
         }
     };
 
+    const toggleEdit = (flag, product)=>{
+        if(product){
+            if(flag){
+                const temp = cart;
+                let total = 0;
+                for(let i=0; i<temp.length; i++){
+                    if(temp[i].productId === product.productId){
+                        temp[i] = product;
+                    }
+                    total+= temp[i].quantity*temp[i].price;
+                }
+                setCart(temp);
+                setCartTotal(total);
+                setEdit(null);
+            }else{
+                setEdit(product);
+            }
+        }else{
+            setEdit(null);
+        }
+    };
+
     return (
         <div>
             <Spinner loading={loading}>
@@ -88,7 +112,7 @@ const Cart = (props)=> {
                         <hr />
                         <div className="row">
                             {cart.length === 0 && 
-                                <div className="alert-warning col mx-2">
+                                <div className="alert-warning col-12 mx-2">
                                     <p>Cart is currently empty<br />
                                         Add items to your cart and view them here before checkout
                                     </p>
@@ -96,21 +120,20 @@ const Cart = (props)=> {
                             }
                             {cart.map((product, index) =>
                                 (
-                                    <div className="col-6 border-right" key={product.productId}>    
-                                        <h6><Link to={{pathname: `/product/${product.productId}`}}>{product.productName}</Link></h6>
-                                        <h6>quantity: {product.quantity}</h6>
-                                        <h6>total: {product.price * product.quantity}<small> EGP</small></h6>
-                                        <h6>color: {product.color}</h6>
-                                        <button className="btn btn-dark mr-2" onClick={(e) => handleRemoveProduct(product, index, e)}>Delete</button>
-                                        <Link className="btn btn-dark mr-2" to={{pathname:"/addtocart", state:{
-                                            product:{
-                                                id: product.productId,
-                                                name: product.productName,
-                                                quantity: product.quantity,
-                                                price: product.price,
-                                            },
-                                            color: product.color,
-                                        }}}>Edit</Link>
+                                    <div className="col-sm-10 col-md-5 justify-content-center m-1 border-right" key={product.productId}>
+                                        {edit && product.productId === edit.productId &&
+                                            <EditCartItem product={edit} toggleEdit={toggleEdit} />
+                                        }
+                                        {(!edit || product.productId !== edit.productId) &&
+                                            <div>
+                                                <h6><Link to={{pathname: `/product/${product.productId}`}}>{product.productName}</Link></h6>
+                                                <h6>quantity: {product.quantity}</h6>
+                                                <h6>total: {product.price * product.quantity}<small> EGP</small></h6>
+                                                <h6>color: {product.color}</h6>
+                                                <button className="btn btn-dark mr-2" onClick={(e) => handleRemoveProduct(product, index, e)}>Delete</button>
+                                                <button className="btn btn-dark mr-2" onClick={e=> toggleEdit(false, product)}>Edit</button>
+                                            </div>
+                                        }
                                     </div>   
                                 )
                             )

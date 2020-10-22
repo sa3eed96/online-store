@@ -71,6 +71,23 @@ module.exports = {
           'https://ik.imagekit.io/rvfdomceug/belt2_aXSYJNge_9.jpg',
         ],
         stockCount: '35'
+      },{
+        id: 8,
+        ProductId: '7',
+        Color: 'colored',
+        images:[
+          'https://ik.imagekit.io/rvfdomceug/a1_pVvUL71uo0CZ.jpg',
+          ''
+      ],
+        stockCount: '50'
+      },{
+        id: 9,
+        ProductId: '8',
+        Color: 'colored',
+        images:[
+          'https://ik.imagekit.io/rvfdomceug/u1_Q_HYHHN1T4H.jpg'
+        ],
+        stockCount: '80'
       }], { individualHooks: true });
     
   },

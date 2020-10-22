@@ -29,6 +29,11 @@ const addToCart = (props)=>{
                 op: 1
             };
             await axios.put('/api/cart', cartProduct);
+            eventBus.dispatch("showNotification", {
+                body: "Product added to cart",
+                background: 'bg-success',
+                header: 'Success',
+            });
             props.setAddedToCart();
         }catch(err){ 
             console.log(err);

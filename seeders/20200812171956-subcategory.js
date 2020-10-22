@@ -23,6 +23,12 @@ module.exports = {
       },{
         name: 'Belts',
         CategoryName: 'Sports',
+      },{
+        name: 'Action',
+        CategoryName: 'Toys',
+      },{
+        name: 'Board',
+        CategoryName: 'Toys',
       }], { individualHooks: true });
     
   },

@@ -15,6 +15,8 @@ module.exports = {
         name: 'Home'
       },{
         name: 'Sports'
+      },{
+        name: 'Toys'
       }], { individualHooks: true });
     
   },
