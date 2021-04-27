@@ -30,7 +30,7 @@
     "nodemailer": "^6.4.8",
     "pg": "^8.0.0",
     "pg-hstore": "^2.3.3",
-    "redis": "^3.0.2",
+    "redis": "^3.1.1",
     "sequelize": "^5.21.5",
     "smtp-server": "^3.6.0"
   },
